@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Http\Requests\MealStoreRequest;
+use App\Models\Meal;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class MealController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+        $meals = Meal::all();
+        return view('admin.meals.index', compact('meals'));
     }
 
     /**
@@ -26,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.meals.create');
     }
 
     /**
@@ -35,9 +36,17 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MealStoreRequest $request)
     {
-        //
+        $image = $request->file('image') ? $request->file('image')->store('public/meals') : null;
+
+        Meal::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image,
+        ]);
+
+        return to_route('admin.meals.index');
     }
 
     /**
