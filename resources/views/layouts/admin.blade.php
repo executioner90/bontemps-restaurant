@@ -27,11 +27,11 @@
                     </button>
                 </div>
                 <nav :class="{'block': open, 'hidden': !open}" class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-                    <x-admin-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-                        {{ __('Categories') }}
-                    </x-admin-nav-link>
                     <x-admin-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.index')">
                         {{ __('Menus') }}
+                    </x-admin-nav-link>
+                    <x-admin-nav-link :href="route('admin.meals.index')" :active="request()->routeIs('admin.categories.index')">
+                        {{ __('Meals') }}
                     </x-admin-nav-link>
                     <x-admin-nav-link :href="route('admin.tables.index')" :active="request()->routeIs('admin.tables.index')">
                         {{ __('Tables') }}

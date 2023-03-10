@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\MealController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ReservationController;
@@ -27,7 +27,7 @@ Route::middleware('auth', 'admin')
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
-        Route::resource('/categories', CategoryController::class);
+        Route::resource('/meals', MealController::class);
         Route::resource('/menus', MenuController::class);
         Route::resource('/tables', TableController::class);
         Route::resource('/reservations', ReservationController::class);
