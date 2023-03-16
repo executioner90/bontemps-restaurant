@@ -22,7 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'admin')
+//Admin env. routes
+Route::middleware('admin')
     ->name('admin.')
     ->prefix('admin')
     ->group(function () {
@@ -33,4 +34,5 @@ Route::middleware('auth', 'admin')
         Route::resource('/reservations', ReservationController::class);
     });
 
+//Login/logout routes
 require __DIR__.'/auth.php';
