@@ -34,7 +34,12 @@
                                 {{ $meal->name }}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <img src="{{ Storage::url($meal->image) }}" class="w-16 h-16 rounded" alt="Meal photo">
+                                @if($meal->image)
+                                    <img src="{{ Storage::url($meal->image) }}" class="w-16 h-16 rounded" alt="Meal photo">
+                                @else
+                                    <span>No image</span>
+                                @endif
+
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $meal->description }}
