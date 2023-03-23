@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h1>Create table</h1>
+            <h1>Update table</h1>
             {{-- back to index page --}}
             <div class="flex justify-end mb-2">
                 <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.tables.index') }}">
@@ -17,18 +17,21 @@
             {{-- form --}}
             <div class="mb-20 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
-                    <form method="POST" action="{{ route('admin.tables.store') }}">
+                    <form method="POST" action="{{ route('admin.tables.update', $table->id) }}">
                         @csrf
+                        @method('PUT')
                         <div class="sm:col-span-6">
                             <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
                             <div class="mt-1">
-                                <input type="text" id="name" name="name" class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                                <input type="text" id="name" name="name" value="{{ $table->name }}"
+                                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                             </div>
                         </div>
                         <div class="sm:col-span-6">
                             <label for="guest_number" class="block text-sm font-medium text-gray-700"> Guest number </label>
                             <div class="mt-1">
-                                <input type="text" id="guest_number" name="guest_number" class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                                <input type="text" id="guest_number" name="guest_number" value="{{ $table->guest_number }}"
+                                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                             </div>
                         </div>
                         <div class="sm:col-span-6">
@@ -36,7 +39,7 @@
                             <div class="mt-1">
                                 <select id="status" name="status" class="form-multiselect block w-full mt-1">
                                     @foreach(App\Enums\TableStatus::cases() as $status)
-                                        <option value="{{ $status->value }}">{{ $status->name }}</option>
+                                        <option value="{{ $status->value }}" @selected($status->value == $table->status->value)>{{ $status->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -46,13 +49,13 @@
                             <div class="mt-1">
                                 <select id="location" name="location" class="form-multiselect block w-full mt-1">
                                     @foreach(App\Enums\TableLocation::cases() as $location)
-                                        <option value="{{ $location->value }}">{{ $location->name }}</option>
+                                        <option value="{{ $location->value }}" @selected($location->value == $table->location->value)>{{ $location->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="mt-6">
-                            <button type="submit" class="px-4 py-2 bg-gray-500 hover:bg-gray-700 rounded-lg text-white  ">Create</button>
+                            <button type="submit" class="px-4 py-2 bg-gray-500 hover:bg-gray-700 rounded-lg text-white  ">Update</button>
                         </div>
                     </form>
                 </div>
