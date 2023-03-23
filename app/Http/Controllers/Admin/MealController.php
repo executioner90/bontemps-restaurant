@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MealStoreRequest;
 use App\Models\Meal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MealController extends Controller
 {
@@ -66,9 +67,9 @@ class MealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Meal $meal)
     {
-        //
+        return view('admin.meals.edit', compact('meal'));
     }
 
     /**
@@ -78,19 +79,47 @@ class MealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Meal $meal)
     {
-        //
-    }
+        // validate inputs
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
 
+        $image = $meal->image;
+        // check if image input has file
+        if ($request->hasFile('image')) {
+            // delete old image
+            Storage::delete($meal->image);
+            // save uploaded image
+            $image = $request->file('image') ? $request->file('image')->store('public/meals') : null;
+        }
+
+        $meal->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image,
+        ]);
+
+        //redirect to index page
+        return to_route('admin.meals.index');
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Meal $meal)
     {
-        //
+        // first delete image file
+        Storage::delete($meal->image);
+
+        // now delete menu
+        $meal->delete();
+
+        //redirect to index page
+        return to_route('admin.meals.index');
     }
 }

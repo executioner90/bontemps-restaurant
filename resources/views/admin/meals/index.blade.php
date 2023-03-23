@@ -25,25 +25,42 @@
                         <th scope="col" class="px-6 py-3">
                             Description
                         </th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($meals as $meal)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $meal->name }}
-                            </th>
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            </td>
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 @if($meal->image)
                                     <img src="{{ Storage::url($meal->image) }}" class="w-16 h-16 rounded" alt="Meal photo">
                                 @else
                                     <span>No image</span>
                                 @endif
 
-                            </th>
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            </td>
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $meal->description }}
-                            </th>
+                            </td>
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div class="flex justify-end space-x-2">
+                                    <a href="{{ route('admin.meals.edit', $meal->id) }}"
+                                       class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                                        Edit
+                                    </a>
+                                    <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                          method="POST"
+                                          action="{{ route('admin.meals.destroy', $meal->id) }}"
+                                          onsubmit="return confirm('Do you really want to delete {{ $meal->name }}?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
