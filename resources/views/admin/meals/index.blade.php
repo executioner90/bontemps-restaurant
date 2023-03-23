@@ -42,7 +42,7 @@
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 @if($meal->image)
-                                    <img src="{{ Storage::url($meal->image) }}" class="w-16 h-16 rounded" alt="Meal photo">
+                                    <img src="{{ asset(Storage::url($meal->image)) }}" class="w-16 h-16 rounded" alt="Meal photo">
                                 @else
                                     <span>No image</span>
                                 @endif

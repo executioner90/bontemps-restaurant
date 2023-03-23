@@ -35,6 +35,13 @@ class Menu extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'image',
+    ];
+
     public function meals(): BelongsToMany
     {
         return $this->belongsToMany(Meal::class, 'meal_menu');

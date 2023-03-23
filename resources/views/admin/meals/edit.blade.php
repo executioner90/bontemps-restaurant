@@ -44,7 +44,7 @@
                         <div class="sm:col-span-6">
                             <label for="image" class="block text-sm font-medium text-gray-700"> Image </label>
                             <div>
-                                <img class="w-32 h-32" src="{{ Storage::url($meal->image) }}" alt="Meal image">
+                                <img class="w-32 h-32" src="{{ asset(Storage::url($meal->image)) }}" alt="Meal image">
                             </div>
                             <div class="mt-1">
                                 <input type="file" id="image" name="image"
