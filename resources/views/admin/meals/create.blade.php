@@ -27,6 +27,16 @@
                             </div>
                         </div>
                         <div class="sm:col-span-6">
+                            <label for="kind" class="block text-sm font-medium text-gray-700"> Kind </label>
+                            <div class="mt-1">
+                                <select id="kind" name="kind" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                    @foreach($kinds as $kind)
+                                        <option value="{{ $kind->id }}"> {{ $kind->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-6">
                             <label for="image" class="block text-sm font-medium text-gray-700"> Image </label>
                             <div class="mt-1">
                                 <input type="file" id="image" name="image" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />

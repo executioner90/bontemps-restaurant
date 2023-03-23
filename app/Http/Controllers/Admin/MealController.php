@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MealStoreRequest;
+use App\Models\Kind;
 use App\Models\Meal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +19,7 @@ class MealController extends Controller
     public function index()
     {
         $meals = Meal::all();
+
         return view('admin.meals.index', compact('meals'));
     }
 
@@ -28,7 +30,9 @@ class MealController extends Controller
      */
     public function create()
     {
-        return view('admin.meals.create');
+        $kinds = Kind::all();
+
+        return view('admin.meals.create', compact('kinds'));
     }
 
     /**
@@ -43,6 +47,7 @@ class MealController extends Controller
 
         Meal::create([
             'name' => $request->name,
+            'kind_id' => (int) $request->kind,
             'description' => $request->description,
             'image' => $image,
         ]);
@@ -69,7 +74,9 @@ class MealController extends Controller
      */
     public function edit(Meal $meal)
     {
-        return view('admin.meals.edit', compact('meal'));
+        $kinds = Kind::all();
+
+        return view('admin.meals.edit', compact(['meal', 'kinds']));
     }
 
     /**
@@ -84,6 +91,7 @@ class MealController extends Controller
         // validate inputs
         $request->validate([
             'name' => 'required',
+            'kind' => 'required',
             'description' => 'required',
         ]);
 
@@ -98,6 +106,7 @@ class MealController extends Controller
 
         $meal->update([
             'name' => $request->name,
+            'kind_id' => $request->kind,
             'description' => $request->description,
             'image' => $image,
         ]);
@@ -114,7 +123,9 @@ class MealController extends Controller
     public function destroy(Meal $meal)
     {
         // first delete image file
-        Storage::delete($meal->image);
+        if ($meal->image) {
+            Storage::delete($meal->image);
+        }
 
         // now delete menu
         $meal->delete();

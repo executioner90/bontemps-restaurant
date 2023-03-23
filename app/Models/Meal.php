@@ -5,17 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\Meal
  *
  * @property int $id
  * @property string $name
+ * @property int $kind_id
  * @property string $description
  * @property string|null $image
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property BelongsTo|null $kind
  * @method static Builder|Meal newModelQuery()
  * @method static Builder|Meal newQuery()
  * @method static Builder|Meal query()
@@ -33,7 +37,13 @@ class Meal extends Model
 
     protected $fillable = [
         'name',
+        'kind_id',
         'image',
         'description'
     ];
+
+    public function kind(): BelongsTo
+    {
+        return $this->belongsTo(Kind::class);
+    }
 }
