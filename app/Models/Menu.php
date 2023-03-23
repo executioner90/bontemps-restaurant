@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -17,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property string $price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property BelongsToMany|null $meals
  * @method static Builder|Menu newModelQuery()
  * @method static Builder|Menu newQuery()
  * @method static Builder|Menu query()
@@ -32,4 +34,9 @@ use Illuminate\Support\Carbon;
 class Menu extends Model
 {
     use HasFactory;
+
+    public function meals(): BelongsToMany
+    {
+        return $this->belongsToMany(Meal::class, 'meal_menu');
+    }
 }

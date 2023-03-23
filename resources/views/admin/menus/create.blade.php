@@ -17,7 +17,8 @@
             {{-- form --}}
             <div class="mb-20 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
-                    <form enctype="multipart/form-data">
+                    <form method="post" action="{{ route('admin.menus.store') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="sm:col-span-6">
                             <label for="title" class="block text-sm font-medium text-gray-700"> Name </label>
                             <div class="mt-1">
@@ -25,9 +26,25 @@
                             </div>
                         </div>
                         <div class="sm:col-span-6">
+                            <label for="meals" class="block text-sm font-medium text-gray-700"> Meals </label>
+                            <div class="mt-1">
+                                <select name="meals" id="meals" multiple>
+                                    @foreach($meals as $meal)
+                                        <option value="{{ $meal->id }}">{{ $meal->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-6">
                             <label for="title" class="block text-sm font-medium text-gray-700"> Image </label>
                             <div class="mt-1">
                                 <input type="file" id="image" name="image" class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                            </div>
+                        </div>
+                        <div class="sm:col-span-6">
+                            <label for="price" class="block text-sm font-medium text-gray-700"> Price </label>
+                            <div class="mt-1">
+                                <input type="text" id="price" name="price" class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                             </div>
                         </div>
                         <div class="sm:col-span-6 pt-5">
