@@ -25,6 +25,7 @@ class MealStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'kind' => ['required'],
             'image' => ['image', 'nullable'],
             'description' => ['required'],
 
