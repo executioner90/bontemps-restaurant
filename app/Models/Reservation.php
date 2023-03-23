@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -36,4 +37,18 @@ use Illuminate\Support\Carbon;
 class Reservation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'mobile_number',
+        'reservation_date',
+        'table_id',
+        'guest_number',
+    ];
+
+    public function table(): HasOne
+    {
+        return $this->HasOne(Table::class);
+    }
 }
