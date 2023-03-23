@@ -28,6 +28,7 @@
                         <th scope="col" class="px-6 py-3">
                             Price
                         </th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,7 +39,7 @@
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 @if($menu->image)
-                                    <img src="{{ Storage::url($menu->image) }}" class="w-16 h-16 rounded" alt="Meal photo">
+                                    <img src="{{ asset(Storage::url($menu->image)) }}" class="w-16 h-16 rounded" alt="Meal photo">
                                 @else
                                     <span>No image</span>
                                 @endif
@@ -47,7 +48,7 @@
                                 {{ $menu->description }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $menu->price }}
+                                &euro; {{ $menu->price }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex justify-end space-x-2">
