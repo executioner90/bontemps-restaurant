@@ -7,6 +7,7 @@ use App\Http\Requests\MenuStoreRequest;
 use App\Models\Meal;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -41,7 +42,7 @@ class MenuController extends Controller
      */
     public function store(MenuStoreRequest $request)
     {
-        dd($request->meals);
+        dd($request->input());
         $image = $request->file('image') ? $request->file('image')->store('public/menus') : null;
 
         $menu = Menu::query()->create([
@@ -59,25 +60,16 @@ class MenuController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        //
+        $meals = Meal::all();
+
+        return view('admin.menus.edit', compact('menu', 'meals'));
     }
 
     /**
@@ -87,9 +79,38 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Menu $menu)
     {
-        //
+        // validate inputs
+        $request->validate([
+            'name' => ['required', 'string'],
+            'price' => ['required', 'between:0.00,200.00'],
+            'image' => ['image', 'nullable'],
+            'description' => ['required'],
+        ]);
+
+        $image = $menu->image;
+        // check if image input has file
+        if ($request->hasFile('image')) {
+            // delete old image
+            Storage::delete($menu->image);
+            // save uploaded image
+            $image = $request->file('image') ? $request->file('image')->store('public/menus') : null;
+        }
+
+        $menu->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'image' => $image,
+        ]);
+
+        if ($request->has('meals')) {
+            $menu->meals()->sync($request->meals);
+        }
+
+        //redirect to index page
+        return to_route('admin.menus.index');
     }
 
     /**
@@ -98,8 +119,17 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Menu $menu)
     {
-        //
+        // first delete image file
+        if ($menu->image) {
+            Storage::delete($menu->image);
+        }
+
+        // now delete menu
+        $menu->delete();
+
+        //redirect to index page
+        return to_route('admin.menus.index');
     }
 }
