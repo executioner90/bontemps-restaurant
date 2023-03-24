@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -49,13 +50,13 @@ class Reservation extends Model
         'guest_number',
     ];
 
-    public function table(): HasOne
+    public function table(): BelongsTo
     {
-        return $this->HasOne(Table::class);
+        return $this->belongsTo(Table::class);
     }
 
     public function menus(): BelongsToMany
     {
-        return $this->BelongsToMany(Menu::class, 'reservation_menu');
+        return $this->belongsToMany(Menu::class, 'reservation_menu');
     }
 }
