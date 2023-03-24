@@ -16,7 +16,7 @@
             </div>
             {{-- form --}}
             <div class="mb-20 bg-slate-100 rounded">
-                <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
+                <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10 p-2">
                     <form method="POST" action="{{ route('admin.menus.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="sm:col-span-6">
