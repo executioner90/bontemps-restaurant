@@ -43,7 +43,7 @@ class KindController extends Controller
             'name' => $request->name,
         ]);
 
-        return to_route('admin.kinds.index');
+        return to_route('admin.kinds.index')->with('success', 'Kind created successfully');
     }
 
     /**
@@ -86,7 +86,7 @@ class KindController extends Controller
         ]);
 
         //redirect to index page
-        return to_route('admin.kinds.index');
+        return to_route('admin.kinds.index')->with('success', 'Kind updated successfully');
     }
 
     /**
@@ -100,6 +100,6 @@ class KindController extends Controller
         $kind->delete();
 
         //redirect to index page
-        return to_route('admin.kinds.index');
+        return to_route('admin.kinds.index')->with('success', 'Kind deleted successfully');
     }
 }

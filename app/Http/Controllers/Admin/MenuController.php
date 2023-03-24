@@ -42,7 +42,6 @@ class MenuController extends Controller
      */
     public function store(MenuStoreRequest $request)
     {
-        dd($request->input());
         $image = $request->file('image') ? $request->file('image')->store('public/menus') : null;
 
         $menu = Menu::query()->create([
@@ -56,7 +55,7 @@ class MenuController extends Controller
            $menu->meals()->attach($request->meals);
         }
 
-        return to_route('admin.menus.index');
+        return to_route('admin.menus.index')->with('success', 'Menu created successfully');
     }
 
     /**
@@ -110,7 +109,7 @@ class MenuController extends Controller
         }
 
         //redirect to index page
-        return to_route('admin.menus.index');
+        return to_route('admin.menus.index')->with('success', 'Menu updated successfully');
     }
 
     /**
@@ -130,6 +129,6 @@ class MenuController extends Controller
         $menu->delete();
 
         //redirect to index page
-        return to_route('admin.menus.index');
+        return to_route('admin.menus.index')->with('success', 'Menu deleted successfully');
     }
 }

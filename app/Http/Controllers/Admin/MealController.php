@@ -52,18 +52,7 @@ class MealController extends Controller
             'image' => $image,
         ]);
 
-        return to_route('admin.meals.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return to_route('admin.meals.index')->with('success', 'Meal created successfully');
     }
 
     /**
@@ -112,7 +101,7 @@ class MealController extends Controller
         ]);
 
         //redirect to index page
-        return to_route('admin.meals.index');
+        return to_route('admin.meals.index')->with('success', 'Meal updated successfully');
     }
     /**
      * Remove the specified resource from storage.
@@ -131,6 +120,6 @@ class MealController extends Controller
         $meal->delete();
 
         //redirect to index page
-        return to_route('admin.meals.index');
+        return to_route('admin.meals.index')->with('success', 'Meal deleted successfully');
     }
 }

@@ -50,7 +50,7 @@ class ReservationController extends Controller
             $reservation->menus()->attach($request->menus);
         }
 
-        return to_route('admin.reservations.index');
+        return to_route('admin.reservations.index')->with('success', 'Reservation created successfully');
     }
 
     /**
