@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\KindController;
 use App\Http\Controllers\Admin\MealController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\ProfileController;
@@ -35,6 +36,7 @@ Route::middleware('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::resource('/meals', MealController::class);
+        Route::resource('/products', ProductController::class);
         Route::resource('/kinds', KindController::class);
         Route::resource('/menus', MenuController::class);
         Route::resource('/tables', TableController::class);

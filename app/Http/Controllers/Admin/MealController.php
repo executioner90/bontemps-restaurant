@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MealStoreRequest;
 use App\Models\Kind;
 use App\Models\Meal;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,8 +32,9 @@ class MealController extends Controller
     public function create()
     {
         $kinds = Kind::all();
+        $products = Product::all();
 
-        return view('admin.meals.create', compact('kinds'));
+        return view('admin.meals.create', compact('kinds', 'products'));
     }
 
     /**
@@ -45,12 +47,17 @@ class MealController extends Controller
     {
         $image = $request->file('image') ? $request->file('image')->store('public/meals') : null;
 
-        Meal::create([
+        $meal = Meal::create([
             'name' => $request->name,
             'kind_id' => (int) $request->kind,
             'description' => $request->description,
             'image' => $image,
         ]);
+
+        // add products to created meal
+        if ($request->has('products')) {
+            $meal->products()->attach($request->products);
+        }
 
         return to_route('admin.meals.index')->with('success', 'Meal created successfully');
     }
@@ -64,8 +71,9 @@ class MealController extends Controller
     public function edit(Meal $meal)
     {
         $kinds = Kind::all();
+        $products = Product::all();
 
-        return view('admin.meals.edit', compact(['meal', 'kinds']));
+        return view('admin.meals.edit', compact(['meal', 'kinds', 'products']));
     }
 
     /**
@@ -75,15 +83,8 @@ class MealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Meal $meal)
+    public function update(MealStoreRequest $request, Meal $meal)
     {
-        // validate inputs
-        $request->validate([
-            'name' => 'required',
-            'kind' => 'required',
-            'description' => 'required',
-        ]);
-
         $image = $meal->image;
         // check if image input has file
         if ($request->hasFile('image')) {
@@ -99,6 +100,11 @@ class MealController extends Controller
             'description' => $request->description,
             'image' => $image,
         ]);
+
+        // edit products of current meal
+        if ($request->has('products')) {
+            $meal->products()->sync($request->products);
+        }
 
         //redirect to index page
         return to_route('admin.meals.index')->with('success', 'Meal updated successfully');
