@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
+use App\Models\Menu;
 use App\Models\Reservation;
 use App\Models\Table;
 use Illuminate\Http\Request;
@@ -30,8 +31,9 @@ class ReservationController extends Controller
     public function create()
     {
         $tables = Table::all();
+        $menus = Menu::all();
 
-        return view('admin.reservations.create', compact('tables'));
+        return view('admin.reservations.create', compact('tables', 'menus'));
     }
 
     /**
@@ -42,7 +44,11 @@ class ReservationController extends Controller
      */
     public function store(ReservationStoreRequest $request)
     {
-        Reservation::query()->create($request->validated());
+        $reservation = Reservation::query()->create($request->validated());
+
+        if ($request->has('menus')) {
+            $reservation->menus()->attach($request->menus);
+        }
 
         return to_route('admin.reservations.index');
     }

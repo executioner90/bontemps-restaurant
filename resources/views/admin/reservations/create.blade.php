@@ -77,6 +77,19 @@
                         @error('table_id')
                         <div class="text-sm text-red-400">{{ $message }}</div>
                         @enderror
+                        <div class="sm:col-span-6">
+                            <label for="meals" class="block text-sm font-medium text-gray-700"> Menus </label>
+                            <div class="mt-1">
+                                <select id="menus" name="menus[]" class="form-multiselect block w-full mt-1 @error('menus') border-red-400 @enderror" multiple>
+                                    @foreach($menus as $menu)
+                                        <option value="{{ $menu->id }}">{{ $menu->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @error('menus')
+                        <div class="text-sm text-red-400">{{ $message }}</div>
+                        @enderror
                         <div class="mt-6">
                             <button type="submit" class="px-4 py-2 bg-gray-500 hover:bg-gray-700 rounded-lg text-white">Create</button>
                         </div>
