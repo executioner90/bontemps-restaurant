@@ -13,6 +13,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/menus', [\App\Http\Controllers\Frontend\MenuController::class, 'index'])->name('menus.index');
+Route::get('/menus/{menu}', [\App\Http\Controllers\Frontend\MenuController::class, 'show'])->name('menus.show');
+Route::get('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepOne'])->name('reservations.step.one');
+Route::get('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepTwo'])->name('reservations.step.two');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
