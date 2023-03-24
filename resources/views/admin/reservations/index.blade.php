@@ -29,6 +29,9 @@
                             Date
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Menu(s)
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Table
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -51,6 +54,13 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $reservation->reservation_date }}
+                            </td>
+                            <td class="px-6 py-4">
+                                @foreach($reservation->menus as $index => $menu)
+                                    @php($index++)
+                                    {{ $index . "- " . $menu->name }}
+                                    <br>
+                                @endforeach
                             </td>
                             <td class="px-6 py-4">
                                 {{ $reservation->table_id }}

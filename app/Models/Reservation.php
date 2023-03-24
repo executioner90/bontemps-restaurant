@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
@@ -50,5 +52,10 @@ class Reservation extends Model
     public function table(): HasOne
     {
         return $this->HasOne(Table::class);
+    }
+
+    public function menus(): BelongsToMany
+    {
+        return $this->BelongsToMany(Menu::class, 'reservation_menu');
     }
 }
