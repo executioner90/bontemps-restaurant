@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index']);
@@ -24,7 +25,11 @@ Route::get('/thank-you', [WelcomeController::class, 'thankYou'])->name('thank.yo
 
 // Admin welcome page.
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if (Auth::user()->is_admin) {
+        return view('admin.index');
+    } else {
+        return view('dashboard');
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
