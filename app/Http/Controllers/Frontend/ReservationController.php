@@ -10,19 +10,22 @@ use App\Models\Table;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ReservationController extends Controller
 {
-    public function stepOne(Request $request)
+    public function stepOne(Request $request): View
     {
         $reservation = $request->session()->get('reservation');
         $minDate = Carbon::today();
         $maxDate = Carbon::now()->addWeek();
+
         return view('reservations.step-one', compact('reservation', 'minDate', 'maxDate'));
     }
 
-    public function storeStepOne(Request $request)
+    public function storeStepOne(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string'],
@@ -45,17 +48,20 @@ class ReservationController extends Controller
         return to_route('reservations.step.two');
     }
 
-    public function stepTwo(Request $request)
+    public function stepTwo(Request $request): View
     {
+        // Get inputs value from session.
         $reservation = $request->session()->get('reservation');
         $resTableIds = Reservation::query()
             ->orderBy('reservation_date')
             ->get()
             ->filter(function ($value) use ($reservation) {
                 // Filter out reservations with different dateTime.
-                return Carbon::parse($value->reservation_date)->format('Y-m-d H:i') === Carbon::parse($reservation->reservation_date)->format('Y-m-d H:i');
+                return Carbon::parse($value->reservation_date)->format('Y-m-d H:i') ===
+                       Carbon::parse($reservation->reservation_date)->format('Y-m-d H:i');
             })
             ->pluck('table_id');
+        // Get only available tables.
         $tables = Table::query()
             ->where('status', TableStatus::Available)
             ->where('guest_number', '>=', $reservation->guest_number)
@@ -63,11 +69,10 @@ class ReservationController extends Controller
             ->get();
         $menus = Menu::all();
 
-
         return view('reservations.step-two', compact('reservation', 'menus', 'tables'));
     }
 
-    public function storeStepTwo(Request $request)
+    public function storeStepTwo(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'table_id' => ['required'],

@@ -79,7 +79,7 @@
                                           d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
                                     </path>
                                 </svg>
-                                <span class="font-medium text-gray-500">Faster Processing and Delivery</span>
+                                <span class="font-medium text-gray-500">Faster Processing</span>
                             </li>
                             <li class="flex items-center py-2 space-x-4 xl:py-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-500" fill="none" viewBox="0 0 24 24"
