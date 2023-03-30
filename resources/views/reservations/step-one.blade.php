@@ -45,6 +45,7 @@
                                                class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('mobile_number') border-red-400 @enderror" />
                                     </div>
                                 </div>
+                                <span class="text-xs">Pleas choose a time between 17.00 and 24.00</span>
                                 @error('mobile_number')
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                                 @enderror

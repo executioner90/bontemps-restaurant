@@ -20,6 +20,7 @@ Route::get('/reservations/step-one', [\App\Http\Controllers\Frontend\Reservation
 Route::post('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
 Route::get('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepTwo'])->name('reservations.step.two');
 Route::post('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
+Route::get('/thank-you', [WelcomeController::class, 'thankYou'])->name('thank.you');
 
 // Admin welcome page.
 Route::get('/dashboard', function () {
