@@ -13,11 +13,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index']);
 
+// Frontend routes(customers)
 Route::get('/menus', [\App\Http\Controllers\Frontend\MenuController::class, 'index'])->name('menus.index');
 Route::get('/menus/{menu}', [\App\Http\Controllers\Frontend\MenuController::class, 'show'])->name('menus.show');
 Route::get('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepOne'])->name('reservations.step.one');
+Route::post('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
 Route::get('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepTwo'])->name('reservations.step.two');
+Route::post('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
 
+// Admin welcome page.
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -28,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Admin env. routes
+// Admin routes
 Route::middleware('admin')
     ->name('admin.')
     ->prefix('admin')
@@ -42,5 +46,5 @@ Route::middleware('admin')
         Route::resource('/reservations', ReservationController::class);
     });
 
-//Login/logout routes
+// Login/logout routes
 require __DIR__.'/auth.php';
