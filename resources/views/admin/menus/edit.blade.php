@@ -31,6 +31,16 @@
                         <div class="text-sm text-red-400">{{ $message }}</div>
                         @enderror
                         <div class="sm:col-span-6">
+                            <label for="special" class="block text-sm font-medium text-gray-700"> Special </label>
+                            <div class="mt-1">
+                                <input type="checkbox" id="special" name="special" {{ $menu->special ? "checked" : "" }}
+                                       class="block transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('special') border-red-400 @enderror" />
+                            </div>
+                        </div>
+                        @error('special')
+                        <div class="text-sm text-red-400">{{ $message }}</div>
+                        @enderror
+                        <div class="sm:col-span-6">
                             <label for="meals" class="block text-sm font-medium text-gray-700"> Meals </label>
                             <div class="mt-1">
                                 <select id="meals" name="meals[]" class="form-multiselect block w-full mt-1 @error('meals') border-red-400 @enderror" multiple="multiple">

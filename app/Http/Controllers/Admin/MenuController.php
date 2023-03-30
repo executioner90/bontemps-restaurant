@@ -52,6 +52,13 @@ class MenuController extends Controller
             'image' => $image,
         ]);
 
+        // If check box checked set special true
+        if (isset($request->special)) {
+            $menu->special = 1;
+            $menu->save();
+        }
+
+        // If menu has meals attached to it, save them.
         if ($request->has('meals')) {
            $menu->meals()->attach($request->meals);
         }
@@ -98,8 +105,12 @@ class MenuController extends Controller
             $image = $request->file('image') ? $request->file('image')->store('public/menus') : null;
         }
 
+        // check special checkbox
+        $special = isset($request->special) ? 1 : 0;
+
         $menu->update([
             'name' => $request->name,
+            'special' => $special,
             'price' => $request->price,
             'description' => $request->description,
             'image' => $image,
