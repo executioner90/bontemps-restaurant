@@ -83,6 +83,6 @@ class ReservationController extends Controller
             $reservation->menus()->attach($request->menus);
         }
 
-        return to_route('thank.you')->with('success', 'Thank you for choosing Bontemps. Your reservation is made successfully');
+        return to_route('thank.you');
     }
 }
