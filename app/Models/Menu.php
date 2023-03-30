@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
+ * @property boolean $special
  * @property string $description
  * @property string $image
  * @property string $price
@@ -37,6 +38,7 @@ class Menu extends Model
 
     protected $fillable = [
         'name',
+        'special',
         'description',
         'price',
         'image',
