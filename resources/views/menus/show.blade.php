@@ -12,7 +12,7 @@
                         <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 uppercase">
                             {{ $meal->name }}
                         </h4>
-                        <p class="leading-normal text-gray-700">{{ $meal->description }}</p>
+                        <p class="leading-normal text-gray-700">{{ $meal->description }}.</p>
                     </div>
                 </div>
             @endforeach
