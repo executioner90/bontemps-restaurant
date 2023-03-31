@@ -16,27 +16,40 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index']);
 
 // Frontend routes(customers)
-Route::get('/menus', [\App\Http\Controllers\Frontend\MenuController::class, 'index'])->name('menus.index');
-Route::get('/menus/{menu}', [\App\Http\Controllers\Frontend\MenuController::class, 'show'])->name('menus.show');
-Route::get('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepOne'])->name('reservations.step.one');
-Route::post('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
-Route::get('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepTwo'])->name('reservations.step.two');
-Route::post('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
-Route::get('/thank-you', [WelcomeController::class, 'thankYou'])->name('thank.you');
+Route::get('/menus', [\App\Http\Controllers\Frontend\MenuController::class, 'index'])
+    ->name('menus.index');
+Route::get('/menus/{menu}', [\App\Http\Controllers\Frontend\MenuController::class, 'show'])
+    ->name('menus.show');
+Route::get('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepOne'])
+    ->name('reservations.step.one');
+Route::post('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepOne'])
+    ->name('reservations.store.step.one');
+Route::get('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepTwo'])
+    ->name('reservations.step.two');
+Route::post('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepTwo'])
+    ->name('reservations.store.step.two');
+Route::get('/thank-you', [WelcomeController::class, 'thankYou'])
+    ->name('thank.you');
 
 // Admin welcome page.
 Route::get('/dashboard', function () {
+    // Check if logged user is admin.
     if (Auth::user()->is_admin) {
+        // View admin dashboard
         return view('admin.index');
     } else {
+        // View regular dashboard
         return view('dashboard');
     }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
 });
 
 // Admin routes
@@ -44,7 +57,8 @@ Route::middleware('admin')
     ->name('admin.')
     ->prefix('admin')
     ->group(function () {
-        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::get('/', [AdminController::class, 'index'])
+            ->name('index');
         Route::resource('/users', UserController::class);
         Route::resource('/meals', MealController::class);
         Route::resource('/products', ProductController::class);
