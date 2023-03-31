@@ -9,7 +9,8 @@ use App\Models\Menu;
 use App\Models\Reservation;
 use App\Models\Table;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ReservationController extends Controller
 {
@@ -18,9 +19,16 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
-        $reservations = Reservation::all();
+        $reservations = Reservation::query()
+            ->orderBy('reservation_date', 'ASC')
+            ->get()
+            ->filter(function ($value) {
+                // Get only today's reservations
+                return Carbon::parse($value->reservation_date)->format('Y-m-d') ===
+                    Carbon::today()->format('Y-m-d');
+            });
 
         return view('admin.reservations.index', compact('reservations'));
     }
@@ -30,7 +38,7 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         $tables = Table::query()
             ->where('status', TableStatus::Available)
@@ -46,7 +54,7 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReservationStoreRequest $request)
+    public function store(ReservationStoreRequest $request): RedirectResponse
     {
         $table = Table::query()->findOrFail($request->table_id);
 
@@ -79,7 +87,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reservation $reservation)
+    public function edit(Reservation $reservation): View
     {
         $tables = Table::query()
             ->where('status', TableStatus::Available)
@@ -96,7 +104,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ReservationStoreRequest $request, Reservation $reservation)
+    public function update(ReservationStoreRequest $request, Reservation $reservation): RedirectResponse
     {
         $table = Table::query()->findOrFail($request->table_id);
 
@@ -108,7 +116,10 @@ class ReservationController extends Controller
         // Check if table already reserved.
         $reservationDate = Carbon::parse($request->reservation_date);
         foreach ($table->reservations as $res) {
-            if ($res->reservation_date === $reservationDate->format('Y-m-d H:i:s')) {
+            if (
+                $res->reservation_date === $reservationDate->format('Y-m-d H:i:s') &&
+                $res->id !== $reservation->id
+            ) {
                 return back()->with('warning', 'This table is already reserved for this date');
             }
         }
@@ -128,7 +139,7 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(Reservation $reservation): RedirectResponse
     {
         $reservation->delete();
 
