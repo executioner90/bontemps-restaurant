@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,7 +17,6 @@ use Illuminate\Support\Carbon;
  * @property boolean $special
  * @property string $description
  * @property string $image
- * @property string $price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property BelongsToMany|null $meals
@@ -30,6 +30,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Menu whereName($value)
  * @method static Builder|Menu wherePrice($value)
  * @method static Builder|Menu whereUpdatedAt($value)
+ * @property-read int|null $meals_count
+ * @property-read Collection<int, Reservation> $reservations
+ * @property-read int|null $reservations_count
+ * @method static Builder|Menu whereSpecial($value)
  * @mixin \Eloquent
  */
 class Menu extends Model
@@ -40,7 +44,6 @@ class Menu extends Model
         'name',
         'special',
         'description',
-        'price',
         'image',
     ];
 

@@ -14,8 +14,8 @@ use Illuminate\Support\Collection;
  * App\Models\Table
  *
  * @property int $id
- * @property string $name
- * @property int $guest_number
+ * @property int $number
+ * @property int $capacity
  * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -29,6 +29,9 @@ use Illuminate\Support\Collection;
  * @method static Builder|Table whereName($value)
  * @method static Builder|Table whereStatus($value)
  * @method static Builder|Table whereUpdatedAt($value)
+ * @property-read int|null $reservations_count
+ * @method static Builder|Table whereCapacity($value)
+ * @method static Builder|Table whereNumber($value)
  * @mixin \Eloquent
  */
 class Table extends Model
@@ -36,8 +39,8 @@ class Table extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'guest_number',
+        'number',
+        'capacity',
         'status',
     ];
 

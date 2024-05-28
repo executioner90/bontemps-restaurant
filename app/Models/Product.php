@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $id
  * @property string $name
  * @property string $unit
+ * @property float $min_available
+ * @property float $max_available
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property BelongsToMany|null $meals
@@ -25,6 +27,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static Builder|Menu whereName($value)
  * @method static Builder|Menu whereUnit($value)
  * @method static Builder|Menu whereUpdatedAt($value)
+ * @property-read int|null $meals_count
+ * @method static Builder|Product whereMaxAvailable($value)
+ * @method static Builder|Product whereMinAvailable($value)
  * @mixin \Eloquent
  */
 
@@ -35,6 +40,8 @@ class Product extends Model
     protected $fillable = [
         'name',
         'unit',
+        'min_available',
+        'max_available',
     ];
 
     public function meals(): BelongsToMany

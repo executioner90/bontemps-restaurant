@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 30);
             $table->string('unit');
+            $table->float('min_available');
+            $table->float('max_available');
             $table->timestamps();
         });
     }

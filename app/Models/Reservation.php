@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +21,8 @@ use Illuminate\Support\Carbon;
  * @property string $mobile_number
  * @property string $reservation_date
  * @property int $table_id
- * @property int $guest_number
+ * @property int $total_persons
+ * @property int $confirmed
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static Builder|Reservation newModelQuery()
@@ -35,6 +37,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Reservation whereReservationDate($value)
  * @method static Builder|Reservation whereTableId($value)
  * @method static Builder|Reservation whereUpdatedAt($value)
+ * @property-read Collection<int, Menu> $menus
+ * @property-read int|null $menus_count
+ * @property-read Table $table
+ * @method static Builder|Reservation whereConfirmed($value)
+ * @method static Builder|Reservation whereTotalPersons($value)
  * @mixin \Eloquent
  */
 class Reservation extends Model

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $description
  * @property string|null $image
+ * @property float $price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property BelongsToMany|null $menus
@@ -29,6 +31,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Meal whereImage($value)
  * @method static Builder|Meal whereName($value)
  * @method static Builder|Meal whereUpdatedAt($value)
+ * @property-read int|null $menus_count
+ * @property-read Collection<int, Product> $products
+ * @property-read int|null $products_count
+ * @method static Builder|Meal wherePrice($value)
  * @mixin \Eloquent
  */
 class Meal extends Model

@@ -22,7 +22,8 @@ return new class extends Migration
             $table->foreignId('table_id')->constrained('tables')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('guest_number');
+            $table->integer('total_persons');
+            $table->boolean('confirmed');
             $table->timestamps();
         });
     }
