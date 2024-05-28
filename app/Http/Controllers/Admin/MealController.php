@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MealStoreRequest;
-use App\Models\Kind;
 use App\Models\Meal;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class MealController extends Controller
@@ -31,10 +29,9 @@ class MealController extends Controller
      */
     public function create()
     {
-        $kinds = Kind::all();
         $products = Product::all();
 
-        return view('admin.meals.create', compact('kinds', 'products'));
+        return view('admin.meals.create', compact('products'));
     }
 
     /**
@@ -49,7 +46,6 @@ class MealController extends Controller
 
         $meal = Meal::create([
             'name' => $request->name,
-            'kind_id' => (int) $request->kind,
             'description' => $request->description,
             'image' => $image,
         ]);
@@ -70,10 +66,9 @@ class MealController extends Controller
      */
     public function edit(Meal $meal)
     {
-        $kinds = Kind::all();
         $products = Product::all();
 
-        return view('admin.meals.edit', compact(['meal', 'kinds', 'products']));
+        return view('admin.meals.edit', compact(['meal', 'products']));
     }
 
     /**
@@ -96,7 +91,6 @@ class MealController extends Controller
 
         $meal->update([
             'name' => $request->name,
-            'kind_id' => $request->kind,
             'description' => $request->description,
             'image' => $image,
         ]);

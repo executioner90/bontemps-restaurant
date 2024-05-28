@@ -15,12 +15,10 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
- * @property int $kind_id
  * @property string $description
  * @property string|null $image
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property BelongsTo|null $kind
  * @property BelongsToMany|null $menus
  * @method static Builder|Meal newModelQuery()
  * @method static Builder|Meal newQuery()
@@ -39,15 +37,9 @@ class Meal extends Model
 
     protected $fillable = [
         'name',
-        'kind_id',
         'image',
         'description'
     ];
-
-    public function kind(): BelongsTo
-    {
-        return $this->belongsTo(Kind::class);
-    }
 
     public function menus(): BelongsToMany
     {

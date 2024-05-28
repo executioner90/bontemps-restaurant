@@ -33,9 +33,6 @@
                     <x-admin-nav-link :href="route('admin.meals.index')" :active="request()->routeIs('admin.meals.*')">
                         {{ __('Meals') }}
                     </x-admin-nav-link>
-                    <x-admin-nav-link :href="route('admin.kinds.index')" :active="request()->routeIs('admin.kinds.*')">
-                        {{ __('Kinds') }}
-                    </x-admin-nav-link>
                     <x-admin-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
                         {{ __('Products') }}
                     </x-admin-nav-link>

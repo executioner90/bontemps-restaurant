@@ -30,7 +30,7 @@ return new class extends Migration
         Schema::table('tables', function (Blueprint $table) {
             $table->renameColumn('number', 'name');
             $table->renameColumn('capacity', 'guest_number');
-//            $table->string('location');
+            $table->string('location');
         });
     }
 };
