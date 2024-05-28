@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\TableLocation;
 use App\Enums\TableStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +17,6 @@ use Illuminate\Support\Collection;
  * @property string $name
  * @property int $guest_number
  * @property string $status
- * @property string $location
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Collection|null $reservations
@@ -28,7 +26,6 @@ use Illuminate\Support\Collection;
  * @method static Builder|Table whereCreatedAt($value)
  * @method static Builder|Table whereGuestNumber($value)
  * @method static Builder|Table whereId($value)
- * @method static Builder|Table whereLocation($value)
  * @method static Builder|Table whereName($value)
  * @method static Builder|Table whereStatus($value)
  * @method static Builder|Table whereUpdatedAt($value)
@@ -42,12 +39,10 @@ class Table extends Model
         'name',
         'guest_number',
         'status',
-        'location'
     ];
 
     protected $casts = [
         'status' => TableStatus::class,
-        'location' => TableLocation::class,
     ];
 
     public function reservations(): HasMany

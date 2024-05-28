@@ -25,9 +25,6 @@
                         <th scope="col" class="px-6 py-3">
                             Status
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Location
-                        </th>
                         <th></th>
                     </tr>
                     </thead>
@@ -42,9 +39,6 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $table->status }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $table->location }}
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-end space-x-2">
