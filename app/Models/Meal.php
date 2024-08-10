@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -18,10 +18,12 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $description
  * @property string|null $image
- * @property float $price
+ * @property string $price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property BelongsToMany|null $menus
+ * @property-read Menu|null $menu
+ * @property-read Collection<int, Product> $products
+ * @property-read int|null $products_count
  * @method static Builder|Meal newModelQuery()
  * @method static Builder|Meal newQuery()
  * @method static Builder|Meal query()
@@ -30,12 +32,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Meal whereId($value)
  * @method static Builder|Meal whereImage($value)
  * @method static Builder|Meal whereName($value)
- * @method static Builder|Meal whereUpdatedAt($value)
- * @property-read int|null $menus_count
- * @property-read Collection<int, Product> $products
- * @property-read int|null $products_count
  * @method static Builder|Meal wherePrice($value)
- * @mixin \Eloquent
+ * @method static Builder|Meal whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Meal extends Model
 {
@@ -47,9 +46,9 @@ class Meal extends Model
         'description'
     ];
 
-    public function menus(): BelongsToMany
+    public function menu(): BelongsTo
     {
-        return $this->belongsToMany(Menu::class, 'meal_menu');
+        return $this->belongsTo(Menu::class);
     }
 
     public function products(): BelongsToMany

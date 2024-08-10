@@ -33,7 +33,7 @@ Route::get('/thank-you', [WelcomeController::class, 'thankYou'])
 // Admin welcome page.
 Route::get('/dashboard', function () {
     // Check if logged user is admin.
-    if (Auth::user()->is_admin) {
+    if (Auth::user()->rol_id === 1) {
         // View admin dashboard
         return view('admin.index');
     } else {

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -14,12 +16,15 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $name
- * @property boolean $special
  * @property string $description
- * @property string $image
+ * @property int $special
+ * @property string|null $image
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property BelongsToMany|null $meals
+ * @property-read Collection<int, Meal> $meals
+ * @property-read int|null $meals_count
+ * @property-read Collection<int, Reservation> $reservations
+ * @property-read int|null $reservations_count
  * @method static Builder|Menu newModelQuery()
  * @method static Builder|Menu newQuery()
  * @method static Builder|Menu query()
@@ -28,13 +33,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Menu whereId($value)
  * @method static Builder|Menu whereImage($value)
  * @method static Builder|Menu whereName($value)
- * @method static Builder|Menu wherePrice($value)
- * @method static Builder|Menu whereUpdatedAt($value)
- * @property-read int|null $meals_count
- * @property-read Collection<int, Reservation> $reservations
- * @property-read int|null $reservations_count
  * @method static Builder|Menu whereSpecial($value)
- * @mixin \Eloquent
+ * @method static Builder|Menu whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Menu extends Model
 {
@@ -47,9 +48,9 @@ class Menu extends Model
         'image',
     ];
 
-    public function meals(): BelongsToMany
+    public function meals(): HasMany
     {
-        return $this->belongsToMany(Meal::class, 'meal_menu');
+        return $this->hasMany(Meal::class);
     }
 
     public function reservations(): BelongsToMany

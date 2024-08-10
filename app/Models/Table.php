@@ -16,22 +16,20 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property int $number
  * @property int $capacity
- * @property string $status
+ * @property TableStatus $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property Collection|null $reservations
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
+ * @property-read int|null $reservations_count
  * @method static Builder|Table newModelQuery()
  * @method static Builder|Table newQuery()
  * @method static Builder|Table query()
+ * @method static Builder|Table whereCapacity($value)
  * @method static Builder|Table whereCreatedAt($value)
- * @method static Builder|Table whereGuestNumber($value)
  * @method static Builder|Table whereId($value)
- * @method static Builder|Table whereName($value)
+ * @method static Builder|Table whereNumber($value)
  * @method static Builder|Table whereStatus($value)
  * @method static Builder|Table whereUpdatedAt($value)
- * @property-read int|null $reservations_count
- * @method static Builder|Table whereCapacity($value)
- * @method static Builder|Table whereNumber($value)
  * @mixin \Eloquent
  */
 class Table extends Model

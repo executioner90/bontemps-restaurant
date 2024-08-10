@@ -25,23 +25,22 @@ use Illuminate\Support\Carbon;
  * @property int $confirmed
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, \App\Models\Menu> $menus
+ * @property-read int|null $menus_count
+ * @property-read \App\Models\Table $table
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
  * @method static Builder|Reservation query()
+ * @method static Builder|Reservation whereConfirmed($value)
  * @method static Builder|Reservation whereCreatedAt($value)
  * @method static Builder|Reservation whereFirstName($value)
- * @method static Builder|Reservation whereGuestNumber($value)
  * @method static Builder|Reservation whereId($value)
  * @method static Builder|Reservation whereLastName($value)
  * @method static Builder|Reservation whereMobileNumber($value)
  * @method static Builder|Reservation whereReservationDate($value)
  * @method static Builder|Reservation whereTableId($value)
- * @method static Builder|Reservation whereUpdatedAt($value)
- * @property-read Collection<int, Menu> $menus
- * @property-read int|null $menus_count
- * @property-read Table $table
- * @method static Builder|Reservation whereConfirmed($value)
  * @method static Builder|Reservation whereTotalPersons($value)
+ * @method static Builder|Reservation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Reservation extends Model

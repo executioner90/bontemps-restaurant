@@ -41,7 +41,7 @@
                                 {{ $user->email }}
                             </td>
                             <td class="px-6 py-4">
-                                @if($user->is_admin)
+                                @if($user->role_id === 1)
                                     <svg class="h-8 w-8 text-green-600"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
