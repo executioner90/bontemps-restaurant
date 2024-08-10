@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $name
  * @property string $unit
  * @property float|null $min_available
- * @property float|null $max_available
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meal> $meals
@@ -41,7 +40,6 @@ class Product extends Model
         'name',
         'unit',
         'min_available',
-        'max_available',
     ];
 
     public function meals(): BelongsToMany
