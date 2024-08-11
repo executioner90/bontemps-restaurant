@@ -12,7 +12,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index'])
+    ->name('home');
 
 // Frontend routes(customers)
 Route::get('/menus', [\App\Http\Controllers\Frontend\MenuController::class, 'index'])
