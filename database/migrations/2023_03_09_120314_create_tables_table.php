@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('guest_number');
-            $table->string('status')->default('available');
-            $table->string('location');
+            $table->integer('number');
+            $table->integer('capacity');
+            $table->enum('status', array('pending', 'available', 'unavailable'));
             $table->timestamps();
         });
     }

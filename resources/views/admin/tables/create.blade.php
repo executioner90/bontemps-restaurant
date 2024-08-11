@@ -50,19 +50,6 @@
                         @error('status')
                         <div class="text-sm text-red-400">{{ $message }}</div>
                         @enderror
-                        <div class="sm:col-span-6">
-                            <label for="location" class="block text-sm font-medium text-gray-700"> Location </label>
-                            <div class="mt-1">
-                                <select id="location" name="location" class="form-multiselect block w-full mt-1 @error('location') border-red-400 @enderror">
-                                    @foreach(App\Enums\TableLocation::cases() as $location)
-                                        <option value="{{ $location->value }}">{{ $location->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @error('location')
-                        <div class="text-sm text-red-400">{{ $message }}</div>
-                        @enderror
                         <div class="mt-6">
                             <button type="submit" class="px-4 py-2 bg-gray-500 hover:bg-gray-700 rounded-lg text-white  ">Create</button>
                         </div>

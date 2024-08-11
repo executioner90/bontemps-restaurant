@@ -14,17 +14,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $id
  * @property string $name
  * @property string $unit
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property BelongsToMany|null $meals
- * @method static Builder|Menu newModelQuery()
- * @method static Builder|Menu newQuery()
- * @method static Builder|Menu query()
- * @method static Builder|Menu whereCreatedAt($value)
- * @method static Builder|Menu whereId($value)
- * @method static Builder|Menu whereName($value)
- * @method static Builder|Menu whereUnit($value)
- * @method static Builder|Menu whereUpdatedAt($value)
+ * @property float|null $min_available
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meal> $meals
+ * @property-read int|null $meals_count
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
+ * @method static Builder|Product query()
+ * @method static Builder|Product whereCreatedAt($value)
+ * @method static Builder|Product whereId($value)
+ * @method static Builder|Product whereMaxAvailable($value)
+ * @method static Builder|Product whereMinAvailable($value)
+ * @method static Builder|Product whereName($value)
+ * @method static Builder|Product whereUnit($value)
+ * @method static Builder|Product whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 
@@ -35,6 +39,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'unit',
+        'min_available',
     ];
 
     public function meals(): BelongsToMany

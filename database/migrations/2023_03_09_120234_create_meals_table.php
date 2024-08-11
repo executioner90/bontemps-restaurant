@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('meals', function (Blueprint $table) {
-            $table->foreignId('kind_id')
-                ->after('id')
-                ->default(2)
-                ->constrained('kinds');
+        Schema::create('meals', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->string('image')->nullable();
+            $table->decimal('price', 10);
+            $table->timestamps();
         });
     }
 
@@ -28,9 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('meals', function (Blueprint $table) {
-            $table->dropForeign('meals_kind_id_foreign');
-            $table->dropColumn(['kind_id']);
-        });
+        Schema::dropIfExists('meals');
     }
 };

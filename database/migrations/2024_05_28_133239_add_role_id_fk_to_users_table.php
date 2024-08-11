@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kinds', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 24);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('role_id')
+                ->after('id')
+                ->nullable()
+                ->constrained('user_roles')
+                ->onDelete('cascade');
         });
     }
 
@@ -27,6 +29,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kinds');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['role_id']);
+            $table->dropColumn('role_id');
+        });
     }
 };

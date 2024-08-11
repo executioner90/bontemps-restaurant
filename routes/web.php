@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\KindController;
 use App\Http\Controllers\Admin\MealController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\MenuController;
@@ -34,7 +33,7 @@ Route::get('/thank-you', [WelcomeController::class, 'thankYou'])
 // Admin welcome page.
 Route::get('/dashboard', function () {
     // Check if logged user is admin.
-    if (Auth::user()->is_admin) {
+    if (Auth::user()->rol_id === 1) {
         // View admin dashboard
         return view('admin.index');
     } else {
@@ -62,7 +61,6 @@ Route::middleware('admin')
         Route::resource('/users', UserController::class);
         Route::resource('/meals', MealController::class);
         Route::resource('/products', ProductController::class);
-        Route::resource('/kinds', KindController::class);
         Route::resource('/menus', MenuController::class);
         Route::resource('/tables', TableController::class);
         Route::resource('/reservations', ReservationController::class);

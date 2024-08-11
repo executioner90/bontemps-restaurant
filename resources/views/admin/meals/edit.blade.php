@@ -32,22 +32,6 @@
                         <div class="text-sm text-red-400">{{ $message }}</div>
                         @enderror
                         <div class="sm:col-span-6">
-                            <label for="kind" class="block text-sm font-medium text-gray-700"> Kind </label>
-                            <div class="mt-1">
-                                <select type="text" id="kind" name="kind"
-                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('kind') border-red-400 @enderror">
-                                    @foreach($kinds as $kind)
-                                        <option value="{{ $kind->id }}" {{ $meal->kind_id === $kind->id ? "selected" : "" }}>
-                                            {{ $kind->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @error('kind')
-                        <div class="text-sm text-red-400">{{ $message }}</div>
-                        @enderror
-                        <div class="sm:col-span-6">
                             <label for="products" class="block text-sm font-medium text-gray-700"> Products </label>
                             <div class="mt-1">
                                 <select id="products" name="products[]" class="form-multiselect block w-full mt-1 @error('products') border-red-400 @enderror" multiple>

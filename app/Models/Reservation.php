@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,20 +21,25 @@ use Illuminate\Support\Carbon;
  * @property string $mobile_number
  * @property string $reservation_date
  * @property int $table_id
- * @property int $guest_number
+ * @property int $total_persons
+ * @property int $confirmed
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, \App\Models\Menu> $menus
+ * @property-read int|null $menus_count
+ * @property-read \App\Models\Table $table
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
  * @method static Builder|Reservation query()
+ * @method static Builder|Reservation whereConfirmed($value)
  * @method static Builder|Reservation whereCreatedAt($value)
  * @method static Builder|Reservation whereFirstName($value)
- * @method static Builder|Reservation whereGuestNumber($value)
  * @method static Builder|Reservation whereId($value)
  * @method static Builder|Reservation whereLastName($value)
  * @method static Builder|Reservation whereMobileNumber($value)
  * @method static Builder|Reservation whereReservationDate($value)
  * @method static Builder|Reservation whereTableId($value)
+ * @method static Builder|Reservation whereTotalPersons($value)
  * @method static Builder|Reservation whereUpdatedAt($value)
  * @mixin \Eloquent
  */

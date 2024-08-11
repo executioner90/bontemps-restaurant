@@ -42,7 +42,6 @@ class TableController extends Controller
             'name' => $request->name,
             'guest_number' => $request->guest_number,
             'status' => $request->status,
-            'location' => $request->location,
         ]);
 
         return  to_route('admin.tables.index')->with('success', 'Table created successfully');
