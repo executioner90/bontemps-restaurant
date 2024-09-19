@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Frontend;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -16,20 +17,22 @@ Route::get('/', [WelcomeController::class, 'index'])
     ->name('home');
 
 // Frontend routes(customers)
-Route::get('/menus', [\App\Http\Controllers\Frontend\MenuController::class, 'index'])
+Route::get('/menus', [Frontend\MenuController::class, 'index'])
     ->name('menus.index');
-Route::get('/menus/{menu}', [\App\Http\Controllers\Frontend\MenuController::class, 'show'])
+Route::get('/menus/{menu}', [Frontend\MenuController::class, 'show'])
     ->name('menus.show');
-Route::get('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepOne'])
+Route::get('/reservations/step-one', [Frontend\ReservationController::class, 'stepOne'])
     ->name('reservations.step.one');
-Route::post('/reservations/step-one', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepOne'])
+Route::post('/reservations/step-one', [Frontend\ReservationController::class, 'storeStepOne'])
     ->name('reservations.store.step.one');
-Route::get('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'stepTwo'])
+Route::get('/reservations/step-two', [Frontend\ReservationController::class, 'stepTwo'])
     ->name('reservations.step.two');
-Route::post('/reservations/step-two', [\App\Http\Controllers\Frontend\ReservationController::class, 'storeStepTwo'])
+Route::post('/reservations/step-two', [Frontend\ReservationController::class, 'storeStepTwo'])
     ->name('reservations.store.step.two');
 Route::get('/thank-you', [WelcomeController::class, 'thankYou'])
     ->name('thank.you');
+Route::get('/about-us', [Frontend\AboutUsController::class, 'index'])
+    ->name('about.us');
 
 // Admin welcome page.
 Route::get('/dashboard', function () {
