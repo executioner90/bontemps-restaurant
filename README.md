@@ -35,3 +35,5 @@ Open the terminal where you cloned the project and use the following commands:
 Finally, to launch the development server, execute the command `php artisan serve`. In a new terminal tab, compile assets by running `npm run dev`.
 
 ©️ Your Bon Temps Restaurant site should now be accessible locally at 'http://localhost:8000' or another specified port. Enjoy exploring! ©️
+
+©️ Copyright saved 2024 ©️
