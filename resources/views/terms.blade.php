@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="container w-full px-5 py-6 mx-auto">
-        <h1 class="text-4xl">
+        <h1 class="text-4xl text-center py-6">
             Terms and conditions
         </h1>
 

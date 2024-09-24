@@ -67,7 +67,7 @@
                         <a href="{{ route('contact') }}">Contact</a>
                     </li>
                     <li>
-                        <a href=""></a>Terms
+                        <a href="{{ route('terms') }}">Terms</a>
                     </li>
                 </ul>
             </div>
