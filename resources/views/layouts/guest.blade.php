@@ -57,10 +57,18 @@
         <div class="container flex flex-wrap items-center justify-center px-4 py-8 mx-auto lg:justify-between">
             <div class="flex flex-wrap justify-center">
                 <ul class="flex items-center space-x-4 text-white">
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                    <li>Terms</li>
+                    <li>
+                        <a href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('about.us') }}">About</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('contact') }}">Contact</a>
+                    </li>
+                    <li>
+                        <a href=""></a>Terms
+                    </li>
                 </ul>
             </div>
             <div class="flex justify-center mt-4 lg:mt-0">
