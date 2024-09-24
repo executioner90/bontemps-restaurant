@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 
-[type="text"]:focus, [type="email"]:focus, textarea:focus {
+#contactForm [type="text"]:focus, [type="email"]:focus, textarea:focus {
     border-color: rgb(74 222 128) !important;
     outline: none !important;
     box-shadow: none !important;
