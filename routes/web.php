@@ -19,7 +19,7 @@ Route::get('/', [WelcomeController::class, 'index'])
 // Frontend routes(customers)
 Route::get('/menus', [Frontend\MenuController::class, 'index'])
     ->name('menus.index');
-Route::get('/menus/{menu}', [Frontend\MenuController::class, 'show'])
+Route::get('/menus/{menu:name}', [Frontend\MenuController::class, 'show'])
     ->name('menus.show');
 Route::get('/reservations/step-one', [Frontend\ReservationController::class, 'stepOne'])
     ->name('reservations.step.one');
