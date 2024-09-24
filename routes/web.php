@@ -33,6 +33,8 @@ Route::get('/thank-you', [WelcomeController::class, 'thankYou'])
     ->name('thank.you');
 Route::get('/about-us', [Frontend\AboutUsController::class, 'index'])
     ->name('about.us');
+Route::get('/terms', [Frontend\TermsController::class, 'index'])
+    ->name('terms');
 
 // Admin welcome page.
 Route::get('/dashboard', function () {
