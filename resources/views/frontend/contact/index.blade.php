@@ -79,3 +79,5 @@
         </div>
     </div>
 </x-guest-layout>
+
+@vite('resources/js/contact/form/submit.js')

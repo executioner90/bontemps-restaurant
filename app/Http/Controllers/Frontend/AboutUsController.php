@@ -8,6 +8,6 @@ class AboutUsController extends Controller
 {
     public function index()
     {
-        return view('about-us.index');
+        return view('frontend.about-us.index');
     }
 }
