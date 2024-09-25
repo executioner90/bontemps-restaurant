@@ -35,6 +35,8 @@ Route::get('/about-us', [Frontend\AboutUsController::class, 'index'])
     ->name('about.us');
 Route::get('/contact', [Frontend\ContactController::class, 'index'])
     ->name('contact');
+Route::get('/terms', [Frontend\TermsController::class, 'index'])
+    ->name('terms');
 
 // Admin welcome page.
 Route::get('/dashboard', function () {
