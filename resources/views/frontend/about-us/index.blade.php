@@ -1,4 +1,6 @@
-<x-guest-layout>
+@extends('layouts.frontend.app')
+
+@section('content')
     <div class="container w-full px-5 py-6 mx-auto">
         <div class="grid lg:grid-cols-2 gap-4">
             <div class="py-12">
@@ -71,4 +73,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+@endsection
