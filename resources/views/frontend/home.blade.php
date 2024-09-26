@@ -18,6 +18,4 @@
     <section class="bg-gray-50">
         @include('partials.frontend.home.about-us')
     </section>
-
-
 @endsection
