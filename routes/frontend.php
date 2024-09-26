@@ -14,7 +14,7 @@ Route::prefix('/menus')
             Route::get('/', [Frontend\MenuController::class, 'index'])
                 ->name('index');
 
-            Route::get('/{menu}', [Frontend\MenuController::class, 'show'])
+            Route::get('/{menu:name}', [Frontend\MenuController::class, 'show'])
                 ->name('show');
         }
     );
@@ -47,3 +47,6 @@ Route::get('/about-us', [Frontend\AboutUsController::class, 'index'])
 
 Route::get('/contact', [Frontend\ContactController::class, 'index'])
     ->name('contact');
+
+Route::get('/terms', [Frontend\TermsController::class, 'index'])
+    ->name('terms');
