@@ -13,7 +13,7 @@ class HomeController extends Controller
             ->where('special', 1)
             ->get();
 
-        return view('frontend.home', compact('specials'));
+        return view('frontend.home');
     }
 
     public function thankYou()
