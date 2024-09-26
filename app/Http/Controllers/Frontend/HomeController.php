@@ -18,6 +18,6 @@ class HomeController extends Controller
 
     public function thankYou()
     {
-        return view('frontend.thanks');
+        return view('frontend.reservations.thanks');
     }
 }
