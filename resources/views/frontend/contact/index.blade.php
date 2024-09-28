@@ -1,4 +1,6 @@
-<x-guest-layout>
+@extends('layouts.frontend.app')
+
+@section('content')
     <div class="container w-full px-5 py-6 mx-auto">
         <h1 class="py-12 text-6xl text-center">
             Let's talk!
@@ -61,8 +63,8 @@
                                 <label for="text" class="block mb-2 text-gray-700 font-bold">Message</label>
                                 <textarea id="message"
                                           required
-                                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                       placeholder="What's on your mind?"></textarea>
+                                          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                          placeholder="What's on your mind?"></textarea>
                             </div>
                             <button type="submit"
                                     id="submit"
@@ -78,4 +80,6 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+@endsection
+
+@vite'('resources/js/contact/form/submit.js')

@@ -1,4 +1,6 @@
-<x-guest-layout>
+@extends('layouts.frontend.app')
+
+@section('content')
     <div class="container w-full px-5 py-6 mx-auto">
         <h1 class="text-4xl text-center py-6">
             Terms and conditions
@@ -26,4 +28,4 @@
             Ut blandit facilisis neque id venenatis. Aenean et dapibus dui, quis tincidunt nunc. Nam gravida enim sit amet quam mattis, vitae fermentum tortor congue. Vivamus et dolor ut velit mattis blandit ac sed risus. Nullam dignissim lobortis mi a tristique. Donec vitae nisl et mauris sodales imperdiet. Vestibulum eleifend leo at nibh fermentum aliquet.
         </p>
     </div>
-</x-guest-layout>
+@endsection

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 
-class WelcomeController extends Controller
+class HomeController extends Controller
 {
     public function index()
     {
@@ -13,11 +13,11 @@ class WelcomeController extends Controller
             ->where('special', 1)
             ->get();
 
-        return view('welcome', compact('specials'));
+        return view('frontend.home');
     }
 
     public function thankYou()
     {
-        return view('thanks');
+        return view('frontend.reservations.thanks');
     }
 }

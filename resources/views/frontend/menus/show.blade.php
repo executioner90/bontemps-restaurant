@@ -1,4 +1,6 @@
-<x-guest-layout>
+@extends('layouts.frontend.app')
+
+@section('content')
     <div class="container w-full px-5 py-6 mx-auto">
         <div class="grid lg:grid-cols-4 gap-y-6">
             @foreach($menu->meals as $meal)
@@ -18,4 +20,4 @@
             @endforeach
         </div>
     </div>
-</x-guest-layout>
+@endsection

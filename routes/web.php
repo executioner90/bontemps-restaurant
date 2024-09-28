@@ -7,38 +7,14 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Frontend;
-use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [WelcomeController::class, 'index'])
-    ->name('home');
+// Frontend routes
+require __DIR__.'/frontend.php';
 
-// Frontend routes(customers)
-Route::get('/menus', [Frontend\MenuController::class, 'index'])
-    ->name('menus.index');
-Route::get('/menus/{menu:name}', [Frontend\MenuController::class, 'show'])
-    ->name('menus.show');
-Route::get('/reservations/step-one', [Frontend\ReservationController::class, 'stepOne'])
-    ->name('reservations.step.one');
-Route::post('/reservations/step-one', [Frontend\ReservationController::class, 'storeStepOne'])
-    ->name('reservations.store.step.one');
-Route::get('/reservations/step-two', [Frontend\ReservationController::class, 'stepTwo'])
-    ->name('reservations.step.two');
-Route::post('/reservations/step-two', [Frontend\ReservationController::class, 'storeStepTwo'])
-    ->name('reservations.store.step.two');
-Route::get('/thank-you', [WelcomeController::class, 'thankYou'])
-    ->name('thank.you');
-Route::get('/about-us', [Frontend\AboutUsController::class, 'index'])
-    ->name('about.us');
-Route::get('/contact', [Frontend\ContactController::class, 'index'])
-    ->name('contact');
-Route::get('/terms', [Frontend\TermsController::class, 'index'])
-    ->name('terms');
 
-// Admin welcome page.
 Route::get('/dashboard', function () {
     // Check if logged user is admin.
     if (Auth::user()->rol_id === 1) {

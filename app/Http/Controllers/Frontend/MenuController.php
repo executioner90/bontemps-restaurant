@@ -12,11 +12,11 @@ class MenuController extends Controller
     {
         $menus = Menu::all();
 
-        return view('menus.index', compact('menus'));
+        return view('frontend.menus.index', compact('menus'));
     }
 
     public function show(Menu $menu)
     {
-        return view('menus.show', compact('menu'));
+        return view('frontend.menus.show', compact('menu'));
     }
 }
