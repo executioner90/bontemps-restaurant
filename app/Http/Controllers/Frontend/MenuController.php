@@ -10,13 +10,13 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
-
-        return view('frontend.menus.index', compact('menus'));
+        return view('frontend.menus.index');
     }
 
     public function show(Menu $menu)
     {
-        return view('frontend.menus.show', compact('menu'));
+        return view('frontend.menus.show', [
+            'meals' => $menu->meals
+        ]);
     }
 }

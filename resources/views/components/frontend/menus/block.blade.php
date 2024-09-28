@@ -1,5 +1,5 @@
 <div class="mb-2 rounded-lg shadow-lg">
-    <a href="{{ route('menus.show', $menu->id) }}">
+    <a href="{{ route('menus.show', $menu->name) }}">
         <img class="w-full h-48" src="{{ asset(Storage::url($menu->image)) }}"
              alt="Image"/>
         <div class="px-6 py-4">
