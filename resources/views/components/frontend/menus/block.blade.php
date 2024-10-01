@@ -1,12 +1,16 @@
 <div class="mb-2 rounded-lg shadow-lg">
     <a href="{{ route('menus.show', $menu->name) }}">
-        <img class="w-full h-48" src="{{ asset(Storage::url($menu->image)) }}"
-             alt="Image"/>
+        <img class="mx-auto max-w-full h-48"
+             src="{{ $image }}"
+             alt="Image"
+        />
         <div class="px-6 py-4">
             <div class="flex mb-2">
-                                    <span
-                                        class="px-4 py-0.5 text-sm bg-red-500 rounded-full text-red-50">Special menu</span>
+                <span class="px-4 py-0.5 text-sm bg-red-500 rounded-full text-red-50">
+                    Special menu
+                </span>
             </div>
+
             <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 hover:text-green-400 uppercase">
                 {{ $menu->name }}
             </h4>

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\View\Components\Frontend\Menus;
+namespace App\View\Components\Frontend\Meals;
 
-use App\Models\Menu;
+use App\Models\Meal;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 use Illuminate\View\View;
@@ -12,16 +12,16 @@ class Block extends Component
     public string $image;
 
     public function __construct(
-        public Menu $menu,
+        public Meal $meal,
     )
     {
-        $this->image = $menu->image && Storage::exists($menu->image) ?
-            asset(Storage::url($menu->image)) :
+        $this->image = $meal->image && Storage::exists($meal->image) ?
+            asset(Storage::url($meal->image)) :
             asset('/asset/images/unavailable.jpg');
     }
 
     public function render(): View
     {
-        return view('components.frontend.menus.block');
+        return view('components.frontend.meals.block');
     }
 }
