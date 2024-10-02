@@ -9,6 +9,7 @@ use App\Models\Reservation;
 use App\Models\Table;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween;
+use App\Support\Global\Breadcrumbs;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,11 +19,20 @@ class ReservationController extends Controller
 {
     public function stepOne(Request $request): View
     {
+        $breadcrumbs = (new Breadcrumbs())
+            ->add('Reservation')
+            ->add('Step one');
+
         $reservation = $request->session()->get('reservation');
         $minDate = Carbon::today();
         $maxDate = Carbon::now()->addWeek();
 
-        return view('frontend.reservations.step-one', compact('reservation', 'minDate', 'maxDate'));
+        return view('frontend.reservations.step-one', [
+            'breadcrumbs' => $breadcrumbs,
+            'reservation' => $reservation,
+            'minDate' => $minDate,
+            'maxDate' => $maxDate,
+        ]);
     }
 
     public function storeStepOne(Request $request): RedirectResponse
@@ -50,6 +60,11 @@ class ReservationController extends Controller
 
     public function stepTwo(Request $request): View
     {
+        $breadcrumbs = (new Breadcrumbs())
+            ->add('Reservation')
+            ->add('Step one', route('reservations.step.one'))
+            ->add('Step two');
+
         // Get inputs value from session.
         $reservation = $request->session()->get('reservation');
         $resTableIds = Reservation::query()
@@ -69,7 +84,12 @@ class ReservationController extends Controller
             ->get();
         $menus = Menu::all();
 
-        return view('frontend.reservations.step-two', compact('reservation', 'menus', 'tables'));
+        return view('frontend.reservations.step-two', [
+            'breadcrumbs' => $breadcrumbs,
+            'tables' => $tables,
+            'menus' => $menus,
+            'reservation' => $reservation,
+        ]);
     }
 
     public function storeStepTwo(Request $request): RedirectResponse
