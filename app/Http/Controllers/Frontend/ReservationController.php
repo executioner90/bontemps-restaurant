@@ -45,7 +45,7 @@ class ReservationController extends Controller
         // Save input values if something went wrong.
         $request->session()->put('reservation', $reservation);
 
-        return to_route('frontend.reservations.step.two');
+        return to_route('reservations.step.two');
     }
 
     public function stepTwo(Request $request): View
@@ -88,6 +88,6 @@ class ReservationController extends Controller
             $reservation->menus()->attach($request->menus);
         }
 
-        return to_route('frontend.thank.you');
+        return to_route('thank.you');
     }
 }

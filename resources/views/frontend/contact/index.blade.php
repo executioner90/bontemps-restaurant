@@ -82,4 +82,4 @@
     </div>
 @endsection
 
-@vite'('resources/js/contact/form/submit.js')
+@vite('resources/js/contact/form/submit.js')
