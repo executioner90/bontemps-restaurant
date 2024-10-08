@@ -15,6 +15,7 @@
             </li>
         </ul>
     </div>
+    <div class="flex justify-center text-gray-400">© {{ date('Y') }} Mohammad Aldaas. All rights reserved.</div>
     <div class="flex justify-center mt-4 lg:mt-0">
         <a>
             <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
