@@ -1,5 +1,6 @@
 document.getElementById('contactForm').addEventListener('submit', e => {
     e.preventDefault();
+    document.getElementById('submit').disabled = true;
 
     const { name, email, message } = e.target.elements;
     const [successMessage, errorMessage] = [
@@ -16,4 +17,8 @@ document.getElementById('contactForm').addEventListener('submit', e => {
             e.target.reset();
         })
         .catch(() => errorMessage.style.display = 'block');
+
+    setTimeout(function () {
+        document.getElementById('submit').disabled = false;
+    }, 1000)
 });
