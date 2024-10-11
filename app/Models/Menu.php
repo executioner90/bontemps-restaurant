@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Menu
@@ -35,6 +36,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Menu whereName($value)
  * @method static Builder|Menu whereSpecial($value)
  * @method static Builder|Menu whereUpdatedAt($value)
+ * @method static Builder|Menu search(?string $input)
  * @mixin Eloquent
  */
 class Menu extends Model
@@ -48,6 +50,13 @@ class Menu extends Model
         'image',
     ];
 
+    public function getImageAttribute($value): string
+    {
+        return $value && Storage::exists($value)
+            ? asset(Storage::url($value))
+            : asset('/asset/images/unavailable.jpg');
+    }
+
     public function meals(): HasMany
     {
         return $this->hasMany(Meal::class);
@@ -56,5 +65,14 @@ class Menu extends Model
     public function reservations(): BelongsToMany
     {
         return $this->belongsToMany(Reservation::class, 'reservation_menu');
+    }
+
+    public function scopeSearch(Builder $query, ?string $input): Builder
+    {
+        if (empty($input)) {
+            return $query;
+        }
+
+        return $query->where('name', 'LIKE', '%' . $input . '%');
     }
 }
