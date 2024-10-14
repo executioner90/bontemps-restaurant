@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class Contact
+class ContactController
 {
     public function submit(Request $request): JsonResponse
     {
