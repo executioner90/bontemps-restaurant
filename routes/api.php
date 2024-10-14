@@ -22,14 +22,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/contact', [App\Http\Controllers\Api\ContactController::class, 'submit'])
     ->name('submit.contact');
 
-Route::prefix('menus')
-    ->as('menus.')
+Route::prefix('menu')
+    ->as('menu.')
     ->group(function () {
-        Route::get('/', [Api\MenusController::class, 'index'])
+        Route::get('/', [Api\MenuController::class, 'index'])
             ->name('get.all');
 
-        Route::get('/search', [Api\MenusController::class, 'search'])
+        Route::get('/search', [Api\MenuController::class, 'search'])
             ->name('search');
+
+        Route::get('/{menu}/meals', [Api\MealController::class, 'index'])
+            ->name('meals');
+
+        Route::get('/{menu}/meals/search', [Api\MealController::class, 'search'])
+            ->name('meals.search');
     });
-
-
