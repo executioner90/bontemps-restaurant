@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/contact', [App\Http\Controllers\Api\ContactController::class, 'submit'])
     ->name('submit.contact');
+
+Route::prefix('menus')
+    ->as('menus.')
+    ->group(function () {
+        Route::get('/', [Api\MenusController::class, 'index'])
+            ->name('get.all');
+
+        Route::get('/search', [Api\MenusController::class, 'search'])
+            ->name('search');
+    });
+
+
