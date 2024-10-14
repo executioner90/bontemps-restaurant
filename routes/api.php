@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/contact', [App\Http\Controllers\Api\ContactController::class, 'submit'])
+Route::post('/contact', [Api\ContactController::class, 'submit'])
     ->name('submit.contact');
 
 Route::prefix('menus')
