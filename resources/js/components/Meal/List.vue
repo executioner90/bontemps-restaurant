@@ -18,7 +18,7 @@
             </button>
         </div>
 
-        <div class="grid lg:grid-cols-4 gap-6">
+        <div class="grid lg:grid-cols-4 gap-6" v-if="meals.length > 0">
             <div class="mb-2 rounded-lg shadow-lg flex flex-col" v-for="meal in meals">
                 <a :href="`/menus/${meal.name}`" class="flex flex-col flex-grow">
                     <img class="mx-auto max-w-full h-48"
@@ -45,6 +45,10 @@
                     </div>
                 </a>
             </div>
+        </div>
+
+        <div class="text-center mt-2" v-else>
+            No matches found...
         </div>
     </div>
 </template>
