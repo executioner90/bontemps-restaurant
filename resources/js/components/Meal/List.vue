@@ -48,7 +48,7 @@
         </div>
 
         <div class="text-center mt-2" v-else>
-            No matches found...
+            <p>No matches found...</p>
         </div>
     </div>
 </template>
