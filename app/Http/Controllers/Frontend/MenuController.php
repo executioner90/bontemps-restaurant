@@ -27,7 +27,7 @@ class MenuController extends Controller
             ->add($menu->name);
 
         return view('frontend.menus.show', [
-            'meals' => $menu->meals,
+            'menu' => $menu,
             'breadcrumbs' => $breadcrumbs
         ]);
     }

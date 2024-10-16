@@ -6,23 +6,23 @@ use App\Models\Menu;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class MenusController
+class MealController
 {
-    public function index(): JsonResponse
+        public function index(Menu $menu): JsonResponse
     {
         return response()->json(
-            Menu::all()->toArray()
+            $menu->meals->toArray()
         );
     }
 
-    public function search(Request $request): JsonResponse
+    public function search(Menu $menu, Request $request): JsonResponse
     {
         $request->validate([
             'query' => ['nullable', 'string'],
         ]);
 
         return response()->json(
-            Menu::query()->search($request->input('query'))->get()->toArray()
+            $menu->meals()->search($request->input('query'))->get()->toArray()
         );
     }
 }

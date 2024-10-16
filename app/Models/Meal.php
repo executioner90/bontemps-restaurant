@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Meal
@@ -34,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Meal whereName($value)
  * @method static Builder|Meal wherePrice($value)
  * @method static Builder|Meal whereUpdatedAt($value)
+ * @method static Builder|Menu search(?string $input)
  * @mixin Eloquent
  */
 class Meal extends Model
@@ -46,6 +48,13 @@ class Meal extends Model
         'description'
     ];
 
+    public function getImageAttribute($value): string
+    {
+        return $value && Storage::exists($value)
+            ? asset(Storage::url($value))
+            : asset('/asset/images/unavailable.jpg');
+    }
+
     public function menu(): BelongsTo
     {
         return $this->belongsTo(Menu::class);
@@ -54,5 +63,15 @@ class Meal extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'meal_product');
+    }
+
+    public function scopeSearch(Builder $query, ?string $input): Builder
+    {
+        if (empty($input)) {
+            return $query;
+        }
+
+        return $query->where('name', 'LIKE', '%' . $input . '%')
+            ->orWhere('description', 'LIKE', '%' . $input . '%');
     }
 }

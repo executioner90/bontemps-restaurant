@@ -19,25 +19,30 @@
         </div>
 
         <div class="grid lg:grid-cols-4 gap-6">
-            <div class="mb-2 rounded-lg shadow-lg" v-for="menu in menus">
-                <a :href="`/menus/${menu.name}`">
+            <div class="mb-2 rounded-lg shadow-lg flex flex-col" v-for="meal in meals">
+                <a :href="`/menus/${meal.name}`" class="flex flex-col flex-grow">
                     <img class="mx-auto max-w-full h-48"
-                         :src="menu.image"
+                         :src="meal.image"
                          alt="Menu Image"
                     />
 
-                    <div class="px-6 py-4">
+                    <div class="px-6 py-4 flex-grow">
                         <div class="flex mb-2 h-6">
-                        <span :class="{ 'opacity-0' : !menu.special }" class="px-4 py-0.5 text-sm bg-red-500 rounded-full text-red-50">
-                            Special menu
-                        </span>
+                            <span class="px-4 py-0.5 text-sm bg-red-500 rounded-full text-red-50">
+                                {{ menuName }}
+                            </span>
                         </div>
 
                         <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 hover:text-green-400 uppercase">
-                            {{ menu.name }}
+                            {{ meal.name }}
                         </h4>
+
+                        <p class="leading-normal text-gray-700 flex-grow">{{ meal.description }}.</p>
                     </div>
 
+                    <div class="flex items-center justify-between p-4">
+                        <span class="text-xl text-green-600">&euro; {{ meal.price }}</span>
+                    </div>
                 </a>
             </div>
         </div>
@@ -53,31 +58,43 @@ export default {
         toast,
     },
 
+    props: {
+        menuId: {
+            type: Number,
+            default: null,
+        },
+
+        menuName: {
+            type: String,
+            default: null,
+        },
+    },
+
     data() {
         return {
-            menus: [],
+            meals: [],
             query: null,
-            errorMessage: 'Something went wrong while fetching menus',
+            errorMessage: 'Something went wrong while fetching meals',
         }
     },
 
     watch: {
         query(value) {
             if (value === '') {
-                this.fetchMenus();
+                this.fetchMeals();
             }
         }
     },
 
     mounted() {
-        this.fetchMenus()
+        this.fetchMeals()
     },
 
     methods: {
-        fetchMenus() {
-            axios.get('api/menu')
+        fetchMeals() {
+            axios.get(`/api/menu/${this.menuId}/meals`)
                 .then((response) => {
-                    this.menus = response.data;
+                    this.meals = response.data;
                 })
                 .catch(() => {
                     this.$refs.toast.toastError(this.errorMessage);
@@ -85,13 +102,13 @@ export default {
         },
 
         search() {
-            axios.get('api/menu/search', {
+            axios.get(`/api/menu/${this.menuId}/meals/search`, {
                 params: {
                     query: this.query
                 }
             })
                 .then((response) => {
-                    this.menus = response.data;
+                    this.meals = response.data;
                 })
                 .catch(() => {
                     this.$refs.toast.toastError(this.errorMessage);
