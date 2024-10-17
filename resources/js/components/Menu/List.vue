@@ -18,7 +18,7 @@
             </button>
         </div>
 
-        <div class="grid lg:grid-cols-4 gap-6">
+        <div class="grid lg:grid-cols-4 gap-6" v-if="menus.length > 0">
             <div class="mb-2 rounded-lg shadow-lg" v-for="menu in menus">
                 <a :href="`/menus/${menu.name}`">
                     <img class="mx-auto max-w-full h-48"
@@ -40,6 +40,10 @@
 
                 </a>
             </div>
+        </div>
+
+        <div class="text-center mt-2" v-else>
+            <p>No matches found...</p>
         </div>
     </div>
 </template>
