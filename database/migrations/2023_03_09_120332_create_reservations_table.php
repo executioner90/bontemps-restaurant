@@ -20,11 +20,8 @@ return new class extends Migration
             $table->string('mobile_number');
             $table->string('email');
             $table->dateTime('reservation_date');
-            $table->foreignId('table_id')->constrained('tables')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->integer('total_persons');
-            $table->boolean('confirmed');
+            $table->integer('total_guests');
+            $table->boolean('confirmed')->default(false);
             $table->timestamp('confirmed_at')->nullable();
             $table->timestamps();
         });

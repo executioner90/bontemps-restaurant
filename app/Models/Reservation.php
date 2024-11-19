@@ -21,13 +21,13 @@ use Illuminate\Support\Carbon;
  * @property string $mobile_number
  * @property string $reservation_date
  * @property int $table_id
- * @property int $total_persons
+ * @property int $total_guests
  * @property int $confirmed
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, \App\Models\Menu> $menus
+ * @property-read Collection<int, Menu> $menus
  * @property-read int|null $menus_count
- * @property-read \App\Models\Table $table
+ * @property-read Table $table
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
  * @method static Builder|Reservation query()
@@ -53,7 +53,7 @@ class Reservation extends Model
         'mobile_number',
         'reservation_date',
         'table_id',
-        'guest_number',
+        'total_guests',
     ];
 
     public function table(): BelongsTo

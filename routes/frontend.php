@@ -19,28 +19,17 @@ Route::prefix('/menus')
         }
     );
 
-Route::prefix('/reservations')
-    ->as('reservations.')
+Route::prefix('/reservation')
+    ->as('reservation.')
     ->group(
         function () {
-            Route::get('/step-one', [Frontend\ReservationController::class, 'stepOne'])
-                ->name('step.one');
+            Route::resource('/', Frontend\ReservationController::class)
+                ->only(['create', 'store']);
 
-            Route::post('/step-one', [Frontend\ReservationController::class, 'storeStepOne'])
-                ->name('store.step.one');
-
-            Route::get('/step-two', [Frontend\ReservationController::class, 'stepTwo'])
-                ->name('step.two');
-
-            Route::post('/step-two', [Frontend\ReservationController::class, 'storeStepTwo'])
-                ->name('store.step.two');
+            Route::get('/finish', [Frontend\ReservationController::class, 'finish'])
+                ->name('finish');
         }
     );
-
-
-
-Route::get('/thank-you', [HomeController::class, 'thankYou'])
-    ->name('thank.you');
 
 Route::get('/about-us', [Frontend\AboutUsController::class, 'index'])
     ->name('about.us');

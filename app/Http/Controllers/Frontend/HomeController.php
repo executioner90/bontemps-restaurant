@@ -22,14 +22,4 @@ class HomeController extends Controller
             'breadcrumbs' => $breadcrumbs,
         ]);
     }
-
-    public function thankYou()
-    {
-        $breadcrumbs = (new Breadcrumbs())
-            ->add('Thank you', route('thank.you'));
-
-        return view('frontend.reservations.thanks', [
-            'breadcrumbs' => $breadcrumbs,
-        ]);
-    }
 }

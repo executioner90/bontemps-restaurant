@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Frontend routes
-require __DIR__.'/frontend.php';
-
+Route::prefix('/')
+    ->group(__DIR__.'/frontend.php');
 
 Route::get('/dashboard', function () {
     // Check if logged user is admin.
