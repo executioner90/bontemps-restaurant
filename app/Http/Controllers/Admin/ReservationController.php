@@ -41,7 +41,7 @@ class ReservationController extends Controller
     public function create(): View
     {
         $tables = Table::query()
-            ->where('status', TableStatus::Available)
+            ->where('status', TableStatus::AVAILABLE)
             ->get();
         $menus = Menu::all();
 
@@ -90,7 +90,7 @@ class ReservationController extends Controller
     public function edit(Reservation $reservation): View
     {
         $tables = Table::query()
-            ->where('status', TableStatus::Available)
+            ->where('status', TableStatus::AVAILABLE)
             ->get();
         $menus = Menu::all();
 

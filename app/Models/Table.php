@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\TableStatus;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 
 /**
  * App\Models\Table
@@ -16,10 +15,9 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property int $number
  * @property int $capacity
- * @property TableStatus $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
+ * @property-read Collection<int, TimeSlot> $time_slots
  * @property-read int|null $reservations_count
  * @method static Builder|Table newModelQuery()
  * @method static Builder|Table newQuery()
@@ -39,15 +37,10 @@ class Table extends Model
     protected $fillable = [
         'number',
         'capacity',
-        'status',
     ];
 
-    protected $casts = [
-        'status' => TableStatus::class,
-    ];
-
-    public function reservations(): HasMany
+    public function timeSlots(): HasMany
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany(TimeSlot::class);
     }
 }

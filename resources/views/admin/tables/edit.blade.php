@@ -10,7 +10,8 @@
             <h1>Update table</h1>
             {{-- back to index page --}}
             <div class="flex justify-end mb-2">
-                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.tables.index') }}">
+                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white"
+                   href="{{ route('admin.tables.index') }}">
                     Back
                 </a>
             </div>
@@ -24,17 +25,19 @@
                             <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
                             <div class="mt-1">
                                 <input type="text" id="name" name="name" value="{{ $table->name }}"
-                                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-400 @enderror" />
+                                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-400 @enderror"/>
                             </div>
                         </div>
                         @error('name')
                         <div class="text-sm text-red-400">{{ $message }}</div>
                         @enderror
                         <div class="sm:col-span-6">
-                            <label for="guest_number" class="block text-sm font-medium text-gray-700"> Guest number </label>
+                            <label for="guest_number" class="block text-sm font-medium text-gray-700"> Guest
+                                number </label>
                             <div class="mt-1">
-                                <input type="text" id="guest_number" name="guest_number" value="{{ $table->guest_number }}"
-                                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('guest_number') border-red-400 @enderror" />
+                                <input type="text" id="guest_number" name="guest_number"
+                                       value="{{ $table->guest_number }}"
+                                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('guest_number') border-red-400 @enderror"/>
                             </div>
                         </div>
                         @error('guest_number')
@@ -43,7 +46,8 @@
                         <div class="sm:col-span-6">
                             <label for="status" class="block text-sm font-medium text-gray-700"> Status </label>
                             <div class="mt-1">
-                                <select id="status" name="status" class="form-multiselect block w-full mt-1 @error('status') border-red-400 @enderror">
+                                <select id="status" name="status"
+                                        class="form-multiselect block w-full mt-1 @error('status') border-red-400 @enderror">
                                     @foreach(App\Enums\TableStatus::cases() as $status)
                                         <option value="{{ $status->value }}" @selected($status->value == $table->status->value)>{{ $status->name }}</option>
                                     @endforeach
@@ -54,7 +58,9 @@
                         <div class="text-sm text-red-400">{{ $message }}</div>
                         @enderror
                         <div class="mt-6">
-                            <button type="submit" class="px-4 py-2 bg-gray-500 hover:bg-gray-700 rounded-lg text-white  ">Update</button>
+                            <button type="submit"
+                                    class="px-4 py-2 bg-gray-500 hover:bg-gray-700 rounded-lg text-white  ">Update
+                            </button>
                         </div>
                     </form>
                 </div>
