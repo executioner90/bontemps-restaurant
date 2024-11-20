@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('date');
             $table->integer('total_guests');
             $table->enum('status', array(1, 2, 3, 4))
+                ->default(1)
                 ->comment('1 = unconfirmed, 2 = confirmed, 3 = canceled, 4 = completed');
             $table->timestamp('status_changed_at')->nullable();
             $table->text('note')->nullable();

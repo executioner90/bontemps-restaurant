@@ -21,6 +21,7 @@ return new class extends Migration
             $table->time('from');
             $table->time('till');
             $table->enum('status', array(1, 2, 3))
+                ->default(1)
                 ->comment('1 = available, 2 = reserved, 3 = unavailable');
             $table->timestamps();
         });
