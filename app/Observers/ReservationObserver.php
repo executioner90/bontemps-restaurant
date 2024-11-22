@@ -7,13 +7,17 @@ use Carbon\Carbon;
 
 class ReservationObserver
 {
+    public function created(Reservation $reservation): void
+    {
+        if ($reservation->isDirty('status')) {
+            // @todo update chosen time slot status
+        }
+    }
+
     public function updated(Reservation $reservation): void
     {
-        if (
-            $reservation->isDirty('confirmed') &&
-            $reservation->confirmed
-        ) {
-            $reservation->confirmed_at = Carbon::now();
+        if ($reservation->isDirty('status')) {
+            // @todo update chosen time slot status
         }
     }
 }
