@@ -5,7 +5,7 @@ namespace App\Rules;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
 
-class DateBetween implements Rule
+class TimeBetween implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,9 +26,13 @@ class DateBetween implements Rule
      */
     public function passes($attribute, $value)
     {
-        $lastDate = Carbon::now()->addWeek();
+        $pickupDate = Carbon::parse($value);
+        $pickupTime = Carbon::createFromTime($pickupDate->hour, $pickupDate->minute, $pickupDate->second);
+        // When the restaurant is open
+        $earliestTime = Carbon::createFromTimeString('17:00:00');
+        $lastTime = Carbon::createFromTimeString('24:00:00');
 
-        return $value >= now() && $value <= $lastDate;
+        return $pickupTime->between($earliestTime, $lastTime);
     }
 
     /**
@@ -38,6 +42,6 @@ class DateBetween implements Rule
      */
     public function message()
     {
-        return 'Please enter a date between a week from now.';
+        return 'Please choose a time between 17:00 and 00:00';
     }
 }
