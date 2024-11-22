@@ -11,7 +11,7 @@
                 </p>
 
                 <div class="my-5">
-                    <a href="{{ route('reservations.step.one') }}" type="button"
+                    <a href="{{ route('reservation.create') }}" type="button"
                        class="px-6 py-2 text-base font-bold text-white bg-green-600 rounded-full md:w-auto hover:bg-green-500 focus:outline-none">
                         Make reservation
                     </a>
