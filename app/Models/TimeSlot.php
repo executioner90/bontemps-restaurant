@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -33,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|TimeSlot whereNumber($value)
  * @method static Builder|TimeSlot whereStatus($value)
  * @method static Builder|TimeSlot whereUpdatedAt($value)
+ * @method static Builder|TimeSlot availableSlots()
  * @mixin \Eloquent
  */
 class TimeSlot extends Model
@@ -57,8 +58,13 @@ class TimeSlot extends Model
         return $this->belongsTo(Table::class);
     }
 
-    public function reservations(): HasMany
+    public function reservations(): BelongsToMany
     {
-        return $this->hasMany(Reservation::class);
+        return $this->belongsToMany(Reservation::class, 'reservations_time_slots');
+    }
+
+    public function scopeAvailableSlots(Builder $query): Builder
+    {
+        return $query->where('status', TableStatus::AVAILABLE);
     }
 }
