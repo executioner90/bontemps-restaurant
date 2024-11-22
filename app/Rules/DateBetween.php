@@ -24,7 +24,7 @@ class DateBetween implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $lastDate = Carbon::now()->addWeek();
 
@@ -36,7 +36,7 @@ class DateBetween implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'Please enter a date between a week from now.';
     }

@@ -1,13 +1,9 @@
+@import "bootstrap/scss/bootstrap";
 @import "@fortawesome/fontawesome-free/css/all.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     border-color: rgb(74 222 128) !important;
     outline: none !important;
     box-shadow: none !important;
 }
-
