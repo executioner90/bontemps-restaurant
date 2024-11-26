@@ -8,6 +8,7 @@
 
     <form method="POST" action="{{ route('reservation.store') }}">
         @csrf
+        @honeypot
 
         <div class="sm:col-span-6">
             <label for="first_name" class="block text-sm font-medium text-gray-700"> First name </label>
