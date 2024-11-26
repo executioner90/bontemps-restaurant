@@ -15,7 +15,7 @@
         <div class="text-sm text-red-400">{{ $message }}</div>
         @enderror
 
-        <div class="sm:col-span-6">
+        <div class="sm:col-span-6 mt-3">
             <label for="last_name" class="block text-sm font-medium text-gray-700"> Last name </label>
             <div class="mt-1">
                 <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
@@ -26,7 +26,7 @@
         <div class="text-sm text-red-400">{{ $message }}</div>
         @enderror
 
-        <div class="sm:col-span-6">
+        <div class="sm:col-span-6 mt-3">
             <label for="email" class="block text-sm font-medium text-gray-700"> Email </label>
             <div class="mt-1">
                 <input type="text" id="email" name="email" value="{{ old('email') }}"
@@ -37,7 +37,7 @@
         <div class="text-sm text-red-400">{{ $message }}</div>
         @enderror
 
-        <div class="sm:col-span-6">
+        <div class="sm:col-span-6 mt-3">
             <label for="mobile_number" class="block text-sm font-medium text-gray-700"> Phone number </label>
             <div class="mt-1">
                 <input type="text" id="mobile_number" name="mobile_number" value="{{ old('mobile_number') }}"
@@ -48,7 +48,7 @@
         <div class="text-sm text-red-400">{{ $message }}</div>
         @enderror
 
-        <div class="sm:col-span-6">
+        <div class="sm:col-span-6 mt-3">
             <label for="total_guests" class="block text-sm font-medium text-gray-700"> Total guests </label>
             <div class="mt-1">
                 <input type="number" id="total_guests" name="total_guests" value="{{ old('total_guests') }}"
@@ -59,7 +59,7 @@
         <div class="text-sm text-red-400">{{ $message }}</div>
         @enderror
 
-        <div class="sm:col-span-6">
+        <div class="sm:col-span-6 mt-3">
             <label for="date" class="block text-sm font-medium text-gray-700"> Date </label>
             <div class="mt-1">
                 <input type="date" id="date" name="date"
@@ -73,7 +73,7 @@
         <div class="text-sm text-red-400">{{ $message }}</div>
         @enderror
 
-        <div class="sm:col-span-6">
+        <div class="sm:col-span-6 mt-3">
             <label for="time_slot" class="block text-sm font-medium text-gray-700"> Choose a suitable time </label>
             <div class="mt-1">
                 <select
@@ -86,7 +86,7 @@
                 </select>
             </div>
             <small>Fill first total guests and date.</small>
-            <div>
+            <div class="min-h-6">
                 <small id="availableTimeMessage"></small>
             </div>
 
