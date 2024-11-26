@@ -7,13 +7,13 @@
                 <div class="h-32 md:h-auto md:w-1/2">
                     <img
                         class="object-cover w-full h-full"
-                        src="https://cdn.pixabay.com/photo/2021/01/15/17/01/green-5919790_960_720.jpg"
+                        src="{{ asset('/asset/images/reservation.jpg') }}"
                         alt="Make reservation"
                     >
                 </div>
 
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-                    @include('partials.frontend.reservation.form')
+                    @include('partials.frontend.reservation.form', [$maxCapacity])
                 </div>
             </div>
         </div>

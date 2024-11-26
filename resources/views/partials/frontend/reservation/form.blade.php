@@ -1,6 +1,11 @@
 <div class="w-full">
     <h3 class="mb-4 text-xl font-bold text-green-400">Make reservation</h3>
 
+    <div class="bg-blue-100 text-blue-800 text-center p-4 mb-4 border border-blue-500 rounded-lg">
+        <strong class="font-semibold">Notice:</strong> For reservations with more than {{ $maxCapacity }} guests, please
+        <a href="{{ route('contact') }}" class="text-blue-800 underline font-medium">contact us</a> for customized arrangements.
+    </div>
+
     <form method="POST" action="{{ route('reservation.store') }}">
         @csrf
 
@@ -87,7 +92,9 @@
             </div>
             <small>Fill first total guests and date.</small>
             <div class="min-h-6">
-                <small id="availableTimeMessage"></small>
+                <small id="availableTimeMessage" class="hidden text-red-400">
+                    No available time for selected date and total guests.
+                </small>
             </div>
 
         </div>

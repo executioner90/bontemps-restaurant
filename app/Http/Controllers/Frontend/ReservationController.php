@@ -29,6 +29,7 @@ class ReservationController extends Controller
             'breadcrumbs' => $breadcrumbs,
             'minDate' => $minDate,
             'maxDate' => $maxDate,
+            'maxCapacity' => Table::query()->max('capacity'),
         ]);
     }
 

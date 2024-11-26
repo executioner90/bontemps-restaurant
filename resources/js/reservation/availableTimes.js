@@ -17,15 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(({ data }) => {
                 if (data.length === 0) {
-                    availableTimeMessage.innerHTML = 'No available time for selected date and total guests';
-                    availableTimeMessage.classList.add('text-red-500')
+                    availableTimeMessage.classList.remove('hidden')
 
                     return;
                 }
 
                 // Clear previous options
                 availableTimesSelect.innerHTML = '';
-                availableTimeMessage.innerHTML = '';
+                availableTimeMessage.classList.add('hidden')
 
                 const defaultOption = document.createElement('option');
                 defaultOption.value = '';
