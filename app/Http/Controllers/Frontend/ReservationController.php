@@ -20,8 +20,7 @@ class ReservationController extends Controller
     public function create(): View
     {
         $breadcrumbs = (new Breadcrumbs())
-            ->add('Reservation')
-            ->add('Step one');
+            ->add('Reservation');
 
         $minDate = Carbon::today();
         $maxDate = Carbon::now()->addWeek();

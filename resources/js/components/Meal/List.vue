@@ -51,7 +51,7 @@
 
 <script>
 import axios from 'axios';
-import toast from '@/components/Global/Toast.vue'
+import toast from '@/components/Global/Toast.vue';
 
 export default {
     components: {

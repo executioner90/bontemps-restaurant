@@ -37,3 +37,6 @@ Route::prefix('menu')
         Route::get('/{menu}/meals/search', [Api\MealController::class, 'search'])
             ->name('meals.search');
     });
+
+Route::get('/reservation/available-times', [Api\ReservationController::class, 'getAvailableTimes'])
+    ->name('reservation.available-times.get');
