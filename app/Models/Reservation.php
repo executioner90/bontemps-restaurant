@@ -64,8 +64,8 @@ class Reservation extends Model
         'status' => ReservationStatus::class,
     ];
 
-    public function timeSlots(): HasMany
+    public function timeSlots(): BelongsToMany
     {
-        return $this->hasMany(TimeSlot::class);
+        return $this->belongsToMany(TimeSlot::class, 'reservations_time_slots');
     }
 }

@@ -2,22 +2,27 @@
 
 namespace App\Observers;
 
+use App\Enums\ReservationStatus;
+use App\Enums\TableStatus;
 use App\Models\Reservation;
-use Carbon\Carbon;
 
 class ReservationObserver
 {
     public function created(Reservation $reservation): void
     {
-        if ($reservation->isDirty('status')) {
-            // @todo update chosen time slot status
-        }
+        //
     }
 
     public function updated(Reservation $reservation): void
     {
         if ($reservation->isDirty('status')) {
-            // @todo update chosen time slot status
+            foreach ($reservation->timeslots() as $timeslot) {
+                if (in_array($reservation->status, ReservationStatus::getReservedStatus())) {
+                    $timeslot->status = TableStatus::RESERVED;
+                } else {
+                    $timeslot->status = TableStatus::AVAILABLE;
+                }
+            }
         }
     }
 }

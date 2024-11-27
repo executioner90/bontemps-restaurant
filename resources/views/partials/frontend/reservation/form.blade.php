@@ -93,9 +93,7 @@
             </div>
             <small>Fill first total guests and date.</small>
             <div class="min-h-6">
-                <small id="availableTimeMessage" class="hidden text-red-400">
-                    No available time for selected date and total guests.
-                </small>
+                <small id="availableTimeMessage" class="text-red-400"></small>
             </div>
 
         </div>

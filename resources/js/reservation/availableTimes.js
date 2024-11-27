@@ -17,20 +17,19 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(({ data }) => {
                 if (data.length === 0) {
-                    availableTimeMessage.classList.remove('hidden')
+                    availableTimeMessage.innerHTML = 'No available time for selected date and total guests.';
 
                     return;
                 }
 
                 // Clear previous options
                 availableTimesSelect.innerHTML = '';
-                availableTimeMessage.classList.add('hidden')
+                availableTimeMessage.innerHTML= '';
 
                 const defaultOption = document.createElement('option');
                 defaultOption.value = '';
                 defaultOption.textContent = 'Select time';
                 defaultOption.disabled = true;
-                defaultOption.selected = true;
                 availableTimesSelect.appendChild(defaultOption);
 
                 // Populate available times
@@ -45,9 +44,15 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(({ error }) => {
                 console.error("Error fetching available times: ", error);
+
+                availableTimeMessage.innerHTML = 'Something went wrong getting available times';
             });
     };
 
     totalGuestsInput.addEventListener('keyup', fetchAvailableTimes);
     dateInput.addEventListener('change', fetchAvailableTimes);
+
+    if (totalGuestsInput.value && dateInput.value) {
+        fetchAvailableTimes();
+    }
 });

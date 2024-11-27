@@ -18,9 +18,9 @@ class ReservationController
                 'required',
                 'date',
                 'after_or_equal:today',
-                'before_or_equal:' . now()->addWeek()->format('Y-m-d')
+                'before_or_equal:' . now()->addWeek()->endOfDay()->format('Y-m-d')
             ],
-            'totalGuests' => ['required', 'integer', 'min:1'],
+            'totalGuests' => ['required', 'numeric', 'min:1', 'max:'. Table::query()->max('capacity')],
         ]);
 
         $date = Carbon::parse($request->get('date'))->format('Y-m-d');
