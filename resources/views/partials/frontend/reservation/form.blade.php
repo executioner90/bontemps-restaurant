@@ -95,9 +95,18 @@
             <div class="min-h-6">
                 <small id="availableTimeMessage" class="text-red-400"></small>
             </div>
-
         </div>
         @error('time_slot')
+        <div class="text-sm text-red-400">{{ $message }}</div>
+        @enderror
+
+        <div class="sm:col-span-6 mt-3">
+            <label for="note" class="block text-sm font-medium text-gray-700"> Note </label>
+            <div class="mt-1">
+                <textarea id="note" name="note" class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('note') border-red-400 @enderror"></textarea>
+            </div>
+        </div>
+        @error('note')
         <div class="text-sm text-red-400">{{ $message }}</div>
         @enderror
 

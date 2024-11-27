@@ -35,6 +35,7 @@ class ReservationStoreRequest extends FormRequest
             'mobile_number' => ['required', 'string', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'date' => ['required', 'date', new DateBetween],
             'total_guests' => ['required', 'numeric', 'min:1', 'max:'. Table::query()->max('capacity')],
+            'note' => ['nullable', 'string'],
             'time_slot' => ['required', 'numeric', 'exists:time_slots,id'],
         ];
     }
