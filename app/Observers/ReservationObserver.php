@@ -13,6 +13,8 @@ class ReservationObserver
 
     public function updated(Reservation $reservation): void
     {
-        //
+        if ($reservation->isDirty('status')) {
+            $reservation->status_changed_at = now();
+        }
     }
 }
