@@ -92,7 +92,7 @@
                 </select>
             </div>
             <small>Fill first total guests and date.</small>
-            <div class="min-h-6">
+            <div>
                 <small id="availableTimeMessage" class="text-red-400"></small>
             </div>
         </div>
@@ -111,8 +111,8 @@
         @enderror
 
         <div class="mt-6 flex justify-end">
-            <button type="submit" class="px-4 py-2 bg-green-400 hover:bg-green-600 rounded-lg text-white">Make
-                reservation
+            <button type="submit" class="px-4 py-2 bg-green-400 hover:bg-green-600 rounded-lg text-white">
+                Make reservation
             </button>
         </div>
     </form>
