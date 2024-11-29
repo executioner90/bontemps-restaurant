@@ -20,8 +20,8 @@ class MealProductSeeder extends Seeder
 
         Schema::disableForeignKeyConstraints();
 
-        DB::table('meal_product')->truncate();
-        DB::table('meal_product')->insert($mealProductRelations);
+        DB::table('meals_products')->truncate();
+        DB::table('meals_products')->insert($mealProductRelations);
 
         Schema::enableForeignKeyConstraints();
     }

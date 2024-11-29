@@ -14,21 +14,7 @@ class HomeController extends Controller
         $breadcrumbs = (new Breadcrumbs())
             ->add('Home', route('home'));
 
-        $specials = Menu::query()
-            ->where('special', 1)
-            ->get();
-
         return view('frontend.home', [
-            'breadcrumbs' => $breadcrumbs,
-        ]);
-    }
-
-    public function thankYou()
-    {
-        $breadcrumbs = (new Breadcrumbs())
-            ->add('Thank you', route('thank.you'));
-
-        return view('frontend.reservations.thanks', [
             'breadcrumbs' => $breadcrumbs,
         ]);
     }

@@ -11,14 +11,15 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('time_slots', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30);
-            $table->decimal('stock')->nullable();
-            $table->string('unit');
-            $table->float('min_available')->nullable();
+            $table->foreignId('table_id')
+                ->constrained('tables')
+                ->onDelete('cascade');
+            $table->time('from');
+            $table->time('till');
             $table->timestamps();
         });
     }
@@ -28,8 +29,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('time_slots');
     }
 };

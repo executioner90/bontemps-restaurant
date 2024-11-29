@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('mobile_number');
             $table->string('email');
-            $table->dateTime('reservation_date');
-            $table->foreignId('table_id')->constrained('tables')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->integer('total_persons');
-            $table->boolean('confirmed');
-            $table->timestamp('confirmed_at')->nullable();
+            $table->date('date');
+            $table->integer('total_guests');
+            $table->enum('status', array(1, 2, 3, 4))
+                ->default(1)
+                ->comment('1 = unconfirmed, 2 = confirmed, 3 = canceled, 4 = completed');
+            $table->timestamp('status_changed_at')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
@@ -35,7 +35,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('reservations');
     }

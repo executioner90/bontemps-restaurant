@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Table;
 use App\Rules\DateBetween;
-use App\Rules\TimeBetween;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\App;
 
 class ReservationStoreRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class ReservationStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -23,15 +24,28 @@ class ReservationStoreRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
-            'mobile_number' => ['required'],
-            'reservation_date' => ['required', 'date', new DateBetween, new TimeBetween],
-            'guest_number' => ['required', 'numeric'],
-            'table_id' => ['required', 'numeric'],
+            'email' => App::environment('production')
+                ? 'required|email:rfc,dns'
+                : 'required|email:rfc',
+            'mobile_number' => ['required', 'string', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+            'date' => ['required', 'date', new DateBetween],
+            'total_guests' => ['required', 'numeric', 'min:1', 'max:'. Table::query()->max('capacity')],
+            'note' => ['nullable', 'string'],
+            'time_slot' => ['required', 'numeric', 'exists:time_slots,id'],
         ];
+    }
+
+    public function validatedWithTimeSlot(): array
+    {
+        $validated = $this->validated();
+        $validatedTimeSlot = $validated['time_slot'];
+        unset($validated['time_slot']);
+
+        return [$validated, $validatedTimeSlot];
     }
 }

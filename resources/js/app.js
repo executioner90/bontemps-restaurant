@@ -1,9 +1,11 @@
+import axios from 'axios';
 import 'bootstrap';
 import Alpine from 'alpinejs';
 import Vue from "vue";
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 window.Alpine = Alpine;
+window.axios = axios;
 
 Alpine.start();
 

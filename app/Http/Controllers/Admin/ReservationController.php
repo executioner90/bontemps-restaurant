@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Models\Menu;
@@ -41,7 +40,7 @@ class ReservationController extends Controller
     public function create(): View
     {
         $tables = Table::query()
-            ->where('status', TableStatus::Available)
+            ->where('status', TableStatus::AVAILABLE)
             ->get();
         $menus = Menu::all();
 
@@ -90,7 +89,7 @@ class ReservationController extends Controller
     public function edit(Reservation $reservation): View
     {
         $tables = Table::query()
-            ->where('status', TableStatus::Available)
+            ->where('status', TableStatus::AVAILABLE)
             ->get();
         $menus = Menu::all();
 

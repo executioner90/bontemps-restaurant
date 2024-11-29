@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ReservationStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,15 +20,15 @@ use Illuminate\Support\Carbon;
  * @property string $first_name
  * @property string $last_name
  * @property string $mobile_number
- * @property string $reservation_date
- * @property int $table_id
- * @property int $total_persons
- * @property int $confirmed
+ * @property string $email
+ * @property string $date
+ * @property int $total_guests
+ * @property ReservationStatus $status
+ * @property int $status_changed_at
+ * @property string $note
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, \App\Models\Menu> $menus
- * @property-read int|null $menus_count
- * @property-read \App\Models\Table $table
+ * @property-read Collection<int, TimeSlot> $time_slots
  * @method static Builder|Reservation newModelQuery()
  * @method static Builder|Reservation newQuery()
  * @method static Builder|Reservation query()
@@ -51,18 +52,20 @@ class Reservation extends Model
         'first_name',
         'last_name',
         'mobile_number',
-        'reservation_date',
-        'table_id',
-        'guest_number',
+        'email',
+        'date',
+        'total_guests',
+        'status',
+        'status_changed_at',
+        'note',
     ];
 
-    public function table(): BelongsTo
-    {
-        return $this->belongsTo(Table::class);
-    }
+    protected $casts = [
+        'status' => ReservationStatus::class,
+    ];
 
-    public function menus(): BelongsToMany
+    public function timeSlots(): BelongsToMany
     {
-        return $this->belongsToMany(Menu::class, 'reservation_menu');
+        return $this->belongsToMany(TimeSlot::class, 'reservations_time_slots');
     }
 }

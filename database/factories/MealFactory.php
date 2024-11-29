@@ -2,11 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Meal;
+use App\Models\Menu;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Meal>
+ * @extends Factory<Meal>
  */
 class MealFactory extends Factory
 {
@@ -18,7 +20,7 @@ class MealFactory extends Factory
     public function definition(): array
     {
         return [
-            'menu_id' => $this->faker->numberBetween(1, 8),
+            'menu_id' => Menu::all()->random()->id,
             'name' => $this->faker->name,
             'description' => $this->faker->text,
             'image' => null,

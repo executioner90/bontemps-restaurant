@@ -11,10 +11,12 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('meals', function (Blueprint $table) {
-            $table->foreignId('menu_id')->after('id')->constrained('menus')->cascadeOnDelete();
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -23,10 +25,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('meals', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('menu_id');
-        });
+        Schema::dropIfExists('password_resets');
     }
 };
