@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Models\Reservation;
 use App\Models\Table;
-use App\Rules\DateBetween;
 use App\Support\Global\Breadcrumbs;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 
 class ReservationController extends Controller
@@ -39,11 +36,6 @@ class ReservationController extends Controller
         $reservation = Reservation::query()->create($validated);
 
         $reservation->timeSlots()->attach($validatedTimeSlot);
-
-        foreach ($reservation->timeSlots as $timeSlot) {
-            $timeSlot->status = TableStatus::RESERVED;
-            $timeSlot->save();
-        }
 
         return to_route('reservation.finish');
     }

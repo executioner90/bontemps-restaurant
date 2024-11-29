@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\TableStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +17,6 @@ use Illuminate\Support\Carbon;
  * @property int $table_id
  * @property int $from
  * @property int $till
- * @property TableStatus $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Table> $table
@@ -46,11 +44,6 @@ class TimeSlot extends Model
         'table_id',
         'from',
         'till',
-        'status',
-    ];
-
-    protected $casts = [
-        'status' => TableStatus::class,
     ];
 
     public function table(): BelongsTo
@@ -61,10 +54,5 @@ class TimeSlot extends Model
     public function reservations(): BelongsToMany
     {
         return $this->belongsToMany(Reservation::class, 'reservations_time_slots');
-    }
-
-    public function scopeAvailableSlots(Builder $query): Builder
-    {
-        return $query->where('status', TableStatus::AVAILABLE);
     }
 }

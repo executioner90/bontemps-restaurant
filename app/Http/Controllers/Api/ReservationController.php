@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\ReservationStatus;
-use App\Enums\TableStatus;
 use App\Models\Table;
 use App\Models\TimeSlot;
 use Carbon\Carbon;
@@ -43,9 +42,8 @@ class ReservationController
         }
 
         $availableTimes = TimeSlot::query()
-            ->where('status', TableStatus::AVAILABLE)
             ->whereDoesntHave('reservations', function ($query) use ($date) {
-                $query->whereIn('status', [ReservationStatus::UNCONFIRMED, ReservationStatus::CONFIRMED])
+                $query->whereIn('status', ReservationStatus::getReservedStatus())
                     ->where('date', $date);
             })
             ->whereHas('table', function ($query) use ($tables) {
