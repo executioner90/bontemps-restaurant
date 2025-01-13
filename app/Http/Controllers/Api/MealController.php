@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class MealController
 {
-        public function index(Menu $menu): JsonResponse
+    public function index(Menu $menu): JsonResponse
     {
         return response()->json(
             $menu->meals->toArray()
