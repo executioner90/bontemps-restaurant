@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Menu;
 use App\Support\Global\Breadcrumbs;
 use Illuminate\View\View;
 

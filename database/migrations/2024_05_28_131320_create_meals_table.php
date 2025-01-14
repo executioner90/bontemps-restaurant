@@ -19,6 +19,7 @@ return new class extends Migration
                 ->constrained('menus')
                 ->cascadeOnDelete();
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->text('description');
             $table->string('image')->nullable();
             $table->decimal('price', 10);

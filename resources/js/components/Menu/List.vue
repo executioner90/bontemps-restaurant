@@ -23,7 +23,7 @@
             </div>
 
             <!-- Card Content -->
-            <a :href="`/menus/${menu.name}`">
+            <a :href="`/menus/${menu.slug}`">
               <!-- Image -->
               <img class="mx-auto max-w-full"
                    :src="menu.image"

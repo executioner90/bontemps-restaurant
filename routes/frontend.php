@@ -14,7 +14,7 @@ Route::prefix('/menus')
             Route::get('/', [Frontend\MenuController::class, 'index'])
                 ->name('index');
 
-            Route::get('/{menu:name}', [Frontend\MenuController::class, 'show'])
+            Route::get('/{menu:slug}', [Frontend\MenuController::class, 'show'])
                 ->name('show');
         }
     );

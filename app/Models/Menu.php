@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  * @property string $description
  * @property int $special
  * @property string|null $image
@@ -45,6 +46,7 @@ class Menu extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'special',
         'description',
         'image',

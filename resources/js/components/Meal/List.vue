@@ -17,7 +17,7 @@
 
         <div class="grid lg:grid-cols-4 gap-6">
             <div class="mb-2 shadow-lg flex flex-col" v-for="meal in meals">
-                <a :href="`/menus/${meal.name}`" class="flex flex-col flex-grow">
+                <a :href="`/menus/${meal.slug}`" class="flex flex-col flex-grow">
                     <img class="mx-auto max-w-full"
                          :src="meal.image"
                          alt="Menu Image"
