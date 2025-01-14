@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  * @property string $description
  * @property string|null $image
  * @property string $price
@@ -44,6 +45,7 @@ class Meal extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'image',
         'description'
     ];
