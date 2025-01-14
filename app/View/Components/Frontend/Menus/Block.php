@@ -3,7 +3,6 @@
 namespace App\View\Components\Frontend\Menus;
 
 use App\Models\Menu;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
