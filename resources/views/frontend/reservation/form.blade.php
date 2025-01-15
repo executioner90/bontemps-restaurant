@@ -7,7 +7,7 @@
                 <div class="h-32 md:h-auto md:w-1/2">
                     <img
                         class="object-cover w-full h-full"
-                        src="{{ asset('/asset/images/reservation.jpg') }}"
+                        src="{{ asset('/assets/images/reservation.jpg') }}"
                         alt="Make reservation"
                     >
                 </div>

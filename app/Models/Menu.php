@@ -56,7 +56,7 @@ class Menu extends Model
     {
         return $value && Storage::exists($value)
             ? asset(Storage::url($value))
-            : asset('/asset/images/unavailable.jpg');
+            : asset('/assets/images/unavailable.jpg');
     }
 
     public function meals(): HasMany
