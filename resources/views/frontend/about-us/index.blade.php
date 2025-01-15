@@ -11,10 +11,7 @@
                 </p>
 
                 <div class="my-5">
-                    <a href="{{ route('reservation.create') }}" type="button"
-                       class="px-6 py-2 text-base font-bold text-white bg-green-600 rounded-full md:w-auto hover:bg-green-500 focus:outline-none">
-                        Make reservation
-                    </a>
+                    <x-frontend.global.reservation.button></x-frontend.global.reservation.button>
                 </div>
             </div>
 

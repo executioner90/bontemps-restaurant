@@ -111,9 +111,7 @@
         @enderror
 
         <div class="mt-6 flex justify-end">
-            <button type="submit" class="px-4 py-2 bg-green-400 hover:bg-green-600 rounded-lg text-white">
-                Make reservation
-            </button>
+            <x-frontend.global.reservation.button is-button></x-frontend.global.reservation.button>
         </div>
     </form>
 </div>
