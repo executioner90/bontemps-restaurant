@@ -1,9 +1,9 @@
-@if($button)
+@if($isButton)
     <button type="submit" class="{{ $classes }} rounded-lg">
-        Make reservation
+        {{ $text }}
     </button>
 @else
     <a href="{{ $url }}" class="{{ $classes }} rounded-full">
-        Make reservation
+        {{ $text }}
     </a>
 @endif
