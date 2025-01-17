@@ -5,9 +5,9 @@
                 <!-- <h1
                 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl"
               > -->
-                <h3 class="text-xl">OUR STORY
+                <h3 class="text-md md:text-xl">OUR STORY
                 </h3>
-                <h2 class="text-4xl text-green-600">Welcome</h2>
+                <h2 class="text-xl md:text-4xl text-green-600">Welcome</h2>
                 <!-- </h1> -->
                 <p class="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus nemo incidunt praesentium, ipsum

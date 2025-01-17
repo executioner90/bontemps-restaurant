@@ -15,7 +15,7 @@
 
         <!-- Text Content -->
         <div class="px-6 py-4">
-            <h4 class="mb-3 text-xl text-center font-semibold tracking-tight text-green-600 hover:text-green-400 uppercase">
+            <h4 class="mb-3 text-sm sm:text-lg text-center font-semibold tracking-tight text-green-600 hover:text-green-400 uppercase">
                 {{ $menu->name }}
             </h4>
         </div>
