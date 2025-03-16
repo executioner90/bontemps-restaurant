@@ -12,7 +12,7 @@
           />
         </div>
 
-        <div class="grid lg:grid-cols-4 gap-6" v-if="menus.length > 0">
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" v-if="menus.length > 0">
           <div class="mb-2 shadow-lg relative" v-for="menu in menus">
             <!-- Badge -->
             <div class="absolute">

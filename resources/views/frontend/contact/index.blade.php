@@ -5,21 +5,19 @@
         Let's talk!
     </h1>
 
-    <div class="grid grid-cols-2">
-        <div class="py-12 pr-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="py-12 px-6">
             @include('partials.frontend.contact.index')
+
+            <div class="block lg:hidden my-8">
+                @include('partials.frontend.contact.form')
+            </div>
 
             @include('partials.frontend.contact.opening-hours')
         </div>
 
-        <div class="p-12">
-            <div class="flex justify-center items-center shadow-lg bg-green-400 rounded-lg">
-                <div class="bg-white p-8 w-96">
-                    @include('partials.frontend.contact.hot')
-
-                    @include('partials.frontend.contact.form')
-                </div>
-            </div>
+        <div class="hidden lg:block p-12">
+            @include('partials.frontend.contact.form')
         </div>
     </div>
 @endsection
