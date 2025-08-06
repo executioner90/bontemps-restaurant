@@ -55,7 +55,10 @@ class User extends Authenticatable
     public function isAdmin(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->role_id > 0
+            get: fn() => $this->role_id > 0,
+            set: fn(?string $value) => [
+                'IP' => $value,
+            ]
         );
     }
 }
