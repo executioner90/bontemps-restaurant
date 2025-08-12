@@ -16,6 +16,12 @@ export default defineConfig({
     ],
     server: {
         host: 'localhost',
+        watch: {
+            ignored: [
+                '**/vendor/**',
+                '**/node_modules/**'
+            ],
+        },
     },
     build: {
         sourcemap: true,
