@@ -1,4 +1,6 @@
-<x-admin.layout>
+@extends('layouts.admin.app')
+
+@section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h1>Create user</h1>
@@ -96,4 +98,4 @@
             </div>
         </div>
     </div>
-</x-admin.layout>
+@endsection
