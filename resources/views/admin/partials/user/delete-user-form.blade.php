@@ -16,8 +16,8 @@
         label="{{ __('Delete Account') }}"
     ></x-admin.button>
 
-    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+    <x-admin.modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+        <form method="post" action="{{ route('user.destroy') }}" class="p-6">
             @csrf
             @method('delete')
 
@@ -56,5 +56,5 @@
                 />
             </div>
         </form>
-    </x-modal>
+    </x-admin.modal>
 </section>

@@ -77,7 +77,7 @@ class ReservationController extends Controller
             $reservation->menus()->attach($request->menus);
         }
 
-        return to_route('admin.reservations.index')->with('success', 'Reservation created successfully');
+        return to_route('admin.reservation.index')->with('success', 'Reservation created successfully');
     }
 
     /**
@@ -129,7 +129,7 @@ class ReservationController extends Controller
             $reservation->menus()->sync($request->menus);
         }
 
-        return to_route('admin.reservations.index')->with('success', 'Reservation updated successfully');
+        return to_route('admin.reservation.index')->with('success', 'Reservation updated successfully');
     }
 
     /**
@@ -142,6 +142,6 @@ class ReservationController extends Controller
     {
         $reservation->delete();
 
-        return to_route('admin.reservations.index')->with('success', 'Reservation deleted successfully');
+        return to_route('admin.reservation.index')->with('success', 'Reservation deleted successfully');
     }
 }

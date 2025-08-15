@@ -16,11 +16,10 @@ Route::middleware(['auth:admin', 'verified', 'admin'])
         Route::get('/', [AdminController::class, 'index'])
             ->name('index');
 
-        Route::resource('/users', UserController::class);
-        Route::resource('/meals', MealController::class);
-        Route::resource('/meals', MealController::class);
-        Route::resource('/products', ProductController::class);
-        Route::resource('/menus', MenuController::class);
-        Route::resource('/tables', TableController::class);
-        Route::resource('/reservations', ReservationController::class);
+        Route::resource('/user', UserController::class);
+        Route::resource('/meal', MealController::class);
+        Route::resource('/product', ProductController::class);
+        Route::resource('/menu', MenuController::class);
+        Route::resource('/table', TableController::class);
+        Route::resource('/reservation', ReservationController::class);
     });

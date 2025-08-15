@@ -12,14 +12,14 @@
             <h1>Create meal</h1>
             {{-- back to index page --}}
             <div class="flex justify-end mb-2">
-                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.meals.index') }}">
+                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.meal.index') }}">
                     Back
                 </a>
             </div>
             {{-- form --}}
             <div class="mb-20 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10 p-2">
-                    <form method="post" action="{{ route('admin.meals.store') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('admin.meal.store') }}" enctype="multipart/form-data">
                         {{-- verify that the authenticated user is the person actually making the requests to the application --}}
                         @csrf
                         <div class="sm:col-span-6">

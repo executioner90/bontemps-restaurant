@@ -10,7 +10,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-2">
-                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.users.create') }}">
+                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.user.create') }}">
                     Add user
                 </a>
             </div>
@@ -60,7 +60,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex justify-end space-x-2">
                                     @if(Auth::user()->id === $user->id)
-                                        <a href="{{ route('admin.users.edit', $user->id) }}"
+                                        <a href="{{ route('admin.user.edit', $user->id) }}"
                                            class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                                             Edit
                                         </a>

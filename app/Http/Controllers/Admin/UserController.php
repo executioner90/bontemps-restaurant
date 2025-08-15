@@ -46,12 +46,12 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return to_route('admin.users.index')->with('success', 'User added successfully');
+        return to_route('admin.user.index')->with('success', 'User added successfully');
     }
 
     public function edit(User $user): View
     {
-        return view('admin.profile.edit', compact('user'));
+        return view('admin.user.edit', compact('user'));
     }
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
@@ -64,7 +64,7 @@ class UserController extends Controller
 
         $request->user()->save();
 
-        return to_route('admin.users.index')->with('success', 'User updated successfully');
+        return to_route('admin.user.index')->with('success', 'User updated successfully');
     }
 
     public function destroy(Request $request, User $user): RedirectResponse
@@ -85,6 +85,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return to_route('admin.users.index')->with('success', 'User deleted successfully');
+        return to_route('admin.user.index')->with('success', 'User deleted successfully');
     }
 }

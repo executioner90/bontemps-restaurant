@@ -10,23 +10,23 @@
     </div>
 
     <nav :class="{'block': open, 'hidden': !open}" class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-        <x-admin.nav.link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.*')">
+        <x-admin.nav.link :href="route('admin.menu.index')" :active="request()->routeIs('admin.menus.*')">
             {{ __('Menus') }}
         </x-admin.nav.link>
 
-        <x-admin.nav.link :href="route('admin.meals.index')" :active="request()->routeIs('admin.meals.*')">
+        <x-admin.nav.link :href="route('admin.meal.index')" :active="request()->routeIs('admin.meals.*')">
             {{ __('Meals') }}
         </x-admin.nav.link>
 
-        <x-admin.nav.link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
+        <x-admin.nav.link :href="route('admin.product.index')" :active="request()->routeIs('admin.products.*')">
             {{ __('Products') }}
         </x-admin.nav.link>
 
-        <x-admin.nav.link :href="route('admin.tables.index')" :active="request()->routeIs('admin.tables.*')">
+        <x-admin.nav.link :href="route('admin.table.index')" :active="request()->routeIs('admin.tables.*')">
             {{ __('Tables') }}
         </x-admin.nav.link>
 
-        <x-admin.nav.link :href="route('admin.reservations.index')" :active="request()->routeIs('admin.reservations.*')">
+        <x-admin.nav.link :href="route('admin.reservation.index')" :active="request()->routeIs('admin.reservations.*')">
             {{ __('Reservations') }}
         </x-admin.nav.link>
 
@@ -38,21 +38,20 @@
 
             <div x-show="open" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
                 <div class="px-2 py-2 bg-white rounded-md shadow dark:bg-gray-700">
-                    @if(Auth::user()->role_id === 1)
-                        <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                           href="{{ route('admin.users.index') }}">
+                        <a class="block w-full px-4 py-2 text-left text-sm leading-5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out"
+                           href="{{ Auth::user()->role_id === 1 ? route('admin.user.index') : route('admin.user.edit', ['id' => Auth::user()->id]) }}">
                             Users
                         </a>
-                    @endif
+
                     <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
 
-                        <x-dropdown-link :href="route('admin.logout')"
+                        <x-admin.nav.dropdown.link :href="route('admin.logout')"
                                          onclick="event.preventDefault();
                                                 this.closest('form').submit();"
                                          class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
                             {{ __('Log Out') }}
-                        </x-dropdown-link>
+                        </x-admin.nav.dropdown.link>
                     </form>
                 </div>
             </div>

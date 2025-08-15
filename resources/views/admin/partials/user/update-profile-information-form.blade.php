@@ -5,7 +5,7 @@
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile information and email address.") }}
+            {{ __("Update your account's user information and email address.") }}
         </p>
     </header>
 
@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('user.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -48,7 +48,7 @@
         <div class="flex items-center gap-4">
             <x-admin.button label="{{ __('Save') }}" />
 
-            @if (session('status') === 'profile-updated')
+            @if (session('status') === 'user-updated')
                 <p
                     x-data="{ show: true }"
                     x-show="show"

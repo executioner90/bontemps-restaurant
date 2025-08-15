@@ -10,7 +10,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-2">
-                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.tables.create') }}">
+                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.table.create') }}">
                     Add table
                 </a>
             </div>
@@ -44,13 +44,13 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-end space-x-2">
-                                    <a href="{{ route('admin.tables.edit', $table->id) }}"
+                                    <a href="{{ route('admin.table.edit', $table->id) }}"
                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                                         Edit
                                     </a>
                                     <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                           method="POST"
-                                          action="{{ route('admin.tables.destroy', $table->id) }}"
+                                          action="{{ route('admin.table.destroy', $table->id) }}"
                                           onsubmit="return confirm('Do you really want to delete {{ $table->name }}?')">
                                         @csrf
                                         @method('DELETE')
