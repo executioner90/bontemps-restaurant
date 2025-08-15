@@ -2,7 +2,7 @@
 
 @section('header.image')
     <section>
-        @include('partials.frontend.home.header.welcome')
+        @include('frontend.partials.home.header.welcome')
     </section>
 @endsection
 
@@ -12,10 +12,10 @@
     </section>
 
     <section class="bg-white">
-        @include('partials.frontend.home.our-story')
+        @include('frontend.partials.home.our-story')
     </section>
 
     <section class="bg-gray-50">
-        @include('partials.frontend.home.about-us')
+        @include('frontend.partials.home.about-us')
     </section>
 @endsection

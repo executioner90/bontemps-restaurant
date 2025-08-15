@@ -10,19 +10,21 @@
 
         <!-- Password -->
         <div>
-            <x-text-input id="password" class="block mt-1 w-full"
-                          type="password"
-                          name="password"
-                          label="{{ __('Password') }}"
-                          required autocomplete="current-password" />
+            <x-admin.form.input
+                id="password"
+                class="block mt-1 w-full"
+                type="password"
+                name="password"
+                label="{{ __('Password') }}"
+                required
+                utocomplete="current-password"
+            />
 
             <x-admin.form.input.error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
+            <x-admin.button label="{{ __('Confirm') }}" />
         </div>
     </form>
 @endsection

@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-                    @include('partials.frontend.reservation.form', [$maxCapacity])
+                    @include('frontend.partials.reservation.form', [$maxCapacity])
                 </div>
             </div>
         </div>

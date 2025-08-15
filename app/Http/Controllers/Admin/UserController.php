@@ -51,7 +51,7 @@ class UserController extends Controller
 
     public function edit(User $user): View
     {
-        return view('profile.edit', compact('user'));
+        return view('admin.profile.edit', compact('user'));
     }
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
