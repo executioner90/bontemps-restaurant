@@ -7,8 +7,8 @@ use App\Http\Controllers\Frontend;
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-Route::prefix('/menus')
-    ->as('menus.')
+Route::prefix('/menu')
+    ->as('menu.')
     ->group(
         function () {
             Route::get('/', [Frontend\MenuController::class, 'index'])
