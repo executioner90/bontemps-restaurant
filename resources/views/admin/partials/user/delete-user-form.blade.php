@@ -17,7 +17,7 @@
     ></x-admin.button>
 
     <x-admin.modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('user.destroy') }}" class="p-6">
+        <form method="post" action="{{ route('admin.user.destroy', ['user' => Auth::user()->id]) }}" class="p-6">
             @csrf
             @method('delete')
 
