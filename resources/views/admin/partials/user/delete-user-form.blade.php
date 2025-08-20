@@ -44,7 +44,7 @@
 
             <div class="mt-6 flex justify-end">
                 <x-admin.button
-                    x-on:click="$dispatch('close')"
+                    x-on:click.prevent="$dispatch('close')"
                     label="{{ __('Cancel') }}"
                     button="secondary"
                 />
