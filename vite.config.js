@@ -1,7 +1,5 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue2';
-import { resolve } from 'path';
 
 export default defineConfig({
     plugins: [
@@ -12,7 +10,6 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-        vue(),
     ],
     server: {
         host: 'localhost',
@@ -31,11 +28,5 @@ export default defineConfig({
                 sourcemap: true, // Enable sourcemaps for output files
             },
         }
-    },
-    resolve: {
-        alias: {
-            vue: 'vue/dist/vue.esm.js',
-            '@': resolve(__dirname, 'resources/js'),
-        },
     },
 });
