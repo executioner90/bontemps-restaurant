@@ -7,7 +7,7 @@
     </div>
 
     <!-- Card Content -->
-    <a href="{{ route('menus.show', $menu->name) }}">
+    <a href="{{ route('menu.show', $menu->name) }}">
         <img class="mx-auto max-w-full"
              src="{{ $menu->image }}"
              alt="{{ $menu->name . ' image' }}"

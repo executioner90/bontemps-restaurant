@@ -63,7 +63,7 @@ class MenuController extends Controller
            $menu->meals()->attach($request->meals);
         }
 
-        return to_route('admin.menus.index')->with('success', 'Menu created successfully');
+        return to_route('admin.menu.index')->with('success', 'Menu created successfully');
     }
 
     /**
@@ -121,7 +121,7 @@ class MenuController extends Controller
         }
 
         //redirect to index page
-        return to_route('admin.menus.index')->with('success', 'Menu updated successfully');
+        return to_route('admin.menu.index')->with('success', 'Menu updated successfully');
     }
 
     /**
@@ -141,6 +141,6 @@ class MenuController extends Controller
         $menu->delete();
 
         //redirect to index page
-        return to_route('admin.menus.index')->with('success', 'Menu deleted successfully');
+        return to_route('admin.menu.index')->with('success', 'Menu deleted successfully');
     }
 }

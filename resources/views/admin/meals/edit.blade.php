@@ -1,4 +1,6 @@
-<x-admin-layout>
+@extends('layouts.admin.app')
+
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -10,14 +12,14 @@
             <h1>Update meal</h1>
             {{-- back to index page --}}
             <div class="flex justify-end mb-2">
-                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.meals.index') }}">
+                <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.meal.index') }}">
                     Back
                 </a>
             </div>
             {{-- form --}}
             <div class="mb-20 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10 p-2">
-                    <form method="post" action="{{ route('admin.meals.update', $meal->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('admin.meal.update', $meal->id) }}" enctype="multipart/form-data">
                         {{-- verify that the authenticated user is the person actually making the requests to the application --}}
                         @csrf
                         @method('PUT')
@@ -76,4 +78,4 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+@endsection

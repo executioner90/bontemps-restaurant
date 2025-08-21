@@ -13,7 +13,7 @@ class MenuController extends Controller
     public function index(): View
     {
         $breadcrumbs = (new Breadcrumbs())
-            ->add('Menus', route('menus.index'));
+            ->add('Menus', route('menu.index'));
 
         return view('frontend.menus.index', [
             'breadcrumbs' => $breadcrumbs,
@@ -23,7 +23,7 @@ class MenuController extends Controller
     public function show(Menu $menu): View
     {
         $breadcrumbs = (new Breadcrumbs())
-            ->add('Menus', route('menus.index'))
+            ->add('Menus', route('menu.index'))
             ->add($menu->name);
 
         return view('frontend.menus.show', [

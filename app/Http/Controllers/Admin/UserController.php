@@ -10,37 +10,23 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(): View
     {
         $users = User::all();
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
-    /**
-     * Display the registration view.
-     */
     public function create(): View
     {
-        return view('auth.register');
+        return view('admin.auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
 
@@ -56,51 +42,33 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if (isset($request->isAdmin)) {
-            $user->is_admin = 1;
-            $user->save();
-        }
-
         event(new Registered($user));
 
         Auth::login($user);
 
-        return to_route('admin.users.index')->with('success', 'User added successfully');
+        return to_route('admin.user.index')->with('success', 'User added successfully');
     }
 
-    /**
-     * Display the user's profile form.
-     */
     public function edit(User $user): View
     {
-        return view('profile.edit', compact('user'));
+        return view('admin.user.edit', compact('user'));
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $isAdmin = isset($request->isAdmin) ? 1 : 0;
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
-        $request->user()->is_admin = $isAdmin;
-
         $request->user()->save();
 
-        return to_route('admin.users.index')->with('success', 'User updated successfully');
+        return to_route('admin.user.index')->with('success', 'User updated successfully');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request, User $user): RedirectResponse
     {
-
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current-password'],
         ]);
@@ -112,11 +80,11 @@ class UserController extends Controller
             $currentUser = $user;
         }
 
-        $user->delete();
+        $currentUser->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return to_route('admin.users.index')->with('success', 'User deleted successfully');
+        return to_route('admin.user.index')->with('success', 'User deleted successfully');
     }
 }

@@ -55,7 +55,7 @@ class MealController extends Controller
             $meal->products()->attach($request->products);
         }
 
-        return to_route('admin.meals.index')->with('success', 'Meal created successfully');
+        return to_route('admin.meal.index')->with('success', 'Meal created successfully');
     }
 
     /**
@@ -101,7 +101,7 @@ class MealController extends Controller
         }
 
         //redirect to index page
-        return to_route('admin.meals.index')->with('success', 'Meal updated successfully');
+        return to_route('admin.meal.index')->with('success', 'Meal updated successfully');
     }
     /**
      * Remove the specified resource from storage.
@@ -120,6 +120,6 @@ class MealController extends Controller
         $meal->delete();
 
         //redirect to index page
-        return to_route('admin.meals.index')->with('success', 'Meal deleted successfully');
+        return to_route('admin.meal.index')->with('success', 'Meal deleted successfully');
     }
 }

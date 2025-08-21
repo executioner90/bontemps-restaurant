@@ -44,7 +44,7 @@ class ProductController extends Controller
             'unit' => $request->unit,
         ]);
 
-        return to_route('admin.products.index')->with('success', 'Product created successfully');
+        return to_route('admin.product.index')->with('success', 'Product created successfully');
     }
 
     /**
@@ -70,7 +70,7 @@ class ProductController extends Controller
         $product->update($request->validated());
 
         //redirect to index page
-        return to_route('admin.products.index')->with('success', 'Product updated successfully');
+        return to_route('admin.product.index')->with('success', 'Product updated successfully');
     }
 
     /**
@@ -84,6 +84,6 @@ class ProductController extends Controller
         $product->delete();
 
         //redirect to index page
-        return to_route('admin.products.index')->with('success', 'Product deleted successfully');
+        return to_route('admin.product.index')->with('success', 'Product deleted successfully');
     }
 }
