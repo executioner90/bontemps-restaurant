@@ -111,7 +111,7 @@
         @enderror
 
         <div class="mt-6 flex justify-end">
-            <x-frontend.global.reservation.button is-button></x-frontend.global.reservation.button>
+            <x-frontend.reservation.button is-button></x-frontend.reservation.button>
         </div>
     </form>
 </div>

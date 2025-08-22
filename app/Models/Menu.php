@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
  */
 class Menu extends Model
 {
-    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -43,10 +41,9 @@ class Menu extends Model
 
     public function scopeSearch(Builder $query, ?string $input): Builder
     {
-        if (empty($input)) {
-            return $query;
-        }
-
-        return $query->where('name', 'LIKE', '%' . $input . '%');
+        return $query->when(
+            $input,
+            fn($query) => $query->where('name', 'LIKE', '%' . $input . '%')
+        );
     }
 }
