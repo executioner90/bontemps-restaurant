@@ -25,11 +25,8 @@ Route::post('/contact', [Api\ContactController::class, 'submit'])
 Route::prefix('menu')
     ->as('menu.')
     ->group(function () {
-        Route::get('/', [Api\MenuController::class, 'index'])
-            ->name('get.all');
-
-        Route::get('/search', [Api\MenuController::class, 'search'])
-            ->name('search');
+        Route::resource('/', Api\MenuController::class)
+            ->only('index');
 
         Route::get('/{menu}/meals', [Api\MealController::class, 'index'])
             ->name('meals');

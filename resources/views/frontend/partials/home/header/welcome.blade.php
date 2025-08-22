@@ -11,7 +11,7 @@
     </div>
     <div class="flex flex-col items-center mt-12 text-center">
         <span class="relative w-full">
-            <x-frontend.global.reservation.button></x-frontend.global.reservation.button>
+            <x-frontend.reservation.button></x-frontend.reservation.button>
         </span>
     </div>
 </div>

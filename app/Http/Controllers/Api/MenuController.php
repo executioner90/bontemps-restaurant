@@ -8,21 +8,22 @@ use Illuminate\Http\Request;
 
 class MenuController
 {
-    public function index(): JsonResponse
-    {
-        return response()->json(
-            Menu::all()->toArray()
-        );
-    }
-
-    public function search(Request $request): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $request->validate([
-            'query' => ['nullable', 'string'],
+            'search' => ['nullable', 'string'],
+            'isSpecial' => ['nullable', 'in:true,false,1,0'],
         ]);
 
-        return response()->json(
-            Menu::query()->search($request->input('query'))->get()->toArray()
-        );
+        $menus = Menu::search($request->get('search'))
+            ->when(
+                $request->boolean('isSpecial'),
+                fn ($query) => $query->where('special', true)
+            )
+            ->get()
+            ->toArray();
+
+
+        return response()->json($menus);
     }
 }

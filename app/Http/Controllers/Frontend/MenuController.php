@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Support\Global\Breadcrumbs;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MenuController extends Controller
@@ -13,6 +12,7 @@ class MenuController extends Controller
     public function index(): View
     {
         $breadcrumbs = (new Breadcrumbs())
+            ->add('Home', route('home'))
             ->add('Menus', route('menu.index'));
 
         return view('frontend.menus.index', [
