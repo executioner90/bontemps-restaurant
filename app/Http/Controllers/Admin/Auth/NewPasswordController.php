@@ -14,7 +14,7 @@ use Illuminate\View\View;
 
 class NewPasswordController extends Controller
 {
-    public function index(Request $request): View
+    public function create(Request $request): View
     {
         return view('admin.auth.reset-password', ['request' => $request]);
     }

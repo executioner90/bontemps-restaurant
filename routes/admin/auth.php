@@ -12,8 +12,8 @@ Route::resource('/login', Auth\LoginController::class)
 Route::resource('/forgot-password', Auth\PasswordResetController::class)
     ->only(['index', 'store']);
 
-Route::resource('/reset-password', Auth\NewPasswordController::class)
-    ->only(['index', 'store']);
+Route::post('reset-password', [Auth\NewPasswordController::class, 'store'])
+    ->name('password.store');
 
 
 Route::middleware('auth:admin')->group(function () {

@@ -1,7 +1,7 @@
-@extends('layouts.frontend.app')
+@extends('layouts.admin.guest')
 
 @section('content')
-    <form method="POST" action="{{ route('password.store') }}">
+    <form method="POST" action="{{ route('admin.password.store') }}">
         @csrf
 
         <!-- Password Reset Token -->
@@ -12,7 +12,7 @@
             <x-admin.form.input
                     id="email"
                     label="{{ __('Email') }}"
-                    class="block mt-1 w-full"
+                    class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                     type="email"
                     name="email"
                     placeholder="Email"

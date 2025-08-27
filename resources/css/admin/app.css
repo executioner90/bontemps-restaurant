@@ -9,7 +9,7 @@
 }
 
 .btn-primary {
-    @apply bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-gray-100 focus:ring-indigo-500;
+    @apply bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-gray-50 focus:ring-indigo-500;
 }
 
 .btn-secondary {
