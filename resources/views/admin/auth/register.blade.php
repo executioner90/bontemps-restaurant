@@ -46,24 +46,28 @@
             <x-admin.form.input.error :messages="$errors->get('email')" class="mt-2"/>
         </div>
 
-        <!-- todo: Role select input -->
-{{--        <div class="mt-4">--}}
-{{--            <div class="sm:col-span-6">--}}
-{{--                <div class="mt-1">--}}
-{{--                    <x-admin.form.input--}}
-{{--                        id="role"--}}
-{{--                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"--}}
-{{--                        type="select"--}}
-{{--                        name="role"--}}
-{{--                        label="{{ __('Role') }}"--}}
-{{--                        placeholder="Role"--}}
-{{--                        required--}}
-{{--                        autofocus--}}
-{{--                    />--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <x-admin.form.input.error :messages="$errors->get('email')" class="mt-2"/>--}}
-{{--        </div>--}}
+        <div class="mt-4">
+            <div class="sm:col-span-6">
+                <div class="mt-1">
+                    <label for="role" class="block font-medium text-sm text-gray-700 dark:text-gray-300">
+                        Role
+                    </label>
+
+                    <select
+                        name="role"
+                        id="role"
+                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                    >
+                        <option value="">@lang('Select role')</option>
+
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <x-admin.form.input.error :messages="$errors->get('role')" class="mt-2"/>
+        </div>
 
         <!-- Password -->
         <div class="mt-4">
