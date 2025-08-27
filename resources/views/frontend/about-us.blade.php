@@ -11,7 +11,7 @@
                 </p>
 
                 <div class="my-5">
-                    <x-frontend.global.reservation.button></x-frontend.global.reservation.button>
+                    <x-frontend.reservation.button></x-frontend.reservation.button>
                 </div>
             </div>
 

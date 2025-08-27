@@ -12,7 +12,7 @@ class Admin
     public function handle(Request $request, Closure $next): mixed
     {
         if (!auth()->user() || !auth()->user()->is_admin) {
-            return redirect()->route('admin.login');
+            return redirect()->route('admin.login.index');
         }
 
         return $next($request);

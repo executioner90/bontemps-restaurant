@@ -13,7 +13,7 @@ class AboutUsController extends Controller
         $breadcrumbs = (new Breadcrumbs())
             ->add('About us', route('about.us'));
 
-        return view('frontend.about-us.index', [
+        return view('frontend.about-us', [
             'breadcrumbs' => $breadcrumbs,
         ]);
     }

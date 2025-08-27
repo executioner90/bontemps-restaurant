@@ -13,21 +13,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
+class RegisterController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
+    public function index(): View
     {
         return view('admin.auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([

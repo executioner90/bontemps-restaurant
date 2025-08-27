@@ -11,7 +11,9 @@ use App\Http\Controllers\Admin\UserController;
 
 require __DIR__ . '/auth.php';
 
-Route::middleware(['auth:admin', 'verified', 'admin'])
+Route::middleware('auth:admin')
+    ->middleware('verified')
+    ->middleware('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])
             ->name('index');
