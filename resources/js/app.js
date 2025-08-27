@@ -1,46 +1,12 @@
-import axios from 'axios';
 import Alpine from 'alpinejs';
-import Vue from "vue";
+import _ from 'lodash';
+import axios, { HttpStatusCode } from 'axios';
+
+window._ = _;
+
+window.HttpStatusCode = HttpStatusCode;
+window.axios = axios;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Alpine = Alpine;
-window.axios = axios;
-
 Alpine.start();
-
-// Register mixin plugins automatically
-const mixinFiles = import.meta.glob(
-    './mixins/*.js',
-    {
-        eager: true,
-    },
-);
-
-Object.entries(mixinFiles).forEach((mixinFile) => {
-    const [, module] = mixinFile;
-
-    Object.values(module.PLUGINS || {}).forEach((plugin) => Vue.use(plugin));
-});
-
-const componentFiles = import.meta.glob(
-    './components/**/*.vue',
-    {
-        eager: true,
-        import: 'default',
-    },
-);
-
-Object.entries(componentFiles).forEach((componentFile) => {
-    const [path, module] = componentFile;
-    Vue.component(
-        path
-            .replace('./components/', '')
-            .replaceAll('/', '')
-            .split('.vue')[0],
-        module,
-    );
-});
-
-// eslint-disable-next-line no-unused-vars
-const app = new Vue({
-    el: '#app',
-});

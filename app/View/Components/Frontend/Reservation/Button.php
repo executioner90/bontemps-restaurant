@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Frontend\Global\Reservation;
+namespace App\View\Components\Frontend\Reservation;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;
@@ -19,6 +19,6 @@ class Button extends Component
 
     public function render(): View
     {
-        return view('components.frontend.global.reservation.button');
+        return view('components.frontend.reservation.button');
     }
 }

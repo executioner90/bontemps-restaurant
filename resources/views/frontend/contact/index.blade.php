@@ -21,5 +21,3 @@
         </div>
     </div>
 @endsection
-
-@vite('resources/js/contact/form/submit.js')
