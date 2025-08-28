@@ -23,6 +23,7 @@ class MenuController extends Controller
     public function show(Menu $menu): View
     {
         $breadcrumbs = (new Breadcrumbs())
+            ->add('Home', route('home'))
             ->add('Menus', route('menu.index'))
             ->add($menu->name);
 

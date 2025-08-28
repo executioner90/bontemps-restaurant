@@ -8,7 +8,7 @@
 
 @section('content')
     <section class="bg-white">
-        <x-frontend.menu :is-special="true" />
+        <x-frontend.menu is-special />
     </section>
 
     <section class="bg-white">

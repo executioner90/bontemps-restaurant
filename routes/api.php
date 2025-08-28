@@ -22,18 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/contact', [Api\ContactController::class, 'submit'])
     ->name('submit.contact');
 
-Route::prefix('menu')
-    ->as('menu.')
-    ->group(function () {
-        Route::resource('/', Api\MenuController::class)
-            ->only('index');
-
-        Route::get('/{menu}/meals', [Api\MealController::class, 'index'])
-            ->name('meals');
-
-        Route::get('/{menu}/meals/search', [Api\MealController::class, 'search'])
-            ->name('meals.search');
-    });
+Route::resource('/menu', Api\MenuController::class)
+    ->only(['index', 'show']);
 
 Route::get('/reservation/available-times', [Api\ReservationController::class, 'getAvailableTimes'])
     ->name('reservation.available-times.get');
