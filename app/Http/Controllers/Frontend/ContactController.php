@@ -13,7 +13,7 @@ class ContactController extends Controller
         $breadcrumbs = (new Breadcrumbs())
             ->add('Contact', route('contact'));
 
-        return view('frontend.contact.index', [
+        return view('frontend.contact', [
             'breadcrumbs' => $breadcrumbs,
         ]);
     }

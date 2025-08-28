@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class AuthenticatedSessionController extends Controller
+class LoginController extends Controller
 {
-    public function create(): View
+    public function index(): View
     {
         return view('admin.auth.login');
     }
@@ -27,9 +27,6 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('admin')->logout();
@@ -38,6 +35,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return Redirect::route('admin.login');
+        return Redirect::route('admin.login.index');
     }
 }
