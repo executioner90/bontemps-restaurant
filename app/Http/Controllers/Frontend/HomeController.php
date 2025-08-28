@@ -10,8 +10,7 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        $breadcrumbs = (new Breadcrumbs())
-            ->add('Home', route('home'));
+        $breadcrumbs = (new Breadcrumbs());
 
         return view('frontend.home', [
             'breadcrumbs' => $breadcrumbs,

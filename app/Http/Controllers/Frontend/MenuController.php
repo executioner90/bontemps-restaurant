@@ -12,7 +12,6 @@ class MenuController extends Controller
     public function index(): View
     {
         $breadcrumbs = (new Breadcrumbs())
-            ->add('Home', route('home'))
             ->add('Menus', route('menu.index'));
 
         return view('frontend.menus.index', [
