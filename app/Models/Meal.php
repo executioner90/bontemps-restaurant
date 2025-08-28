@@ -42,11 +42,9 @@ class Meal extends Model
 
     public function scopeSearch(Builder $query, ?string $input): Builder
     {
-        if (empty($input)) {
-            return $query;
-        }
-
-        return $query->where('name', 'LIKE', '%' . $input . '%')
-            ->orWhere('description', 'LIKE', '%' . $input . '%');
+        return $query->when($input, function ($query) use ($input) {
+            return $query->where('name', 'LIKE', '%' . $input . '%')
+                ->orWhere('description', 'LIKE', '%' . $input . '%');
+        });
     }
 }

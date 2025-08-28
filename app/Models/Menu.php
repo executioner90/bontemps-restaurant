@@ -22,6 +22,11 @@ class Menu extends Model
         'image',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function getImageAttribute($value): string
     {
         return $value && Storage::exists($value)

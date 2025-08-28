@@ -7,17 +7,9 @@ use App\Http\Controllers\Frontend;
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-Route::prefix('/menu')
-    ->as('menu.')
-    ->group(
-        function () {
-            Route::get('/', [Frontend\MenuController::class, 'index'])
-                ->name('index');
 
-            Route::get('/{menu:slug}', [Frontend\MenuController::class, 'show'])
-                ->name('show');
-        }
-    );
+Route::resource('/menu', Frontend\MenuController::class)
+    ->only(['index', 'show']);
 
 Route::prefix('/reservation')
     ->as('reservation.')

@@ -26,4 +26,16 @@ class MenuController
 
         return response()->json($menus);
     }
+
+    public function show(Menu $menu, Request $request): JsonResponse
+    {
+        $request->validate(['search' => ['nullable', 'string']]);
+
+        $meals = $menu->meals()
+            ->search($request->get('search'))
+            ->get()
+            ->toArray();
+
+        return response()->json($meals);
+    }
 }
