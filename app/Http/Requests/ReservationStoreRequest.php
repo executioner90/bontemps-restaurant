@@ -26,6 +26,8 @@ class ReservationStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isAdmin = $this->user() && $this->user()->isAdmin();
+
         return [
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
@@ -34,9 +36,12 @@ class ReservationStoreRequest extends FormRequest
                 : 'required|email:rfc',
             'mobile_number' => ['required', 'string', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
             'date' => ['required', 'date', new DateBetween],
-            'total_guests' => ['required', 'numeric', 'min:1', 'max:'. Table::query()->max('capacity')],
+            'total_guests' => ['required', 'numeric', 'min:1', !$isAdmin ? 'max:'. Table::query()->max('capacity') : ''],
             'note' => ['nullable', 'string'],
-            'time_slot' => ['required', 'numeric', 'exists:time_slots,id'],
+            'time_slot' => $isAdmin
+                ? ['required', 'array'] // must be an array
+                : ['required', 'numeric', 'exists:time_slots,id'],
+            'time_slot.*'  => $isAdmin ? ['numeric', 'exists:time_slots,id'] : [],
         ];
     }
 

@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-2">
                 <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.reservation.create') }}">
                     Add reservation
@@ -28,16 +28,25 @@
                             Mobile number
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Confirmed
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Date
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Menu(s)
+                            From
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Table
+                            Until
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Table(s)
                         </th>
                         <th scope="col" class="px-6 py-3">
                             total guests
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Note
                         </th>
                         <th></th>
                     </tr>
@@ -55,20 +64,25 @@
                                 {{ $reservation->mobile_number }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $reservation->reservation_date }}
+                                {{ $reservation->status === $reservationConfirmed ? $reservation->status_changed_at : '-' }}
                             </td>
                             <td class="px-6 py-4">
-                                @foreach($reservation->menus as $index => $menu)
-                                    @php($index++)
-                                    {{ $index . "- " . $menu->name }}
-                                    <br>
-                                @endforeach
+                                {{ $reservation->date }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $reservation->table->name }}
+                                {{ $reservation->timeSlots->first()->from }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $reservation->guest_number }}
+                                {{ $reservation->timeSlots->first()->till }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $reservation->timeSlots->map(fn ($timeSlot) => $timeSlot->table->number)->join(', ') }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $reservation->total_guests }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $reservation->note }}
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-end space-x-2">
@@ -79,7 +93,7 @@
                                     <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                           method="POST"
                                           action="{{ route('admin.reservation.destroy', $reservation->id) }}"
-                                          onsubmit="return confirm('Do you really want to delete the reservation of {{ $reservation->first_name . " " . $reservation->last_name  }}?')">
+                                          onsubmit="return confirm('Do you really want to delete the reservation of {{ $reservation->full_name  }}?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit">Delete</button>

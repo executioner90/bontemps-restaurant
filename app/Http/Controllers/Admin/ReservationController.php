@@ -2,107 +2,88 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ReservationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
-use App\Models\Menu;
 use App\Models\Reservation;
 use App\Models\Table;
+use App\Models\TimeSlot;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(): View
     {
         $reservations = Reservation::query()
-            ->orderBy('reservation_date', 'ASC')
+            ->with(['timeSlots'])
+            ->orderBy('date', 'ASC')
             ->get()
             ->filter(function ($value) {
                 // Get only today's reservations
-                return Carbon::parse($value->reservation_date)->format('Y-m-d') ===
+                return Carbon::parse($value->date)->format('Y-m-d') ===
                     Carbon::today()->format('Y-m-d');
             });
 
-        return view('admin.reservations.index', compact('reservations'));
+        $reservationConfirmed = ReservationStatus::CONFIRMED;
+
+        return view('admin.reservations.index', compact('reservations', 'reservationConfirmed'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(): View
     {
-        $tables = Table::query()
-            ->where('status', TableStatus::AVAILABLE)
-            ->get();
-        $menus = Menu::all();
-
-        return view('admin.reservations.create', compact('tables', 'menus'));
+        return view('admin.reservations.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ReservationStoreRequest $request): RedirectResponse
     {
-        $table = Table::query()->findOrFail($request->table_id);
+        $capacity = TimeSlot::query()
+            ->whereIn('id', $request->time_slot)
+            ->with('table')
+            ->get()
+            ->sum(fn($timeSlot) => $timeSlot->table->capacity);
 
-        // Check if table does not have enough seats for this reservation.
-        if ($request->guest_number > $table->guest_number) {
-            return back()->with('warning', 'Table is too small, please choose another table.');
+        if ($request->total_guests > $capacity) {
+            return Redirect::route('admin.reservation.create')
+                ->withInput()
+                ->with([
+                    'warning' => 'Given total guests need more tables/seats!'
+                ]);
         }
 
         // Check if table already reserved.
-        $reservationDate = Carbon::parse($request->reservation_date);
+        $reservationDate = $request->date('date');
 
-        foreach ($table->reservations as $reservation) {
-            if ($reservation->reservation_date === $reservationDate->format('Y-m-d H:i:s')) {
-                return back()->with('warning', 'This table is already reserved for this date');
-            }
+        $alreadyReserved = Reservation::query()
+            ->where('date', $reservationDate)
+            ->whereHas('timeSlots', function ($query) use ($request, $reservationDate) {
+                $query->whereIn('id', $request->time_slot);
+            })
+            ->exists();
+
+
+        if ($alreadyReserved) {
+            return Redirect::route('admin.reservation.create')
+                ->withInput()
+                ->with([
+                    'warning' => 'This table is already reserved for this date'
+                ]);
         }
 
         $reservation = Reservation::query()->create($request->validated());
+        $reservation->timeSlots()->attach($request->time_slot);
 
-        if ($request->has('menus')) {
-            $reservation->menus()->attach($request->menus);
-        }
-
-        return to_route('admin.reservation.index')->with('success', 'Reservation created successfully');
+        return Redirect::route('admin.reservation.index')
+            ->with(['success' => 'Reservation created successfully']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Reservation $reservation): View
     {
-        $tables = Table::query()
-            ->where('status', TableStatus::AVAILABLE)
-            ->get();
-        $menus = Menu::all();
-
-        return view('admin.reservations.edit', compact('reservation', 'tables', 'menus'));
+        return view('admin.reservations.form');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ReservationStoreRequest $request, Reservation $reservation): RedirectResponse
     {
         $table = Table::query()->findOrFail($request->table_id);
@@ -132,12 +113,6 @@ class ReservationController extends Controller
         return to_route('admin.reservation.index')->with('success', 'Reservation updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Reservation $reservation): RedirectResponse
     {
         $reservation->delete();
