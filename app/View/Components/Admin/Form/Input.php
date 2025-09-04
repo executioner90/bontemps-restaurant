@@ -13,9 +13,11 @@ class Input extends Component
         public string $name,
         public ?string $class = null,
         public string $type = 'text',
+        public ?string $value = null,
         public bool $required = false,
         public ?string $placeholder = null,
         public ?bool $disabled = false,
+        public ?bool $customLabel = false,
     ) {
         //
     }

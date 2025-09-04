@@ -13,8 +13,12 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    public function index(): View
+    public function index(): View|RedirectResponse
     {
+        if (Auth::check()) {
+            return Redirect::route('admin.index');
+        }
+
         return view('admin.auth.login');
     }
 

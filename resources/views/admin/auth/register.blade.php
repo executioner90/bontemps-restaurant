@@ -24,7 +24,6 @@
                     />
                 </div>
             </div>
-            <x-admin.form.input.error :messages="$errors->get('name')" class="mt-2"/>
         </div>
 
         <!-- Email Address -->
@@ -43,7 +42,6 @@
                     />
                 </div>
             </div>
-            <x-admin.form.input.error :messages="$errors->get('email')" class="mt-2"/>
         </div>
 
         <div class="mt-4">
@@ -66,7 +64,6 @@
                     </select>
                 </div>
             </div>
-            <x-admin.form.input.error :messages="$errors->get('role')" class="mt-2"/>
         </div>
 
         <!-- Password -->
@@ -85,7 +82,6 @@
                     />
                 </div>
             </div>
-            <x-admin.form.input.error :messages="$errors->get('password')" class="mt-2"/>
         </div>
 
         <!-- Confirm Password -->
@@ -104,7 +100,6 @@
                     />
                 </div>
             </div>
-            <x-admin.form.input.error :messages="$errors->get('password_confirmation')" class="mt-2"/>
         </div>
 
         <div class="flex items-center justify-end mt-4 mr">

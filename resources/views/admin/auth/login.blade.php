@@ -19,8 +19,6 @@
                 required
                 autofocus
             />
-
-            <x-admin.form.input.error :messages="$errors->get('email')" class="mt-2"/>
         </div>
 
         <!-- Password -->
@@ -34,8 +32,6 @@
                 placeholder="Password"
                 required
             />
-
-            <x-admin.form.input.error :messages="$errors->get('password')" class="mt-2"/>
         </div>
 
         <!-- Remember Me -->

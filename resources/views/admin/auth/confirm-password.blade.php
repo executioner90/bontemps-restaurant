@@ -19,8 +19,6 @@
                 required
                 utocomplete="current-password"
             />
-
-            <x-admin.form.input.error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <div class="flex justify-end mt-4">
