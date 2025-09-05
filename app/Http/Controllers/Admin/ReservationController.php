@@ -6,16 +6,19 @@ use App\Enums\ReservationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Models\Reservation;
-use App\Models\Table;
 use App\Models\TimeSlot;
 use Carbon\Carbon;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class ReservationController extends Controller
 {
-    public function index(): View
+    public function index(): Renderable
     {
         $reservations = Reservation::query()
             ->with(['timeSlots'])
@@ -32,12 +35,70 @@ class ReservationController extends Controller
         return view('admin.reservations.index', compact('reservations', 'reservationConfirmed'));
     }
 
-    public function create(): View
+    public function create(): Renderable
     {
-        return view('admin.reservations.form');
+        return View::make('admin.reservations.form')
+            ->with([
+                'title' => Lang::get('Create reservation'),
+                'method' => 'POST',
+                'action' => URL::route('admin.reservation.store'),
+                'backRoute' => URL::route('admin.reservation.index'),
+                'submitButton' => Lang::get('Create'),
+            ]);
     }
 
     public function store(ReservationStoreRequest $request): RedirectResponse
+    {
+        if ($redirect = $this->checkReservationValidity($request)) {
+            return $redirect;
+        }
+
+        $reservation = Reservation::query()->create($request->validated());
+        $reservation->timeSlots()->attach($request->time_slot);
+
+        return Redirect::route('admin.reservation.index')
+            ->with(['success' => 'Reservation created successfully']);
+    }
+
+    public function edit(Reservation $reservation): Renderable
+    {
+        return View::make('admin.reservations.form')
+            ->with([
+                'reservation' => $reservation,
+                'title' => Lang::get('Update reservation'),
+                'method' => 'PUT',
+                'action' => URL::route('admin.reservation.update', ['reservation' => $reservation]),
+                'backRoute' => URL::route('admin.reservation.index'),
+                'submitButton' => Lang::get('Update'),
+            ]);
+    }
+
+    public function update(ReservationStoreRequest $request, Reservation $reservation): RedirectResponse
+    {
+        if ($redirect = $this->checkReservationValidity($request)) {
+            return $redirect;
+        }
+
+        $reservation->update($request->validated());
+
+        if ($request->filled('time_slot')) {
+            $reservation->timeSlots()->sync($request->time_slot);
+        }
+
+        return Redirect::route('admin.reservation.index')
+            ->with(['success' => 'Reservation updated successfully']);
+    }
+
+    public function destroy(Reservation $reservation): RedirectResponse
+    {
+        $reservation->timeSlots()->detach();
+        $reservation->delete();
+
+        return Redirect::route('admin.reservation.index')
+            ->with(['success' => 'Reservation deleted successfully']);
+    }
+
+    protected function checkReservationValidity(Request $request): RedirectResponse|null
     {
         $capacity = TimeSlot::query()
             ->whereIn('id', $request->time_slot)
@@ -46,7 +107,7 @@ class ReservationController extends Controller
             ->sum(fn($timeSlot) => $timeSlot->table->capacity);
 
         if ($request->total_guests > $capacity) {
-            return Redirect::route('admin.reservation.create')
+            return Redirect::back()
                 ->withInput()
                 ->with([
                     'warning' => 'Given total guests need more tables/seats!'
@@ -65,58 +126,13 @@ class ReservationController extends Controller
 
 
         if ($alreadyReserved) {
-            return Redirect::route('admin.reservation.create')
+            return Redirect::back()
                 ->withInput()
                 ->with([
                     'warning' => 'This table is already reserved for this date'
                 ]);
         }
 
-        $reservation = Reservation::query()->create($request->validated());
-        $reservation->timeSlots()->attach($request->time_slot);
-
-        return Redirect::route('admin.reservation.index')
-            ->with(['success' => 'Reservation created successfully']);
-    }
-
-    public function edit(Reservation $reservation): View
-    {
-        return view('admin.reservations.form');
-    }
-
-    public function update(ReservationStoreRequest $request, Reservation $reservation): RedirectResponse
-    {
-        $table = Table::query()->findOrFail($request->table_id);
-
-        // Check if table does not have enough seats for this reservation.
-        if ($request->guest_number > $table->guest_number) {
-            return back()->with('warning', 'Table is too small, please choose another table.');
-        }
-
-        // Check if table already reserved.
-        $reservationDate = Carbon::parse($request->reservation_date);
-        foreach ($table->reservations as $res) {
-            if (
-                $res->reservation_date === $reservationDate->format('Y-m-d H:i:s') &&
-                $res->id !== $reservation->id
-            ) {
-                return back()->with('warning', 'This table is already reserved for this date');
-            }
-        }
-
-        $reservation->update($request->validated());
-
-        if ($request->has('menus')) {
-            $reservation->menus()->sync($request->menus);
-        }
-
-        return to_route('admin.reservation.index')->with('success', 'Reservation updated successfully');
-    }
-
-    public function destroy(Reservation $reservation): RedirectResponse
-    {
-        $reservation->delete();
-
-        return to_route('admin.reservation.index')->with('success', 'Reservation deleted successfully');
+        return null;
     }
 }
