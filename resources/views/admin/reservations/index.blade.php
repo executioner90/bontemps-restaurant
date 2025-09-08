@@ -102,6 +102,8 @@
                             </td>
                         </tr>
                     @endforeach
+
+                    <x-admin.table.feedback total-items="{{ $reservations->count() }}" colspan="10" />
                     </tbody>
                 </table>
             </div>
