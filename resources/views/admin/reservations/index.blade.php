@@ -14,14 +14,14 @@
 
             <!-- Filters + Add button -->
             <div class="flex justify-between mb-4">
-                <div class="flex space-x-2">
+                <div class="flex">
                     <template x-for="option in filters" :key="option.value">
                         <button
                             @click="await setFilter(option.value)"
                             :class="filter === option.value
                                 ? 'bg-blue-600 text-white'
                                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
-                            class="px-3 py-1 rounded-lg text-sm font-medium"
+                            class="px-3 py-1 text-sm font-medium"
                             x-text="option.label">
                         </button>
                     </template>
