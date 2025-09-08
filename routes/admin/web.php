@@ -19,7 +19,14 @@ Route::middleware('auth:admin')
         Route::resource('/table', Admin\TableController::class);
         Route::resource('/reservation', Admin\ReservationController::class);
 
-        // API route
-        Route::get('api/reservation/available-times', [Admin\Api\ReservationController::class, 'getAvailableTimes'])
-            ->name('reservation.available-times.get');
+        // API routes
+        Route::prefix('/api')
+            ->as('api.')
+            ->group(function () {
+                Route::get('/reservation/available-times', [Admin\Api\ReservationController::class, 'getAvailableTimes'])
+                    ->name('reservation.available-times.get');
+
+                Route::get('/reservation', [Admin\Api\ReservationController::class, 'index'])
+                    ->name('reservation.index');
+            });
     });
