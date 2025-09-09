@@ -24,13 +24,17 @@ class Menu extends Model
 
     public function getRouteKeyName(): string
     {
+        if (request()->routeIs('admin.*')) {
+            return 'id';
+        }
+
         return 'slug';
     }
 
     public function getImageAttribute($value): string
     {
-        return $value && Storage::exists($value)
-            ? asset(Storage::url($value))
+        return $value && Storage::disk('menus')->exists($value)
+            ? asset(Storage::disk('menus')->url($value))
             : asset('/assets/images/unavailable.jpg');
     }
 

@@ -1,12 +1,6 @@
 @extends('layouts.admin.app')
 
 @section('content')
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end mb-2">
@@ -14,6 +8,7 @@
                     Add menu
                 </a>
             </div>
+
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -25,13 +20,7 @@
                             Image
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            description
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Special
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Price
                         </th>
                         <th></th>
                     </tr>
@@ -50,9 +39,6 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $menu->description }}
-                            </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{-- if menu is specail show green icon --}}
                                 @if($menu->special)
                                     <svg class="h-8 w-8 text-green-600"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,9 +50,6 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                 @endif
-                            </td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                &euro; {{ $menu->price }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <div class="flex justify-end space-x-2">

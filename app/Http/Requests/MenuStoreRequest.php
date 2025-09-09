@@ -6,29 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MenuStoreRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string'],
-            'price' => ['required', 'between:0.00,200.00'],
             'image' => ['image', 'nullable'],
-            'description' => ['required'],
-            'special' => ['nullable'],
+            'special' => ['nullable', 'in:on'],
         ];
     }
 }
