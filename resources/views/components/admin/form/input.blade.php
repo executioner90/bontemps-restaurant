@@ -1,8 +1,11 @@
-<label for="{{ $id }}" class="block font-medium text-sm @if($customLabel) text-gray-700 @else text-gray-700 dark:text-gray-300 @endif">
-    {{ $label }}
-</label>
+@if($label)
+    <label for="{{ $id }}" class="block font-medium text-sm @if($customLabel) text-gray-700 @else text-gray-700 dark:text-gray-300 @endif">
+        {{ $label }}
+    </label>
+@endif
 
 <input
+        {{ $attributes }}
         id="{{ $id }}"
         name="{{ $name }}"
         type="{{ $type }}"

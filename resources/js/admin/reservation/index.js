@@ -8,14 +8,20 @@ Alpine.data('reservationFilter', () => ({
         { label: 'Future', value: 'future' },
     ],
     filter: localStorage.getItem('reservation_view') || 'today',
+    search: '',
     reservations: [],
     loading: false,
 
     async fetchReservations() {
         this.loading = true
         try {
-            const res = await fetch(`/admin/api/reservation?view=${this.filter}`)
-            this.reservations = await res.json()
+            const params = new URLSearchParams({
+                view: this.filter,
+                search: this.search,
+            });
+
+            const res = await fetch(`/admin/api/reservation?${params.toString()}`);
+            this.reservations = await res.json();
         } catch (e) {
             console.error(e)
         } finally {

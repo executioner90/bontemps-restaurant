@@ -25,6 +25,18 @@
                             x-text="option.label">
                         </button>
                     </template>
+
+                    <div>
+                        <x-admin.form.input
+                            x-model="search"
+                            @input.debounce.500ms="fetchReservations"
+                            id="search"
+                            class="block w-full h-full ml-2 transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5"
+                            type="text"
+                            name="search"
+                            placeholder="Search by name"
+                        />
+                    </div>
                 </div>
 
                 <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white"
