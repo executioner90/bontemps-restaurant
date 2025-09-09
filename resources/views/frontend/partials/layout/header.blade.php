@@ -39,9 +39,9 @@
 <div class="container px-5 pt-5 mx-auto">
     <div class="flex">
         <div class="flex-1">
-            `@if (isset($breadcrumbs))
+            @if (isset($breadcrumbs))
                 <x-frontend.header.breadcrumbs :breadcrumbs="$breadcrumbs" />
-            @endif`
+            @endif
         </div>
     </div>
 </div>
