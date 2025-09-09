@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Models\Reservation;
 use App\Models\TimeSlot;
-use Carbon\Carbon;
+use App\Support\Global\Breadcrumbs;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,27 +18,32 @@ use Illuminate\Support\Facades\View;
 
 class ReservationController extends Controller
 {
+    protected Breadcrumbs $breadcrumbs;
+
+    public function __construct()
+    {
+        $this->breadcrumbs = (new Breadcrumbs())
+            ->add(Lang::get('Reservations'), URL::route('admin.reservation.index'));
+    }
+
     public function index(): Renderable
     {
-        $reservations = Reservation::query()
-            ->with(['timeSlots'])
-            ->orderBy('date', 'ASC')
-            ->get()
-            ->filter(function ($value) {
-                // Get only today's reservations
-                return Carbon::parse($value->date)->format('Y-m-d') ===
-                    Carbon::today()->format('Y-m-d');
-            });
-
         $reservationConfirmed = ReservationStatus::CONFIRMED;
 
-        return view('admin.reservations.index', compact('reservations', 'reservationConfirmed'));
+        return View::make('admin.reservations.index', [
+            'reservationConfirmed' => $reservationConfirmed,
+            'breadcrumbs' => $this->breadcrumbs
+        ]);
     }
 
     public function create(): Renderable
     {
+        $this->breadcrumbs
+            ->add(Lang::get('Create'), URL::route('admin.reservation.create'));
+
         return View::make('admin.reservations.form')
             ->with([
+                'breadcrumbs' => $this->breadcrumbs,
                 'title' => Lang::get('Create reservation'),
                 'method' => 'POST',
                 'action' => URL::route('admin.reservation.store'),
@@ -62,8 +67,12 @@ class ReservationController extends Controller
 
     public function edit(Reservation $reservation): Renderable
     {
+        $this->breadcrumbs
+            ->add(Lang::get('Edit'), URL::route('admin.reservation.edit', $reservation->id));
+
         return View::make('admin.reservations.form')
             ->with([
+                'breadcrumbs' => $this->breadcrumbs,
                 'reservation' => $reservation,
                 'title' => Lang::get('Update reservation'),
                 'method' => 'PUT',

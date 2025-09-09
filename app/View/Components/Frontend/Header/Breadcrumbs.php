@@ -11,11 +11,13 @@ class Breadcrumbs extends Component
 {
     public array $breadcrumbs;
     public bool $isHome;
+    public bool $isAdmin = false;
 
     public function __construct(BreadcrumbsModel $breadcrumbs)
     {
         $this->breadcrumbs = $breadcrumbs->get();
         $this->isHome = Route::is('home');
+        $this->isAdmin = Route::is('admin.*');
     }
 
     public function render(): Renderable
