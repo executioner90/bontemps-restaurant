@@ -15,17 +15,14 @@
 
         <div>
             <x-admin.form.input id="current_password" name="current_password" label="{{ __('Current Password') }}" type="password" class="mt-1 block w-full" autocomplete="current-password" />
-            <x-admin.form.input.error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
         </div>
 
         <div>
             <x-admin.form.input id="password" name="password" label="{{ __('New Password') }}" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-            <x-admin.form.input.error :messages="$errors->updatePassword->get('password')" class="mt-2" />
         </div>
 
         <div>
             <x-admin.form.input id="password_confirmation" name="password_confirmation" label="{{ __('Confirm Password') }}" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-            <x-admin.form.input.error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
         </div>
 
         <div class="flex items-center gap-4">

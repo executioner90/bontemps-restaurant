@@ -24,7 +24,6 @@
                     required
                     autofocus
             />
-            <x-admin.form.input.error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">

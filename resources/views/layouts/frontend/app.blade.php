@@ -8,7 +8,7 @@
 @include('frontend.partials.layout.header')
 
 <div class="font-sans text-gray-900 antialiased min-h-screen">
-    <div id="app" class="container w-full px-5 py-12 mx-auto">
+    <div class="container w-full px-5 py-12 mx-auto">
         @yield('content')
     </div>
 </div>

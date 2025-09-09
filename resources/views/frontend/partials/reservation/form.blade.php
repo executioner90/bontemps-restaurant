@@ -14,7 +14,7 @@
             <label for="first_name" class="block text-sm font-medium text-gray-700"> First name </label>
             <div class="mt-1">
                 <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}"
-                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('first_name') border-red-400 @enderror"/>
+                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('first_name') border-red-400 @enderror"/>
             </div>
         </div>
         @error('first_name')
@@ -25,7 +25,7 @@
             <label for="last_name" class="block text-sm font-medium text-gray-700"> Last name </label>
             <div class="mt-1">
                 <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
-                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('last_name') border-red-400 @enderror"/>
+                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('last_name') border-red-400 @enderror"/>
             </div>
         </div>
         @error('last_name')
@@ -36,7 +36,7 @@
             <label for="email" class="block text-sm font-medium text-gray-700"> Email </label>
             <div class="mt-1">
                 <input type="text" id="email" name="email" value="{{ old('email') }}"
-                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('mobile_number') border-red-400 @enderror"/>
+                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('mobile_number') border-red-400 @enderror"/>
             </div>
         </div>
         @error('email')
@@ -47,7 +47,7 @@
             <label for="mobile_number" class="block text-sm font-medium text-gray-700"> Phone number </label>
             <div class="mt-1">
                 <input type="text" id="mobile_number" name="mobile_number" value="{{ old('mobile_number') }}"
-                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('mobile_number') border-red-400 @enderror"/>
+                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('mobile_number') border-red-400 @enderror"/>
             </div>
         </div>
         @error('mobile_number')
@@ -58,7 +58,7 @@
             <label for="total_guests" class="block text-sm font-medium text-gray-700"> Total guests </label>
             <div class="mt-1">
                 <input type="number" id="total_guests" name="total_guests" value="{{ old('total_guests') }}"
-                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('guest_number') border-red-400 @enderror"/>
+                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('guest_number') border-red-400 @enderror"/>
             </div>
         </div>
         @error('total_guests')
@@ -72,7 +72,7 @@
                        value="{{ old('date') }}"
                        min="{{ $minDate->format('Y-m-d') }}"
                        max="{{ $maxDate->format('Y-m-d') }}"
-                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('date') border-red-400 @enderror"/>
+                       class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('date') border-red-400 @enderror"/>
             </div>
         </div>
         @error('date')
@@ -86,7 +86,7 @@
                         name="time_slot"
                         id="time_slot"
                         disabled
-                        class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('time_slot') border-red-400 @enderror"
+                        class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('time_slot') border-red-400 @enderror"
                 >
                     <option selected value="0">Select time</option>
                 </select>
@@ -103,7 +103,7 @@
         <div class="sm:col-span-6 mt-3">
             <label for="note" class="block text-sm font-medium text-gray-700"> Note </label>
             <div class="mt-1">
-                <textarea id="note" name="note" class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('note') border-red-400 @enderror"></textarea>
+                <textarea id="note" name="note" class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('note') border-red-400 @enderror"></textarea>
             </div>
         </div>
         @error('note')

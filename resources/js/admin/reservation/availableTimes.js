@@ -1,18 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const totalGuestsInput = document.getElementById('total_guests');
     const dateInput = document.getElementById('date');
     const availableTimesSelect = document.getElementById('time_slot');
     const availableTimeMessage = document.getElementById('availableTimeMessage');
 
     const fetchAvailableTimes = () => {
-        if (!totalGuestsInput.value || !dateInput.value) {
+        if (!dateInput.value) {
             return;
         }
 
-        axios.get('/api/reservation/available-times', {
+        axios.get('/admin/api/reservation/available-times', {
             params: {
-                date: dateInput.value,
-                totalGuests: totalGuestsInput.value
+                date: dateInput.value
             }
         })
             .then(({ data }) => {
@@ -47,10 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     };
 
-    totalGuestsInput.addEventListener('keyup', fetchAvailableTimes);
     dateInput.addEventListener('change', fetchAvailableTimes);
 
-    if (totalGuestsInput.value && dateInput.value) {
+    if (dateInput.value) {
         fetchAvailableTimes();
     }
 });
