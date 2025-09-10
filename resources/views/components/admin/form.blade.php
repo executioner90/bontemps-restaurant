@@ -5,7 +5,7 @@
 
     <div class="bg-slate-100 rounded">
         <div class="w-10/12 py-9 mx-auto">
-            <form method="POST" action="{{ $action }}">
+            <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
                 @csrf
                 @method($method)
 

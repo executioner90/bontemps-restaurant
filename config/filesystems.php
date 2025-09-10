@@ -29,7 +29,6 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -56,6 +55,12 @@ return [
             'throw' => false,
         ],
 
+        'menus' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/menus'),
+            'url' => env('APP_URL').'/storage/menus',
+            'visibility' => 'public',
+        ],
     ],
 
     /*
