@@ -14,7 +14,9 @@
 
         @include('admin.partials.layout.feedback')
 
-        @yield('content')
+        <div class="py-12">
+            @yield('content')
+        </div>
     </main>
 </div>
 </body>
