@@ -57,15 +57,17 @@ class MealController extends Controller
 
     public function store(MealStoreRequest $request): RedirectResponse
     {
-        $image = $this->saveImage($request->file('image'));;
-
         $meal = Meal::query()->create([
             'name' => $request->name,
             'menu_id' => $request->menu,
             'price' => $request->price,
             'description' => $request->description,
-            'image' => $image,
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $this->saveImage($request->file('image'), $meal->id);
+            $meal->update(['image' => $path]);
+        }
 
         // add products to created meal
         if ($request->has('products')) {
@@ -104,11 +106,12 @@ class MealController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            // delete old image
-            Storage::disk('meals')->delete($meal->getRawOriginal('image'));
+            if ($meal->getRawOriginal('image')) {
+                Storage::disk('meals')->delete($meal->getRawOriginal('image'));
+            }
 
             // save new image
-            $data['image'] = $this->saveImage($request->file('image'));
+            $data['image'] = $this->saveImage($request->file('image'), $meal->id);
         }
 
         $meal->update($data);
@@ -126,8 +129,8 @@ class MealController extends Controller
     public function destroy(Meal $meal)
     {
         // first delete image file
-        if ($meal->image) {
-            Storage::disk('meals')->delete($meal->image);
+        if ($meal->getRawOriginal('image')) {
+            Storage::disk('meals')->deleteDirectory($meal->id);
         }
 
         // now delete meal
@@ -137,7 +140,7 @@ class MealController extends Controller
         return to_route('admin.meal.index')->with('success', 'Meal deleted successfully');
     }
 
-    protected function saveImage(?UploadedFile $file): string|null
+    protected function saveImage(?UploadedFile $file, int $mealId): string|null
     {
         if (!$file) {
             return null;
@@ -147,6 +150,6 @@ class MealController extends Controller
         $extension = $file->getClientOriginalExtension();
         $fileName = $originalName . '_' . time() . '.' . $extension;
 
-        return $file->storeAs('', $fileName, 'meals');
+        return $file->storeAs("$mealId", $fileName, 'meals');
     }
 }
