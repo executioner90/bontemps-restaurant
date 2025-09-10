@@ -1,12 +1,13 @@
 @extends('layouts.admin.app')
 
 @section('content')
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-end mb-2">
             <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.meal.create') }}">
                 Add meal
             </a>
         </div>
+
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -15,10 +16,16 @@
                         Name
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Menu
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Image
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Description
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Price
                     </th>
                     <th></th>
                 </tr>
@@ -30,10 +37,18 @@
                             {{ $meal->name }}
                         </td>
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <img src="{{ $meal->image }}" class="w-16 h-16 rounded" alt="Meal photo">
+                            {{ $meal->menu->name }}
                         </td>
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $meal->description }}
+                            <img src="{{ $meal->image }}" class="w-16 h-16 rounded" alt="Meal photo">
+                        </td>
+                        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                            <div class="truncate w-[30rem]">
+                                {{ $meal->description }}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            € {{ $meal->price }}
                         </td>
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div class="flex justify-end space-x-2">

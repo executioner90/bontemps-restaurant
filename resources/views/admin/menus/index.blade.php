@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('content')
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-end mb-2">
             <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.menu.create') }}">
                 Add menu

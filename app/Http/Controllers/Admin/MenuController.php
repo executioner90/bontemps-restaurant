@@ -55,7 +55,7 @@ class MenuController extends Controller
 
     public function store(MenuStoreRequest $request): RedirectResponse
     {
-        $image =$this->saveImage($request->file('image'));
+        $image = $this->saveImage($request->file('image'));
 
         Menu::query()->create([
             'name' => $request->name,
@@ -112,7 +112,7 @@ class MenuController extends Controller
     {
         // first delete image file
         if ($menu->image) {
-            Storage::delete($menu->image);
+            Storage::disk('menus')->delete($menu->image);
         }
 
         // now delete menu
