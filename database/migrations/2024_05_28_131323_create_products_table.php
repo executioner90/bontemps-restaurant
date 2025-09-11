@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name', 30);
-            $table->decimal('stock')->nullable();
+            $table->float('stock')->default(0);
             $table->string('unit');
             $table->float('min_available')->nullable();
             $table->timestamps();

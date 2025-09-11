@@ -81,7 +81,7 @@ class MenuController extends Controller
                 'menu' => $menu,
                 'breadcrumbs' => $this->breadcrumbs,
                 'title' => Lang::get('Update menu'),
-                'method' => 'Put',
+                'method' => 'PUT',
                 'action' => URL::route('admin.menu.update', ['menu' => $menu->id]),
                 'backRoute' => URL::route('admin.menu.index'),
                 'submitButton' => Lang::get('Update'),

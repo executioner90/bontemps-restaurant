@@ -5,85 +5,87 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Support\Global\Breadcrumbs;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $products = Product::all();
+    protected Breadcrumbs $breadcrumbs;
 
-        return view('admin.products.index', compact('products'));
+    public function __construct()
+    {
+        $this->breadcrumbs = (new Breadcrumbs())
+            ->add(Lang::get('Product'), URL::route('admin.product.index'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(): Renderable
     {
-        return view('admin.products.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ProductStoreRequest $request)
-    {
-        Product::query()->create([
-            'name' => $request->name,
-            'unit' => $request->unit,
+        return View::make('admin.products.index')->with([
+            'products' => Product::all(),
+            'breadcrumbs' => $this->breadcrumbs
         ]);
-
-        return to_route('admin.product.index')->with('success', 'Product created successfully');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
+    public function create(): Renderable
     {
-        return view('admin.products.edit', compact('product'));
+        $this->breadcrumbs
+            ->add(Lang::get('Create'), URL::route('admin.product.create'));
+
+        return View::make('admin.products.form')->with([
+            'breadcrumbs' => $this->breadcrumbs,
+            'title' => Lang::get('Create product'),
+            'method' => 'POST',
+            'action' => URL::route('admin.product.store'),
+            'backRoute' => URL::route('admin.product.index'),
+            'submitButton' => Lang::get('Create'),
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ProductStoreRequest $request, Product $product)
+    public function store(ProductStoreRequest $request): RedirectResponse
+    {
+        Product::query()->create($request->validated());
+
+        return Redirect::route('admin.product.index')->with([
+            'success' => 'Product created successfully'
+        ]);
+    }
+
+    public function edit(Product $product): Renderable
+    {
+        $this->breadcrumbs
+            ->add(Lang::get('Edit'), URL::route('admin.product.edit', ['product' => $product->id]));
+
+        return View::make('admin.products.form')->with([
+            'product' => $product,
+            'breadcrumbs' => $this->breadcrumbs,
+            'title' => Lang::get('Update product'),
+            'method' => 'PUT',
+            'action' => URL::route('admin.product.update', ['product' => $product->id]),
+            'backRoute' => URL::route('admin.product.index'),
+            'submitButton' => Lang::get('Update'),
+        ]);
+    }
+
+    public function update(ProductStoreRequest $request, Product $product): RedirectResponse
     {
         $product->update($request->validated());
 
-        //redirect to index page
-        return to_route('admin.product.index')->with('success', 'Product updated successfully');
+        return Redirect::route('admin.product.index')->with([
+            'success' => 'Product updated successfully'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
+    public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
 
-        //redirect to index page
-        return to_route('admin.product.index')->with('success', 'Product deleted successfully');
+        return Redirect::route('admin.product.index')->with([
+            'success' => 'Product deleted successfully'
+        ]);
     }
 }
