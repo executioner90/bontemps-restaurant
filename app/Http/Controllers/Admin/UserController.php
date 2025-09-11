@@ -65,8 +65,14 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit(User $user): Renderable
+    public function edit(User $user): Renderable|RedirectResponse
     {
+        if (!Auth::user()->is_super_admin && Auth::id() !== $user->id) {
+            return Redirect::back()->with([
+                'danger' => 'Action unauthorized'
+            ]);
+        }
+
         $this->breadcrumbs
             ->add(Lang::get('Edit'), URL::route('admin.user.edit', $user));
 
