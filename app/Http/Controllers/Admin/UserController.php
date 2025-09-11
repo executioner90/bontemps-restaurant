@@ -4,27 +4,46 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Support\Global\Breadcrumbs;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rules;
-use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(): View
-    {
-        $users = User::all();
+    protected Breadcrumbs $breadcrumbs;
 
-        return view('admin.user.index', compact('users'));
+    public function __construct()
+    {
+        $this->breadcrumbs = (new Breadcrumbs())
+            ->add(Lang::get('User'), URL::route('admin.user.index'));
     }
 
-    public function create(): View
+    public function index(): Renderable
     {
-        return view('admin.auth.register');
+        return View::make('admin.users.index')->with([
+            'users' => User::all(),
+            'breadcrumbs' => $this->breadcrumbs
+        ]);
+    }
+
+    public function create(): Renderable
+    {
+        $this->breadcrumbs
+            ->add(Lang::get('Create'), URL::route('admin.user.create'));
+
+        return View::make('admin.auth.register')->with([
+            'roles' => Role::all()
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -35,22 +54,27 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::query()->create([
+        User::query()->create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return to_route('admin.user.index')->with('success', 'User added successfully');
+        return Redirect::route('admin.user.index')->with([
+            'success' => 'User added successfully'
+        ]);
     }
 
-    public function edit(User $user): View
+    public function edit(User $user): Renderable
     {
-        return view('admin.user.edit', compact('user'));
+        $this->breadcrumbs
+            ->add(Lang::get('Edit'), URL::route('admin.user.edit', $user));
+
+        return View::make('admin.users.edit')->with([
+            'user' => $user,
+            'roles' => Role::all(),
+            'breadcrumbs' => $this->breadcrumbs
+        ]);
     }
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
@@ -63,7 +87,7 @@ class UserController extends Controller
 
         $request->user()->save();
 
-        return to_route('admin.user.index')->with('success', 'User updated successfully');
+        return Redirect::route('admin.user.index')->with('success', 'User updated successfully');
     }
 
     public function destroy(Request $request, User $user): RedirectResponse
@@ -84,6 +108,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return to_route('admin.user.index')->with('success', 'User deleted successfully');
+        return Redirect::route('admin.user.index')->with('success', 'User deleted successfully');
     }
 }

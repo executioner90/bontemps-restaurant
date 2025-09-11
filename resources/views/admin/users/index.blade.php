@@ -1,13 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('content')
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-end mb-2">
             <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white" href="{{ route('admin.user.create') }}">
                 Add user
@@ -42,7 +36,7 @@
                             {{ $user->email }}
                         </td>
                         <td class="px-6 py-4">
-                            @if($user->role_id === 1)
+                            @if($user->is_super_admin)
                                 <svg class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24"
                                      stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,12 +55,10 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-end space-x-2">
-                                @if(Auth::user()->id === $user->id)
-                                    <a href="{{ route('admin.user.edit', $user->id) }}"
-                                       class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
-                                        Edit
-                                    </a>
-                                @endif
+                                <a href="{{ route('admin.user.edit', $user->id) }}"
+                                   class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                                    Edit
+                                </a>
                             </div>
                         </td>
                     </tr>

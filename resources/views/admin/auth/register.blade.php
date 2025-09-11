@@ -59,7 +59,7 @@
                         <option value="">@lang('Select role')</option>
 
                         @foreach($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                            <option value="{{ $role->id }}" @if(old('role') === $role->id) selected @endif>{{ $role->role }}</option>
                         @endforeach
                     </select>
                 </div>

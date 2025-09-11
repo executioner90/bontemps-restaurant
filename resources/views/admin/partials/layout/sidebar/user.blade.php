@@ -8,7 +8,7 @@
         <div class="px-2 py-2 bg-white rounded-md shadow dark:bg-gray-700">
             <a class="block w-full px-4 py-2 text-left text-sm leading-5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out"
                href="{{ Auth::user()->role_id === 1 ? route('admin.user.index') : route('admin.user.edit', ['user' => Auth::user()->id]) }}">
-                @if(Auth::user()->role_id === 1)
+                @if(Auth::user()->is_super_admin)
                     Users
                 @else
                     Profile

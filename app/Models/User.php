@@ -16,11 +16,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'role_id',
         'name',
@@ -59,6 +54,13 @@ class User extends Authenticatable
             set: fn(?string $value) => [
                 'IP' => $value,
             ]
+        );
+    }
+
+    public function isSuperAdmin(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->role_id === 1,
         );
     }
 }

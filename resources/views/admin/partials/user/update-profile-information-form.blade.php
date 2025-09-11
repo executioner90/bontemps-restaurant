@@ -43,6 +43,28 @@
             @endif
         </div>
 
+        <div>
+            <label for="role" class="block font-medium text-sm text-gray-700 dark:text-gray-300">
+                Role
+            </label>
+
+            <select
+                name="role"
+                id="role"
+                class="block mt-1 w-full"
+            >
+                <option value="">@lang('Select role')</option>
+
+                @foreach($roles as $role)
+                    <option
+                        value="{{ $role->id }}"
+                        @if(old('role') === $role->id || $user->role_id === $role->id) selected @endif
+                    >
+                        {{ $role->role }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
         <div class="flex items-center gap-4">
             <x-admin.button label="{{ __('Save') }}" />
 
