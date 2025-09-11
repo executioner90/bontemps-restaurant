@@ -1,13 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('content')
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Reservations') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12"
+    <div
          x-data="reservationFilter()"
          x-init="fetchReservations()">
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">

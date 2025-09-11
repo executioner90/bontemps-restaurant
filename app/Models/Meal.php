@@ -18,15 +18,26 @@ class Meal extends Model
 
     protected $fillable = [
         'name',
+        'menu_id',
         'slug',
         'image',
-        'description'
+        'description',
+        'price',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        if (request()->routeIs('admin.*')) {
+            return 'id';
+        }
+
+        return 'slug';
+    }
 
     public function getImageAttribute($value): string
     {
-        return $value && Storage::exists($value)
-            ? asset(Storage::url($value))
+        return $value && Storage::disk('meals')->exists($value)
+            ? asset(Storage::disk('meals')->url($value))
             : asset('/assets/images/unavailable.jpg');
     }
 
@@ -37,7 +48,7 @@ class Meal extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'meal_product');
+        return $this->belongsToMany(Product::class, 'meals_products');
     }
 
     public function scopeSearch(Builder $query, ?string $input): Builder

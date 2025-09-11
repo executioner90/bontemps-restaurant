@@ -11,7 +11,7 @@ class MealStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,12 +21,14 @@ class MealStoreRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string'],
+            'price' => ['required', 'decimal:0,99.99'],
+            'menu' => ['required', 'integer' ,'exists:menus,id'],
             'image' => ['image', 'nullable'],
-            'description' => ['required'],
+            'description' => ['required', 'string'],
 
         ];
     }

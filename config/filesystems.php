@@ -61,6 +61,13 @@ return [
             'url' => env('APP_URL').'/storage/menus',
             'visibility' => 'public',
         ],
+
+        'meals' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/meals'),
+            'url' => env('APP_URL').'/storage/meals',
+            'visibility' => 'public',
+        ],
     ],
 
     /*

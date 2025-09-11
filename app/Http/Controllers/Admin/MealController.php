@@ -5,121 +5,151 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MealStoreRequest;
 use App\Models\Meal;
+use App\Models\Menu;
 use App\Models\Product;
+use App\Support\Global\Breadcrumbs;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class MealController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $meals = Meal::all();
+    protected Breadcrumbs $breadcrumbs;
 
-        return view('admin.meals.index', compact('meals'));
+    public function __construct()
+    {
+        $this->breadcrumbs = (new Breadcrumbs())
+            ->add(Lang::get('Meal'), URL::route('admin.meal.index'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(): Renderable
     {
-        $products = Product::all();
-
-        return view('admin.meals.create', compact('products'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(MealStoreRequest $request)
-    {
-        $image = $request->file('image') ? $request->file('image')->store('public/meals') : null;
-
-        $meal = Meal::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => $image,
+        return View::make('admin.meals.index')->with([
+            'meals' => Meal::query()
+                ->with('menu')
+                ->orderBy('menu_id')
+                ->get(),
+            'breadcrumbs' => $this->breadcrumbs,
         ]);
+    }
+
+    public function create(): Renderable
+    {
+        $this->breadcrumbs
+            ->add(Lang::get('Create'), URL::route('admin.meal.create'));
+
+        return View::make('admin.meals.form')->with([
+            'products' => Product::all(),
+            'menus' => Menu::all(),
+            'breadcrumbs' => $this->breadcrumbs,
+            'title' => Lang::get('Create meal'),
+            'method' => 'POST',
+            'action' => URL::route('admin.meal.store'),
+            'backRoute' => URL::route('admin.meal.index'),
+            'submitButton' => Lang::get('Create'),
+        ]);
+    }
+
+    public function store(MealStoreRequest $request): RedirectResponse
+    {
+        $meal = Meal::query()->create([
+            'name' => $request->name,
+            'menu_id' => $request->menu,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $this->saveImage($request->file('image'), $meal->id);
+            $meal->update(['image' => $path]);
+        }
 
         // add products to created meal
         if ($request->has('products')) {
             $meal->products()->attach($request->products);
         }
 
-        return to_route('admin.meal.index')->with('success', 'Meal created successfully');
+        return Redirect::route('admin.meal.index')
+            ->with(['success' => 'Meal created successfully']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Meal $meal)
+    public function edit(Meal $meal): Renderable
     {
-        $products = Product::all();
+        $this->breadcrumbs
+            ->add(Lang::get('Edit'), URL::route('admin.meal.edit', ['meal' => $meal->id]));
 
-        return view('admin.meals.edit', compact(['meal', 'products']));
+        return View::make('admin.meals.form')->with([
+            'meal' => $meal,
+            'products' => Product::all(),
+            'menus' => Menu::all(),
+            'breadcrumbs' => $this->breadcrumbs,
+            'title' => Lang::get('Update menu'),
+            'method' => 'Put',
+            'action' => URL::route('admin.meal.update', ['meal' => $meal->id]),
+            'backRoute' => URL::route('admin.meal.index'),
+            'submitButton' => Lang::get('Update'),
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(MealStoreRequest $request, Meal $meal)
+    public function update(MealStoreRequest $request, Meal $meal): RedirectResponse
     {
-        $image = $meal->image;
-        // check if image input has file
+        $data = [
+            'name' => $request->name,
+            'menu_id' => $request->menu,
+            'description' => $request->description,
+            'price' => $request->price,
+        ];
+
         if ($request->hasFile('image')) {
-            // delete old image
-            Storage::delete($meal->image);
-            // save uploaded image
-            $image = $request->file('image') ? $request->file('image')->store('public/meals') : null;
+            if ($meal->getRawOriginal('image')) {
+                Storage::disk('meals')->delete($meal->getRawOriginal('image'));
+            }
+
+            // save new image
+            $data['image'] = $this->saveImage($request->file('image'), $meal->id);
         }
 
-        $meal->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => $image,
-        ]);
+        $meal->update($data);
 
         // edit products of current meal
         if ($request->has('products')) {
             $meal->products()->sync($request->products);
         }
 
-        //redirect to index page
-        return to_route('admin.meal.index')->with('success', 'Meal updated successfully');
+        return Redirect::route('admin.meal.index')->with([
+            'success' => 'Meal updated successfully']
+        );
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Meal $meal)
     {
         // first delete image file
-        if ($meal->image) {
-            Storage::delete($meal->image);
+        if ($meal->getRawOriginal('image')) {
+            Storage::disk('meals')->deleteDirectory($meal->id);
         }
 
-        // now delete menu
+        // now delete meal
         $meal->delete();
 
         //redirect to index page
         return to_route('admin.meal.index')->with('success', 'Meal deleted successfully');
+    }
+
+    protected function saveImage(?UploadedFile $file, int $mealId): string|null
+    {
+        if (!$file) {
+            return null;
+        }
+
+        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $file->getClientOriginalExtension();
+        $fileName = $originalName . '_' . time() . '.' . $extension;
+
+        return $file->storeAs("$mealId", $fileName, 'meals');
     }
 }

@@ -55,13 +55,15 @@ class MenuController extends Controller
 
     public function store(MenuStoreRequest $request): RedirectResponse
     {
-        $image =$this->saveImage($request->file('image'));
-
-        Menu::query()->create([
+        $menu = Menu::query()->create([
             'name' => $request->name,
             'special' => $request->has('special') ? 1 : 0,
-            'image' => $image,
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $this->saveImage($request->file('image'), $menu->id);
+            $menu->update(['image' => $path]);
+        }
 
         return Redirect::route('admin.menu.index')
             ->with([
@@ -95,10 +97,12 @@ class MenuController extends Controller
 
         if ($request->hasFile('image')) {
             // delete old image
-            Storage::disk('menus')->delete($menu->getRawOriginal('image'));
+            if ($menu->getRawOriginal('image')) {
+                Storage::disk('menus')->delete($menu->getRawOriginal('image'));
+            }
 
             // save new image
-            $data['image'] = $this->saveImage($request->file('image'));
+            $data['image'] = $this->saveImage($request->file('image'), $menu->id);
         }
 
         $menu->update($data);
@@ -111,8 +115,8 @@ class MenuController extends Controller
     public function destroy(Menu $menu): RedirectResponse
     {
         // first delete image file
-        if ($menu->image) {
-            Storage::delete($menu->image);
+        if ($menu->getRawOriginal('image')) {
+            Storage::disk('menus')->deleteDirectory($menu->id);
         }
 
         // now delete menu
@@ -123,7 +127,7 @@ class MenuController extends Controller
             ->with(['success' => 'Menu deleted successfully']);
     }
 
-    protected function saveImage(?UploadedFile $file): string|null
+    protected function saveImage(?UploadedFile $file, int $menuId): string|null
     {
         if (!$file) {
             return null;
@@ -133,6 +137,6 @@ class MenuController extends Controller
         $extension = $file->getClientOriginalExtension();
         $fileName = $originalName . '_' . time() . '.' . $extension;
 
-        return $file->storeAs('', $fileName, 'menus');
+        return $file->storeAs("$menuId", $fileName, 'menus');
     }
 }
