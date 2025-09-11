@@ -5,83 +5,88 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TableStoreRequest;
 use App\Models\Table;
+use App\Support\Global\Breadcrumbs;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class TableController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    protected Breadcrumbs $breadcrumbs;
+
+    public function __construct()
     {
-        $tables = Table::all();
-        return view('admin.tables.index', compact('tables'));
+        $this->breadcrumbs = (new Breadcrumbs())
+            ->add(Lang::get('Table'), URL::route('admin.table.index'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(): Renderable
     {
-        return view('admin.tables.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(TableStoreRequest $request)
-    {
-        Table::query()->create([
-            'name' => $request->name,
-            'guest_number' => $request->guest_number,
-            'status' => $request->status,
+        return View::make('admin.tables.index')->with([
+            'tables' => Table::all(),
+            'breadcrumbs' => $this->breadcrumbs
         ]);
-
-        return  to_route('admin.table.index')->with('success', 'Table created successfully');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Table $table)
+    public function create(): Renderable
     {
-        return view('admin.tables.edit', compact('table'));
+        $this->breadcrumbs
+            ->add(Lang::get('Create'), URL::route('admin.table.create'));
+
+        return View::make('admin.tables.form')->with([
+            'breadcrumbs' => $this->breadcrumbs,
+            'title' => Lang::get('Create table'),
+            'method' => 'POST',
+            'action' => URL::route('admin.table.store'),
+            'backRoute' => URL::route('admin.table.index'),
+            'submitButton' => Lang::get('Create'),
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(TableStoreRequest $request, Table $table)
+    public function store(TableStoreRequest $request): RedirectResponse
+    {
+        Table::query()->create($request->validated());
+
+        return Redirect::route('admin.table.index')->with([
+            'success' => 'Table created successfully'
+        ]);
+    }
+
+    public function edit(Table $table): Renderable
+    {
+        $this->breadcrumbs
+            ->add(Lang::get('Edit'), URL::route('admin.table.edit', ['table' => $table->id]));
+
+        return View::make('admin.tables.form')->with([
+            'table' => $table,
+            'breadcrumbs' => $this->breadcrumbs,
+            'title' => Lang::get('Edit table'),
+            'method' => 'PUT',
+            'action' => URL::route('admin.table.update', ['table' => $table->id]),
+            'backRoute' => URL::route('admin.table.index'),
+            'submitButton' => Lang::get('Edit'),
+        ]);
+    }
+
+    public function update(TableStoreRequest $request, Table $table): RedirectResponse
     {
         $table->update($request->validated());
 
-        return to_route('admin.table.index')->with('success', 'Table updated successfully');
+        return Redirect::route('admin.table.index')->with([
+            'success' => 'Table updated successfully'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Table $table)
+    public function destroy(Table $table): RedirectResponse
     {
         $table->delete();
 
-        return to_route('admin.tablesindex')->with('success', 'Table deleted successfully');
+        return Redirect::route('admin.table.index')->with([
+            'success' => 'Table deleted successfully'
+        ]);
     }
 }
