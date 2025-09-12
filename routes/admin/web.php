@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
@@ -13,6 +13,8 @@ Route::middleware('auth:admin')
             ->name('index');
 
         Route::resource('/user', Admin\UserController::class);
+        Route::resource('/role', Admin\RoleController::class)
+            ->middleware('super-admin');
         Route::resource('/meal', Admin\MealController::class);
         Route::resource('/product', Admin\ProductController::class);
         Route::resource('/menu', Admin\MenuController::class);
