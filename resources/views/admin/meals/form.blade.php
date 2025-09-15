@@ -60,7 +60,7 @@
                 <select
                     id="products"
                     name="products[]"
-                    class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('time_slot') border-red-400 @enderror"
+                    class="block w-full transition duration-150 ease-in-out appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal sm:text-sm sm:leading-5 @error('products') border-red-400 @enderror"
                     multiple
                 >
                     @foreach($products as $product)

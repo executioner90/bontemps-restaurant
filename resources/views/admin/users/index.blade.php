@@ -18,7 +18,7 @@
                         Email
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Admin
+                        Role
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Created at
@@ -36,19 +36,7 @@
                             {{ $user->email }}
                         </td>
                         <td class="px-6 py-4">
-                            @if($user->is_super_admin)
-                                <svg class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24"
-                                     stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                            @else
-                                {{-- else show red icon --}}
-                                <svg class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                            @endif
+                            {{ ucfirst($user->role->role) }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $user->created_at->format('d-m-Y') }}
