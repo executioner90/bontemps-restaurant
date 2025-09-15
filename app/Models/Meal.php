@@ -51,6 +51,11 @@ class Meal extends Model
         return $this->belongsToMany(Product::class, 'meals_products');
     }
 
+    public function reservation(): BelongsToMany
+    {
+        return $this->belongsToMany(Reservation::class, 'reservations_meals');
+    }
+
     public function scopeSearch(Builder $query, ?string $input): Builder
     {
         return $query->when($input, function ($query) use ($input) {

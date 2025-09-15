@@ -21,6 +21,11 @@ Route::middleware('auth:admin')
         Route::resource('/table', Admin\TableController::class);
         Route::resource('/reservation', Admin\ReservationController::class);
 
+        Route::get('/reservation/{reservation}/order', [Admin\ReservationController::class, 'order'])
+            ->name('reservation.order');
+        Route::post('/reservation/{reservation}/order', [Admin\ReservationController::class, 'processOrder'])
+            ->name('reservation.order');
+
         // API routes
         Route::prefix('/api')
             ->as('api.')

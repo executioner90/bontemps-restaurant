@@ -35,6 +35,11 @@ class Reservation extends Model
         return $this->belongsToMany(TimeSlot::class, 'reservations_time_slots');
     }
 
+    public function meals(): BelongsToMany
+    {
+        return $this->belongsToMany(Meal::class, 'reservations_meals');
+    }
+
     public function fullName(): Attribute
     {
         return Attribute::make(
