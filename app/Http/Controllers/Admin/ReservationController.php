@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\ReservationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
+use App\Models\Meal;
 use App\Models\Reservation;
 use App\Models\TimeSlot;
 use App\Support\Global\Breadcrumbs;
@@ -105,6 +106,39 @@ class ReservationController extends Controller
 
         return Redirect::route('admin.reservation.index')
             ->with(['success' => 'Reservation deleted successfully']);
+    }
+
+    public function order(Reservation $reservation): Renderable
+    {
+        $this->breadcrumbs
+            ->add(Lang::get('Order'), URL::route('admin.reservation.order', $reservation->id));
+
+        return View::make('admin.reservations.order')->with([
+            'breadcrumbs' => $this->breadcrumbs,
+            'reservation' => $reservation,
+            'meals' => Meal::all()->sortBy('name'),
+            'title' => Lang::get('Order'),
+            'method' => 'POST',
+            'action' => URL::route('admin.reservation.order', ['reservation' => $reservation]),
+            'backRoute' => URL::route('admin.reservation.index'),
+            'submitButton' => Lang::get('Order'),
+        ]);
+    }
+
+    public function processOrder(Request $request,Reservation $reservation): RedirectResponse
+    {
+        $request->validate([
+            'meals' => ['required', 'array'],
+            'meals.*' => ['integer', 'exists:meals,id'],
+            'note' => ['nullable', 'string'],
+        ]);
+
+        $reservation->meals()->sync($request->meals);
+        $reservation->update($request->only('note'));
+
+        return Redirect::route('admin.reservation.index')->with([
+            'success' => 'Order placed successfully',
+        ]);
     }
 
     protected function checkReservationValidity(Request $request): RedirectResponse|null

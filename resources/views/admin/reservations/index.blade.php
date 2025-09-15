@@ -87,6 +87,12 @@
                             <td class="px-6 py-4" x-text="reservation.note"></td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-end space-x-2">
+                                    <a :href="`/admin/reservation/${reservation.id}/order`"
+                                       class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white"
+                                       x-show="filter === 'today'"
+                                    >
+                                        Order
+                                    </a>
                                     <a :href="`/admin/reservation/${reservation.id}/edit`"
                                        class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                                         Edit
