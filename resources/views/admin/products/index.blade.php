@@ -5,7 +5,7 @@
         <div class="flex justify-end mb-2">
             <a class="p-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-white"
                href="{{ route('admin.product.create') }}">
-                Add role
+                Add product
             </a>
         </div>
         <div class="relative overflow-x-auto">
